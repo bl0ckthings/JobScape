@@ -1,0 +1,73 @@
+services:
+  db:
+    image: mysql:8.4
+    restart: always
+    environment:
+      MYSQL_DATABASE: healthcare
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: healthcare_user
+      MYSQL_PASSWORD: healthcare_pass
+    ports:
+      - "3308:3306"
+    networks:
+      - healthcare-network
+    volumes:
+      - mysql_data:/var/lib/mysql
+  consul:
+    image: hashicorp/consul:1.17
+    container_name: consul
+    command: "agent -dev -client=0.0.0.0"
+    ports:
+      - "8500:8500"
+    networks:
+      - healthcare-network
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: kahen13/frontend:latest
+    ports:
+      - "8080:8080"
+    restart: on-failure
+    environment:
+      SPRING_CLOUD_CONSUL_HOST: consul
+      SPRING_CLOUD_CONSUL_PORT: 8500
+    networks:
+      - healthcare-network
+    mem_limit: 700m
+
+  users:
+    build:
+      context: ./users
+      dockerfile: Dockerfile
+    image: kahen13/users:latest
+    depends_on:
+      - db
+    restart: on-failure
+    networks:
+      - healthcare-network
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/healthcare
+      SPRING_DATASOURCE_USERNAME: healthcare_user
+      SPRING_DATASOURCE_PASSWORD: healthcare_pass
+      SPRING_CLOUD_CONSUL_HOST: consul
+      SPRING_CLOUD_CONSUL_PORT: 8500
+    ports:
+      - "8085:8085"
+  notes:
+    build:
+      context: ./notes
+      dockerfile: Dockerfile
+    image: kahen13/notes:latest
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    networks:
+      - healthcare-network
+    ports:
+      - "8086:8086"
+volumes:
+  mysql_data:
+  mongo_data:
+
+networks:
+  healthcare-network:

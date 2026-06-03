@@ -1,0 +1,25 @@
+spring:
+  config:
+    activate:
+      on-profile: test
+  application:
+    name: entity-manager
+  datasource:
+    url: jdbc:mysql://localhost:3308/jobscape_test
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        health-check-path: /actuator/health
+        enabled: true
+
+server:
+  port: 8085

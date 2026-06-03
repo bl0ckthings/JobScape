@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="bf10fc42-92c2-4da9-b968-1a5cc6559b36" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../Backend/BankApp/account/src/main/java/com/bankapp/account/models/Account.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Backend/BankApp/account/src/main/java/com/bankapp/account/models/Customer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Backend/BankApp/account/src/main/java/com/bankapp/account/repository/AccountRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Backend/BankApp/account/src/main/resources/data.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/controller/ApplicationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/controller/ApplicationStepController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/controller/CompanyController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/controller/ContactController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/controller/ReminderController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/model/Application.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/model/ApplicationStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/model/ApplicationStep.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/model/Company.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/model/Contact.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/model/Reminder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/model/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/repository/ApplicationRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/repository/ApplicationStepRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/repository/CompanyRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/repository/ContactRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/repository/ReminderRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/repository/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/resources/application-test.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/entity-manager/src/test/java/com/jobscape/entitymanager/UserTest/UserControllerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user/src/main/java/com/jobscape/user/entity/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user/src/main/java/com/jobscape/user/repository/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../healthcare/diabetes-scoring/src/main/java/com/healthcare/diabetesscoring/controller/DiabetesScoringController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../healthcare/diabetes-scoring/src/main/java/com/healthcare/diabetesscoring/model/Notes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../healthcare/diabetes-scoring/src/main/java/com/healthcare/diabetesscoring/model/Patient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../healthcare/diabetes-scoring/src/main/java/com/healthcare/diabetesscoring/service/DiabetesScoringService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../healthcare/diabetes-scoring/src/main/java/com/healthcare/diabetesscoring/service/dto/DiabetesAssessmentResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../healthcare/diabetes-scoring/src/main/java/com/healthcare/diabetesscoring/service/dto/RiskType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../healthcare/diabetes-scoring/src/main/java/com/healthcare/diabetesscoring/service/notes/NotesFeignClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../healthcare/diabetes-scoring/src/main/java/com/healthcare/diabetesscoring/service/users/UsersFeignClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../healthcare/frontend/src/main/java/com/healthcare/frontend/controller/NoteController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../healthcare/frontend/src/main/java/com/healthcare/frontend/model/Notes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../healthcare/frontend/src/main/java/com/healthcare/frontend/service/diabetes/DiabetesAssessmentResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../healthcare/frontend/src/main/java/com/healthcare/frontend/service/diabetes/DiabetesFeignClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../healthcare/frontend/src/main/java/com/healthcare/frontend/service/diabetes/DiabetesScoringService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../healthcare/frontend/src/main/java/com/healthcare/frontend/service/diabetes/RiskType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../healthcare/frontend/src/main/java/com/healthcare/frontend/service/notes/CreateNoteRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../healthcare/frontend/src/main/java/com/healthcare/frontend/service/notes/NotesFeignClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../healthcare/frontend/src/main/java/com/healthcare/frontend/service/notes/NotesService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../healthcare/frontend/src/main/java/com/healthcare/frontend/service/notes/UpdateNoteRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../healthcare/frontend/src/main/resources/templates/notes/patient-notes.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../healthcare/notes/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../healthcare/notes/src/main/java/com/healthcare/notes/controller/NotesController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../healthcare/notes/src/main/java/com/healthcare/notes/mapper/NoteMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../healthcare/notes/src/main/java/com/healthcare/notes/model/Notes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../healthcare/notes/src/main/java/com/healthcare/notes/repository/NotesRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../healthcare/notes/src/main/java/com/healthcare/notes/service/NotesService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../healthcare/notes/src/main/java/com/healthcare/notes/service/dto/CreateNoteRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../healthcare/notes/src/main/java/com/healthcare/notes/service/dto/UpdateNoteRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../healthcare/notes/src/main/resources/application-docker.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/controller/AccountController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/controller/ContactController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/controller/ContactController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/controller/TransactionsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/controller/TransactionsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/model/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/model/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/model/Transactions.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/model/Transactions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/repository/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/repository/AccountRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/repository/ContactRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/repository/ContactRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/repository/TransactionsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/repository/TransactionsRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/service/SessionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/service/SessionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/resources/assets/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/resources/templates/auth/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/resources/templates/auth/signup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/resources/templates/credit/add-cash.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/resources/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/resources/templates/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JobTracking" beforeDir="false" afterPath="$PROJECT_DIR$/../JobTracking" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Dockerfile" />
+        <option value="Spring Controller" />
+        <option value="Spring REST Controller" />
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;bl0ckthings&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:bl0ckthings/CDA.git&quot;,
+    &quot;accountId&quot;: &quot;4051b2ce-cbc9-4dc3-b7bf-4e55c09c809c&quot;
+  }
+}</component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="3EXCiwWVkr3pfHUkRFw7rVSx0KO" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Docker.docker-compose.yml.consul: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yml.db: Compose Deployment.executor": "Run",
+    "JUnit.UserControllerTest.executor": "Run",
+    "JUnit.UserControllerTest.getUserByEmailTest.executor": "Run",
+    "JUnit.UserControllerTest.getUserById.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "Spring Boot.ApplicationTrackingApplication.executor": "Run",
+    "Spring Boot.EntityManagerApplication.executor": "Run",
+    "Spring Boot.UserApplication.executor": "Run",
+    "Spring Boot.WebGatewayApplication.executor": "Run",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/kahen/CDA/JobScape/application-tracking/src/main/java/com/jobscape/applicationtracking/reminder",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.configurations.included.in.services": "true",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/application-tracking/src/main/java/com/jobscape/applicationtracking/reminder" />
+      <recent name="$PROJECT_DIR$/application-tracking/src/main/java/com/jobscape/applicationtracking/contact" />
+      <recent name="$PROJECT_DIR$/application-tracking/src/main/java/com/jobscape/applicationtracking/company" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="KtorApplicationConfigurationType" />
+        <option value="MicronautRunConfigurationType" />
+        <option value="QuarkusRunConfigurationType" />
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+    <option name="configurationStatuses">
+      <map>
+        <entry key="SpringBootApplicationConfigurationType">
+          <value>
+            <map>
+              <entry key="EntityManagerApplication" value="STOPPED" />
+            </map>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="openRunningConfigInTab" value="true" />
+  </component>
+  <component name="RunManager" selected="Spring Boot.EntityManagerApplication">
+    <configuration name="UserControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="entity-manager" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jobscape.entitymanager.UserTest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jobscape.entitymanager.UserTest" />
+      <option name="MAIN_CLASS_NAME" value="com.jobscape.entitymanager.UserTest.UserControllerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserControllerTest.getUserByEmailTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="entity-manager" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jobscape.entitymanager.UserTest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jobscape.entitymanager.UserTest" />
+      <option name="MAIN_CLASS_NAME" value="com.jobscape.entitymanager.UserTest.UserControllerTest" />
+      <option name="METHOD_NAME" value="getUserByEmailTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserControllerTest.getUserById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="entity-manager" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jobscape.entitymanager.UserTest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jobscape.entitymanager.UserTest" />
+      <option name="MAIN_CLASS_NAME" value="com.jobscape.entitymanager.UserTest.UserControllerTest" />
+      <option name="METHOD_NAME" value="getUserById" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="JobScape-backend" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="JobScape-backend" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="application-tracking" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.jobscape.application.Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ApplicationTrackingApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="application-tracking" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.jobscape.applicationtracking.ApplicationTrackingApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EntityManagerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="entity-manager" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.jobscape.entitymanager.EntityManagerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="user" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.jobscape.user.UserApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WebGatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="web-gateway" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.jobscape.webgateway.WebGatewayApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker-compose.yml.consul: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="consul" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker-compose.yml.db: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="db" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.UserControllerTest.getUserById" />
+        <item itemvalue="JUnit.UserControllerTest" />
+        <item itemvalue="JUnit.UserControllerTest.getUserByEmailTest" />
+        <item itemvalue="Docker.docker-compose.yml.consul: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml.db: Compose Deployment" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-26cb7f24e5b0-intellij.indexing.shared.core-IU-253.29346.138" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.29346.138" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bf10fc42-92c2-4da9-b968-1a5cc6559b36" name="Changes" comment="" />
+      <created>1780315658427</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1780315658427</updated>
+      <workItem from="1780315659646" duration="1181000" />
+      <workItem from="1780316884170" duration="13023000" />
+      <workItem from="1780468228078" duration="12236000" />
+      <workItem from="1780485501453" duration="7636000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
