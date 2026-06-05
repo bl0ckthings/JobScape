@@ -18,8 +18,6 @@ public class Company {
     private Long id;
     private String name;
     private String website;
-    private String city;
-    private String country;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
     @Column(name = "updated_at")
@@ -27,4 +25,8 @@ public class Company {
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Contact> contacts = new ArrayList<>();
 
+    public Company(String website, String name) {
+        this.website = website;
+        this.name = name;
+    }
 }

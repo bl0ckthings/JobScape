@@ -3,6 +3,7 @@ package com.jobscape.entitymanager.controller;
 import com.jobscape.entitymanager.model.User;
 import com.jobscape.entitymanager.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,9 +11,9 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
-@RequiredArgsConstructor
 public class UserController {
-    private final UserRepository userRepository;
+   @Autowired
+   UserRepository userRepository;
 
 
     @GetMapping("/{id}")

@@ -3,6 +3,7 @@ package com.jobscape.entitymanager.UserTest;
 import com.jobscape.entitymanager.controller.UserController;
 import com.jobscape.entitymanager.model.User;
 import com.jobscape.entitymanager.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 

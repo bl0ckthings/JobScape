@@ -18,7 +18,9 @@ public class ApplicationStep {
     private String comment;
     @Column(name = "step_date")
     private LocalDateTime stepDate;
-    @Column(name = "step_status")
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 50, name = "step_status")
     private ApplicationStatus stepStatus;
     @Column(name = "created_at")
     private LocalDateTime createdAt;

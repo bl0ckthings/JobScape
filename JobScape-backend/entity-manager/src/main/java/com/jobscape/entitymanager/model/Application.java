@@ -1,7 +1,9 @@
 package com.jobscape.entitymanager.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -11,7 +13,8 @@ import java.util.List;
 @Entity
 @Table(name = "applications")
 @Data
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class Application {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +25,19 @@ public class Application {
     private String country;
     private String source;
     private String url;
+
+    public Application(String jobTitle, String city, String country, String source, String url, ApplicationStatus status, String workMode, User user, Company company) {
+        this.jobTitle = jobTitle;
+        this.city = city;
+        this.country = country;
+        this.source = source;
+        this.url = url;
+        this.status = status;
+        this.workMode = workMode;
+        this.user = user;
+        this.company = company;
+    }
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 50)
     private ApplicationStatus status;
