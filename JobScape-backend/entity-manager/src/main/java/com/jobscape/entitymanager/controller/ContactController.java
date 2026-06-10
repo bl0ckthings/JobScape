@@ -19,6 +19,11 @@ public class ContactController {
                 .orElseThrow(() -> new RuntimeException("Contact not found"));
     }
 
+    @GetMapping("/company/{id}")
+    public List<Contact> getContactSteps(@PathVariable Long id) {
+        return contactRepository.findByCompanyId(id);
+    }
+
     @GetMapping
     public List<Contact> getAllContacts() {
         return contactRepository.findAll();

@@ -4,84 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf10fc42-92c2-4da9-b968-1a5cc6559b36" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../Backend/BankApp/account/src/main/java/com/bankapp/account/models/Account.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Backend/BankApp/account/src/main/java/com/bankapp/account/models/Customer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Backend/BankApp/account/src/main/java/com/bankapp/account/repository/AccountRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Backend/BankApp/account/src/main/resources/data.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/controller/ApplicationController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/controller/ApplicationStepController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/controller/CompanyController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/controller/ContactController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/controller/ReminderController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/controller/UserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/model/Application.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/model/ApplicationStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/model/ApplicationStep.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/model/Company.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/model/Contact.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/model/Reminder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/model/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/repository/ApplicationRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/repository/ApplicationStepRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/repository/CompanyRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/repository/ContactRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/repository/ReminderRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/java/com/jobscape/entitymanager/repository/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/entity-manager/src/main/resources/application-test.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/entity-manager/src/test/java/com/jobscape/entitymanager/UserTest/UserControllerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user/src/main/java/com/jobscape/user/entity/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user/src/main/java/com/jobscape/user/repository/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../healthcare/diabetes-scoring/src/main/java/com/healthcare/diabetesscoring/controller/DiabetesScoringController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../healthcare/diabetes-scoring/src/main/java/com/healthcare/diabetesscoring/model/Notes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../healthcare/diabetes-scoring/src/main/java/com/healthcare/diabetesscoring/model/Patient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../healthcare/diabetes-scoring/src/main/java/com/healthcare/diabetesscoring/service/DiabetesScoringService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../healthcare/diabetes-scoring/src/main/java/com/healthcare/diabetesscoring/service/dto/DiabetesAssessmentResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../healthcare/diabetes-scoring/src/main/java/com/healthcare/diabetesscoring/service/dto/RiskType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../healthcare/diabetes-scoring/src/main/java/com/healthcare/diabetesscoring/service/notes/NotesFeignClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../healthcare/diabetes-scoring/src/main/java/com/healthcare/diabetesscoring/service/users/UsersFeignClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../healthcare/frontend/src/main/java/com/healthcare/frontend/controller/NoteController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../healthcare/frontend/src/main/java/com/healthcare/frontend/model/Notes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../healthcare/frontend/src/main/java/com/healthcare/frontend/service/diabetes/DiabetesAssessmentResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../healthcare/frontend/src/main/java/com/healthcare/frontend/service/diabetes/DiabetesFeignClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../healthcare/frontend/src/main/java/com/healthcare/frontend/service/diabetes/DiabetesScoringService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../healthcare/frontend/src/main/java/com/healthcare/frontend/service/diabetes/RiskType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../healthcare/frontend/src/main/java/com/healthcare/frontend/service/notes/CreateNoteRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../healthcare/frontend/src/main/java/com/healthcare/frontend/service/notes/NotesFeignClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../healthcare/frontend/src/main/java/com/healthcare/frontend/service/notes/NotesService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../healthcare/frontend/src/main/java/com/healthcare/frontend/service/notes/UpdateNoteRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../healthcare/frontend/src/main/resources/templates/notes/patient-notes.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../healthcare/notes/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../healthcare/notes/src/main/java/com/healthcare/notes/controller/NotesController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../healthcare/notes/src/main/java/com/healthcare/notes/mapper/NoteMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../healthcare/notes/src/main/java/com/healthcare/notes/model/Notes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../healthcare/notes/src/main/java/com/healthcare/notes/repository/NotesRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../healthcare/notes/src/main/java/com/healthcare/notes/service/NotesService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../healthcare/notes/src/main/java/com/healthcare/notes/service/dto/CreateNoteRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../healthcare/notes/src/main/java/com/healthcare/notes/service/dto/UpdateNoteRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../healthcare/notes/src/main/resources/application-docker.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Backend/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/controller/AccountController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/controller/ContactController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/controller/ContactController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/controller/TransactionsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/controller/TransactionsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/model/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/model/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/model/Transactions.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/model/Transactions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/repository/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/repository/AccountRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/repository/ContactRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/repository/ContactRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/repository/TransactionsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/repository/TransactionsRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/service/SessionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/service/SessionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/java/com/Flashcash/Flashcash/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/resources/assets/logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/resources/templates/auth/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/resources/templates/auth/signup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/resources/templates/credit/add-cash.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Backend/Flascash/src/main/resources/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Backend/Flascash/src/main/resources/templates/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../JobTracking" beforeDir="false" afterPath="$PROJECT_DIR$/../JobTracking" afterDir="false" />
-    </list>
+    <list default="true" id="bf10fc42-92c2-4da9-b968-1a5cc6559b36" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -100,7 +23,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -108,12 +31,12 @@
     &quot;assignee&quot;: &quot;bl0ckthings&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;git@github.com:bl0ckthings/CDA.git&quot;,
-    &quot;accountId&quot;: &quot;4051b2ce-cbc9-4dc3-b7bf-4e55c09c809c&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "git@github.com:bl0ckthings/JobScape.git",
+    "accountId": "4051b2ce-cbc9-4dc3-b7bf-4e55c09c809c"
   }
-}</component>
+}]]></component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
@@ -138,6 +61,7 @@
     "JUnit.UserControllerTest.executor": "Run",
     "JUnit.UserControllerTest.getUserByEmailTest.executor": "Run",
     "JUnit.UserControllerTest.getUserById.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
@@ -246,17 +170,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="JobScape-backend" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="JobScape-backend" />
-      <option name="filePath" />
-      <method v="2" />
-    </configuration>
     <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="application-tracking" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.jobscape.application.Application" />
@@ -353,6 +266,7 @@
       <workItem from="1780316884170" duration="13023000" />
       <workItem from="1780468228078" duration="12236000" />
       <workItem from="1780485501453" duration="7636000" />
+      <workItem from="1780555029272" duration="20000" />
     </task>
     <servers />
   </component>

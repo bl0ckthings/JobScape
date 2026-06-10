@@ -37,12 +37,12 @@ public class ApplicationController {
     }
 
 
-    @DeleteMapping("/delete")
-    public void delete(@RequestBody Application application) {
-        applicationRepository.delete(application);
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable Long id) {
+        applicationRepository.deleteById(id);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public Application update(
             @PathVariable Long id,
             @RequestBody Application updatedApplication

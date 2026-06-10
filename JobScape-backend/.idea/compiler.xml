@@ -3,27 +3,37 @@
   <component name="CompilerConfiguration">
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
-      <profile name="Annotation profile for web-gateway" enabled="true">
+      <profile name="Annotation profile for reminder-service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.46/lombok-1.18.46.jar" />
         </processorPath>
-        <module name="entity-manager" />
         <module name="web-gateway" />
-        <module name="user" />
+        <module name="reminder-service" />
+        <module name="application-service" />
+        <module name="user-service" />
+        <module name="company-service" />
+        <module name="entity-manager" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="application-tracking" target="17" />
+      <module name="companies" target="17" />
+      <module name="entity-manager-service" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="application-service" options="-parameters" />
       <module name="application-tracking" options="-parameters" />
+      <module name="companies" options="-parameters" />
+      <module name="company-service" options="-parameters" />
       <module name="entity-manager" options="-parameters" />
-      <module name="user" options="-parameters" />
+      <module name="entity-manager-service" options="-parameters" />
+      <module name="reminder-service" options="-parameters" />
+      <module name="user-service" options="-parameters" />
       <module name="web-gateway" options="-parameters" />
     </option>
   </component>

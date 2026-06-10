@@ -9,6 +9,11 @@
         <option value="$PROJECT_DIR$/application/pom.xml" />
         <option value="$PROJECT_DIR$/application-tracking/pom.xml" />
         <option value="$PROJECT_DIR$/entity-manager/pom.xml" />
+        <option value="$PROJECT_DIR$/entity-manager/companies/pom.xml" />
+        <option value="$PROJECT_DIR$/application-service/pom.xml" />
+        <option value="$PROJECT_DIR$/company-service/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/reminder-service/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
@@ -17,7 +22,7 @@
       </set>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_19" default="true" project-jdk-name="openjdk-19" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="corretto-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

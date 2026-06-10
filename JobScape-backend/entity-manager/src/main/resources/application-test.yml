@@ -3,7 +3,7 @@ spring:
     activate:
       on-profile: test
   application:
-    name: entity-manager
+    name: entity-manager-service
   datasource:
     url: jdbc:mysql://localhost:3308/jobscape_test
     driver-class-name: com.mysql.cj.jdbc.Driver
