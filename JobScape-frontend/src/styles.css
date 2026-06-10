@@ -1,0 +1,142 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import 'tailwindcss';
+
+
+.nav-link {
+  @apply min-w-55 flex gap-[0.5em] bg-nav-box rounded-xl p-3 shadow-card text-base-size hover:bg-hover-link border-hover-link lg:text-label-size;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+  }
+
+  body {
+    font-family: var(--font-content, sans-serif);
+    color: var(--color-main-font);
+    background-color: var(--color-main-bg);
+
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  figure,
+  p,
+  ul,
+  ol {
+    margin: 0;
+    padding: 0;
+  }
+
+  ul,
+  ol {
+    list-style: none;
+  }
+
+  a {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img,
+  picture,
+  svg,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+
+  button {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+
+    font: inherit;
+    color: inherit;
+    text-align: inherit;
+
+    border-radius: 0;
+    appearance: none;
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  .btn-reset {
+    @apply bg-transparent border-0 p-0 m-0 text-inherit text-left rounded-none cursor-pointer;
+    font: inherit;
+    appearance: none;
+  }
+
+  .link-reset {
+    @apply block no-underline text-inherit;
+  }
+}
+
+
+@theme {
+  --color-primary: #2563EB;
+  --color-secondary: #22D3EE;
+
+  --color-hover-link: rgba(37, 100, 235, 0.152);
+  --border-hover-link: 1px solid rgba(37, 100, 235, 0.348);
+
+  --color-sidebar-bg: #0B1020;
+  --color-sidebar-text: #E9EEFC;
+  --color-sidebar-muted: #A9B4D0;
+
+  --color-list-bg: rgba(255, 255, 255, 0.6);
+  --border-sidebar-link: 1px solid rgba(246, 247, 251, 0.06);
+
+  --color-main-bg: #ffffff;
+  --color-main-font: #0F172A;
+  --color-secondary-font: #475569;
+
+  --border-default: 1px solid rgba(255, 255, 255, 0.1);
+  --color-nav-box: rgba(255, 255, 255, 0.05);
+
+  --border-card: 1px solid #E6E8F0;
+  --color-card-muted: #667085;
+
+  --shadow-card: 0 8px 24px 0 rgba(15, 23, 42, 0.08);
+  --shadow-svg: drop-shadow(0 8px 24px rgba(15, 23, 42, 0.08));
+
+  --color-tag-apply-bg: rgba(37, 99, 235, 0.2);
+  --border-tag-apply: 1px solid rgba(37, 99, 235, 0.35);
+
+  --border-tag-applied: 1px solid rgba(35, 196, 131, 0.35);
+  --color-tag-applied-bg: rgba(35, 196, 131, 0.5);
+
+  --border-tag-interview: 1px solid rgba(203, 48, 224, 0.35);
+  --color-tag-interview-bg: rgba(203, 48, 224, 0.1);
+
+  --spacing-tag-padding-y: 3px;
+  --spacing-tag-padding-x: 10px;
+  --radius-tag: 9999px;
+
+  --spacing-apply-btn-y: 8px;
+  --spacing-apply-btn-x: 32px;
+  --shadow-apply-btn: 0 12px 34px 0 rgba(109, 94, 252, 0.35);
+  --radius-apply-btn: 15px;
+    --spacing-header-height: 93px;
+
+
+  --text-base-size: 14px;
+  --text-small-size: 13px;
+  --text-label-size: 12px;
+  --text-header-size: 22px;
+
+  --size-header-height: 93px;
+}

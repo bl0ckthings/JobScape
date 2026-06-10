@@ -1,0 +1,167 @@
+<header class="flex flex-col relative lg:gap-[2em] lg:bg-sidebar-bg lg:h-screen lg:fixed">
+  <!-- HEADER -->
+  <figure
+    class="h-header-height flex justify-between bg-sidebar-bg p-[1em] z-20 fixed w-full lg:static"
+  >
+    <div class="flex gap-[1em]">
+      <img
+        src="/assets/logo.png"
+        alt=""
+        class="h-[50px] w-[50px] shadow-apply-btn rounded-[15px] lg:h-[70px] lg:w-[70px]"
+      />
+
+      <figcaption class="text-sidebar-text">
+        <p class="text-[20px] lg:text-header-size lg:font-bold">
+          ApplyFlow
+        </p>
+
+        <p class="text-small-size text-sidebar-muted lg:text-label-size">
+          Optimise ta recherche d'emploi
+        </p>
+      </figcaption>
+    </div>
+
+    <button class="transition-transform duration-300 lg:hidden " (click)="toggleSidebar($event)" [class.rotate-180]="isOpen">
+      <img
+        src="/assets/downarrow.svg"
+        class="cursor-pointer"
+        alt=""
+      />
+    </button>
+  </figure>
+
+  <!-- MENU -->
+  <div
+  [ngClass]="isOpen ? 'top-header-height' : '-top-[100vh]'"
+    class="box-border fixed z-10 w-full h-[calc(100vh-var(--header-height))]
+    self-center flex flex-col justify-between bg-sidebar-bg
+    px-[4em] transition-[top] duration-300 ease-in-out
+    gap-[2em]
+    lg:static lg:h-full lg:px-[1em]  lg:gap-[2em]"
+  >
+    <!-- DESKTOP BUTTON -->
+    <button
+      class="hidden lg:block cursor-pointer bg-primary rounded-apply-btn
+      shadow-apply-btn py-apply-btn-y px-apply-btn-x text-sidebar-text
+      text-small-size text-center"
+    >
+      + Ajouter une candidature
+    </button>
+
+    <!-- NAV -->
+    <nav class="flex flex-col gap-[1em] text-sidebar-muted">
+      <a
+        routerLink="/dashboard"
+        class="min-w-[220px] flex gap-[0.5em]
+        border border-[#ffffff15]
+        bg-nav-box rounded-xl p-3 shadow-box
+        text-base hover:bg-hover-link
+        hover:border-hover-link-border
+        lg:text-label-size"
+      >
+        <img src="/assets/house.svg" alt="" />
+        <p>Dashboard</p>
+      </a>
+
+      <a
+
+        routerLink="/applications" class="min-w-[220px] flex gap-[0.5em]
+        border border-[#ffffff15]
+        bg-nav-box rounded-xl p-3 shadow-box
+        text-base hover:bg-hover-link
+        hover:border-hover-link-border
+        lg:text-label-size"
+      >
+        <img src="/assets/briefcase-business.svg" alt="" />
+        <p>Candidatures</p>
+      </a>
+
+      <a
+        href="#"
+        class="min-w-[220px] flex gap-[0.5em]
+        border border-[#ffffff15]
+        bg-nav-box rounded-xl p-3 shadow-box
+        text-base hover:bg-hover-link
+        hover:border-hover-link-border
+        lg:text-label-size"
+      >
+        <img src="/assets/calendar-days.svg" alt="" />
+        <p>Calendrier</p>
+      </a>
+
+      <a
+        href="#"
+        class="min-w-[220px] flex gap-[0.5em]
+        border border-[#ffffff15]
+        bg-nav-box rounded-xl p-3 shadow-box
+        text-base hover:bg-hover-link
+        hover:border-hover-link-border
+        lg:text-label-size"
+      >
+        <img src="/assets/contact.svg" alt="" />
+        <p>Contacts</p>
+      </a>
+
+      <a
+        href="#"
+        class="min-w-[220px] flex gap-[0.5em]
+        border border-[#ffffff15]
+        bg-nav-box rounded-xl p-3 shadow-box
+        text-base hover:bg-hover-link
+        hover:border-hover-link-border
+        lg:text-label-size"
+      >
+        <img src="/assets/resume.svg" alt="" />
+        <p>Lettre de motivation & CV</p>
+      </a>
+
+      <a
+        href="#"
+        class="min-w-[220px] flex gap-[0.5em]
+        border border-[#ffffff15]
+        bg-nav-box rounded-xl p-3 shadow-box
+        text-base hover:bg-hover-link
+        hover:border-hover-link-border
+        lg:text-label-size"
+      >
+        <img src="/assets/cog.svg" alt="" />
+        <p>Paramètres</p>
+      </a>
+    </nav>
+
+    <!-- USER BOX -->
+    <div
+      class="flex flex-col gap-[1em] p-[10px]
+      mb-5 bg-nav-box border border-[#ffffff15]
+      rounded-xl"
+    >
+      <div class="flex gap-[2em]">
+        <img
+          src="/assets/userlogo.png"
+          alt=""
+          class="h-[50px]"
+        />
+
+        <div>
+          <p class="text-sidebar-text">User Doe</p>
+
+          <p class="text-sidebar-muted lg:text-label-size">
+            userdoe&#64;gmail.com
+          </p>
+        </div>
+      </div>
+
+      <a
+        href="#"
+        class="text-center bg-[#FF383C]
+        rounded-xl p-[5px] text-sidebar-text
+        shadow-apply-btn
+        lg:bg-transparent lg:rounded-none
+        lg:shadow-none lg:p-0
+        lg:underline lg:text-label-size"
+      >
+        Se déconnecter
+      </a>
+    </div>
+  </div>
+</header>
