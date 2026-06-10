@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/data/users")
 public class UserController {
    @Autowired
    UserRepository userRepository;

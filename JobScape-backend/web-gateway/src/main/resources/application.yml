@@ -10,3 +10,7 @@ spring:
         enabled: true
 server:
   port: 8080
+
+jwt:
+  secret: "607baa2d111f5993fb7193618b21fcdf7fb35684a7c0596141336c10f5952266dca779cac9caec7b387634c2664ea638affc2f0a1cdc954fbb58cb14e85f4097"
+  expiration-time: "9000000"

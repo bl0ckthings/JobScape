@@ -3,7 +3,7 @@
   <component name="CompilerConfiguration">
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
-      <profile name="Annotation profile for reminder-service" enabled="true">
+      <profile name="Annotation profile for jobscape-backend" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -13,8 +13,8 @@
         <module name="web-gateway" />
         <module name="reminder-service" />
         <module name="application-service" />
-        <module name="user-service" />
         <module name="company-service" />
+        <module name="user-service" />
         <module name="entity-manager" />
       </profile>
     </annotationProcessing>
@@ -32,7 +32,7 @@
       <module name="company-service" options="-parameters" />
       <module name="entity-manager" options="-parameters" />
       <module name="entity-manager-service" options="-parameters" />
-      <module name="reminder-service" options="-parameters" />
+      <module name="reminder-service" options="" />
       <module name="user-service" options="-parameters" />
       <module name="web-gateway" options="-parameters" />
     </option>

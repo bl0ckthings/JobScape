@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/reminders")
+@RequestMapping("/data/reminders")
 public class ReminderController {
 
     @Autowired
