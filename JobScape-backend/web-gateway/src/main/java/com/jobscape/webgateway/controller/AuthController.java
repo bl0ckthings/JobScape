@@ -33,9 +33,6 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest) {
-        if (userClient.getUser(registerRequest.getEmail()) != null) {
-            return ResponseEntity.badRequest().body("User already exists");
-        }
         registerRequest.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         return ResponseEntity.ok(userClient.createUser(registerRequest));
     }

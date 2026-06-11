@@ -34,6 +34,7 @@ public class User {
     private String password;
 
     @CreatedDate
+
     private LocalDateTime createdAt;
 
     @LastModifiedDate
