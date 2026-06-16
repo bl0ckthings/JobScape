@@ -1,6 +1,7 @@
 package com.jobscape.user.service.mapper;
 
 import com.jobscape.user.model.User;
+import com.jobscape.user.service.dto.LoginResponse;
 import com.jobscape.user.service.dto.RegisterRequest;
 import com.jobscape.user.service.dto.UserResponse;
 import org.springframework.stereotype.Component;
@@ -26,6 +27,13 @@ public class UserMapper {
                 user.getFirstName(),
                 user.getLastName(),
                 user.getEmail()
+        );
+    }
+
+    public LoginResponse toLoginDto(User user) {
+        return new LoginResponse(
+                user.getEmail(),
+                user.getPassword()
         );
     }
 }

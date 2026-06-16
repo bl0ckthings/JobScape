@@ -12,7 +12,7 @@ public class ApiErrorBody {
         private LocalDateTime timestamp;
 
         public ApiErrorBody(ApiError apiError) {
-            this.internal = "Microservice Error";
+            this.internal = "MS error";
             this.message = apiError.getMessage();
             this.timestamp = apiError.getTimestamp();
         }

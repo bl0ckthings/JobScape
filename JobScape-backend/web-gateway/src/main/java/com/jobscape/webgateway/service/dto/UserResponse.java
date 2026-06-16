@@ -1,8 +1,7 @@
-package com.jobscape.user.service.dto;
+package com.jobscape.webgateway.service.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 @Data
 @AllArgsConstructor
