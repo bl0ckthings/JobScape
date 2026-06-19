@@ -46,6 +46,7 @@ public class AuthController {
                         "Bearer",
                         jwtUtils.generateToken(request.getEmail())
                 );
+                return ResponseEntity.ok(authResponse);
             }
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }

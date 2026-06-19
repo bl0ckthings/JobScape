@@ -1,1 +1,25 @@
-<p>application-card works!</p>
+<div class="
+p-[1em] flex flex-col justify-between gap-[1em]
+[border:var(--border-card)] shadow-card rounded-2xl
+">
+  <div class="flex justify-between">
+    <div >
+      <p class="font-bold text-base-size">Componize - Aix en Provence</p>
+      <p class="text-small-size text-card-muted">Développeur Full Stack Alternance</p>
+    </div>
+    <button class="appearance-none border-0 bg-transparent p-0 m-0 cursor-pointer">
+      <img src="./assets/ellipsis-btn.png" alt="">
+    </button>
+  </div>
+  <div class="flex gap-[0.5em]">
+    <p class=" text-label-size  py-tag-padding-y px-tag-padding-x [border:var(--border-tag-applied)] [border:var(--border-card)] bg-tag-applied-bg rounded-tag">CV Envoyé</p>
+    <p class="text-label-size py-tag-padding-y px-tag-padding-x [border:var(--border-card)] rounded-tag">Présentiel</p>
+  </div>
+  <div class="flex justify-between">
+    <p class="text-card-muted text-label-size">Envoyé il y a 3 j.</p>
+    <div class="flex items-center gap-[0.5em] text-card-muted text-label-size">
+      <img src="./assets/bell-small.svg" class="h-[18px] w-[18px]"/>
+      <p class="Card-bottom-notis-text">A rappeler dans 3j.</p>
+    </div>
+  </div>
+</div>

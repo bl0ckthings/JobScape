@@ -1,0 +1,378 @@
+<!-- register-page.component.html -->
+<main
+  class="min-h-screen bg-[#080e20] text-[#111827] lg:flex lg:items-center lg:justify-center  lg:min-h-full"
+>
+  <section
+    class="mx-auto flex min-h-screen w-full max-w-[1720px] flex-col overflow-hidden bg-[#080e20]
+           lg:min-h-full lg:flex-row lg:bg-white"
+  >
+
+    <aside
+      class="order-2 flex flex-1 flex-col bg-[#080e20] px-4 pb-0 pt-5 text-white
+             sm:px-8
+             lg:order-1 lg:min-h-screen lg:w-1/2 lg:flex-none lg:px-12 lg:py-10
+             xl:px-16"
+    >
+
+      <a
+        href="/"
+        aria-label="JobScape"
+        class="hidden items-center gap-3 lg:flex"
+      >
+        <span
+          class="grid h-10 w-10 place-items-center rounded-xl bg-[#315cff]
+                 shadow-[0_10px_28px_rgba(49,92,255,0.38)]"
+        >
+         <img src="/assets/jobscape-logo.png" alt="" />
+        </span>
+
+        <span>
+          <span class="block text-xl font-bold leading-none">JobScape</span>
+          <span class="mt-1 block text-[11px] text-[#98a3c6]">
+            Optimise ta recherche d'emploi
+          </span>
+        </span>
+      </a>
+
+      <div
+        class="flex flex-1 flex-col lg:justify-center lg:pb-16"
+      >
+        <div class="lg:max-w-[470px]">
+          <h1
+            class="text-[29px] font-bold leading-[1.15] tracking-[-0.025em]
+                   sm:text-4xl
+                   lg:text-[44px] lg:leading-[1.05]"
+          >
+            Organise tes candidatures<br class="hidden sm:block sm:text-center" />
+            simplement.
+          </h1>
+
+          <p
+            class="mt-4 hidden max-w-[430px] text-sm leading-6 text-[#a9b5d7] lg:block"
+          >
+            Suis tes candidatures, relances, entretiens et contacts depuis
+            une interface claire et rapide.
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="mt-5 rounded-[22px] border border-white/15 bg-white/[0.055]
+               px-5 py-5 shadow-[0_18px_45px_rgba(0,0,0,0.16)]
+               lg:mt-0 lg:max-w-[410px] lg:rounded-2xl lg:px-5 lg:py-4"
+      >
+        <h2 class="text-[16px] font-semibold lg:text-sm">
+          Gagne du temps chaque semaine
+        </h2>
+        <p class="mt-2 text-[14px] leading-5 text-[#aab9ff] lg:text-xs">
+          Centralise toutes tes opportunités et ne rate plus aucune relance
+          importante.
+        </p>
+      </div>
+    </aside>
+
+
+    <section
+      class="order-1 flex flex-1 items-start justify-center bg-[#080e20] px-4 pb-0 pt-[81px]
+             sm:px-8
+             lg:order-2 lg:min-h-screen lg:w-1/2 lg:flex-none lg:items-center
+             lg:bg-[#f5f7fb] lg:px-10 lg:py-14"
+    >
+      <div
+        class="w-full max-w-[368px] rounded-2xl bg-white px-[35px] py-[31px]
+               shadow-[0_24px_55px_rgba(7,15,35,0.16)]
+               sm:max-w-[410px]
+               lg:max-w-[390px] lg:rounded-[22px] lg:px-8 lg:py-8"
+      >
+        <header>
+          <h2 class="text-[25px] font-bold tracking-[-0.02em] lg:text-2xl">
+            Inscription
+          </h2>
+          <p class="mt-1 text-[13px] text-[#7f889b] lg:text-xs">
+            Inscris-toi pour accéder à ton dashboard.
+          </p>
+        </header>
+
+        <div class="mt-7 min-h-[420px] lg:min-h-[350px]">
+          <form
+            id="registerForm"
+            class="mt-7 space-y-5"
+            [formGroup]="form"
+            (ngSubmit)="submit()"
+            novalidate
+          >
+            <div class="flex gap-4">
+              <div class="min-w-0 flex-1">
+                <label
+                  for="firstName"
+                  class="mb-2 block text-[13px] font-semibold text-[#30394b]"
+                >
+                  Nom
+                </label>
+
+                <input
+                  id="firstName"
+                  type="text"
+                  formControlName="firstName"
+                  placeholder="Johnny"
+                  autocomplete="family-name"
+                  class="h-12 w-full rounded-xl border bg-[#fafbfc] px-4 text-sm
+             text-[#30394b] outline-none transition
+             placeholder:text-[#8c919b]
+             focus:border-[#315cff] focus:bg-white
+             focus:ring-4 focus:ring-[#315cff]/10"
+                  [class.border-red-500]="
+        form.get('firstName')?.touched && form.get('firstName')?.invalid
+      "
+                  [class.border-[#dfe3ea]]="
+        !form.get('firstName')?.touched || form.get('firstName')?.valid
+      "
+                  [attr.aria-invalid]="
+        form.get('firstName')?.touched && form.get('firstName')?.invalid
+      "
+                  aria-describedby="firstNameError"
+                />
+
+                <p
+                  id="firstNameError"
+                  class="mt-1.5 text-xs font-medium text-red-500"
+                  *ngIf="
+        form.get('firstName')?.touched &&
+        form.get('firstName')?.hasError('required')
+      "
+                >
+                  Le Nom est obligatoire.
+                </p>
+
+
+              </div>
+              <div class="min-w-0 flex-1">
+                <label
+                  for="lastName"
+                  class="mb-2 block text-[13px] font-semibold text-[#30394b]"
+                >
+                  Prénom
+                </label>
+
+                <input
+                  id="lastName"
+                  type="text"
+                  formControlName="lastName"
+                  placeholder="Marvin"
+                  autocomplete="given-name"
+                  class="h-12 w-full rounded-xl border bg-[#fafbfc] px-4 text-sm
+             text-[#30394b] outline-none transition
+             placeholder:text-[#8c919b]
+             focus:border-[#315cff] focus:bg-white
+             focus:ring-4 focus:ring-[#315cff]/10"
+                  [class.border-red-500]="
+        form.get('lastName')?.touched && form.get('lastName')?.invalid
+      "
+                  [class.border-[#dfe3ea]]="
+        !form.get('lastName')?.touched || form.get('lastName')?.valid
+      "
+                  [attr.aria-invalid]="
+        form.get('lastName')?.touched && form.get('lastName')?.invalid
+      "
+                  aria-describedby="lastNameError"
+                />
+
+                <p
+                  id="lastNameError"
+                  class="mt-1.5 text-xs font-medium text-red-500"
+                  *ngIf="
+        form.get('lastName')?.touched &&
+        form.get('lastName')?.hasError('required')
+      "
+                >
+                  Le Prénom est obligatoire.
+                </p>
+
+
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div>
+              <label
+                for="email"
+                class="mb-2 block text-[13px] font-semibold text-[#30394b]"
+              >
+                Email
+              </label>
+
+              <input
+                id="email"
+                type="email"
+                formControlName="email"
+                placeholder="ton@email.com"
+                autocomplete="email"
+                class="h-12 w-full rounded-xl border bg-[#fafbfc] px-4 text-sm
+             text-[#30394b] outline-none transition
+             placeholder:text-[#8c919b]
+             focus:border-[#315cff] focus:bg-white
+             focus:ring-4 focus:ring-[#315cff]/10"
+                [class.border-red-500]="
+        form.get('email')?.touched && form.get('email')?.invalid
+      "
+                [class.border-[#dfe3ea]]="
+        !form.get('email')?.touched || form.get('email')?.valid
+      "
+                [attr.aria-invalid]="
+        form.get('email')?.touched && form.get('email')?.invalid
+      "
+                aria-describedby="emailError"
+              />
+
+              <p
+                id="emailError"
+                class="mt-1.5 text-xs font-medium text-red-500"
+                *ngIf="
+        form.get('email')?.touched &&
+        form.get('email')?.hasError('required')
+      "
+              >
+                L’adresse email est obligatoire.
+              </p>
+
+              <p
+                id="emailFormatError"
+                class="mt-1.5 text-xs font-medium text-red-500"
+                *ngIf="
+        form.get('email')?.touched &&
+        !form.get('email')?.hasError('required') &&
+        form.get('email')?.hasError('email')
+      "
+              >
+                Format invalide.
+              </p>
+            </div>
+
+            <!-- Password -->
+            <div>
+              <label
+                for="password"
+                class="mb-2 block text-[13px] font-semibold text-[#30394b]"
+              >
+                Mot de passe
+              </label>
+
+              <input
+                id="password"
+                type="password"
+                formControlName="password"
+                placeholder="••••••••"
+                autocomplete="new-password"
+                class="h-12 w-full rounded-xl border bg-[#fafbfc] px-4 text-sm
+             text-[#30394b] outline-none transition
+             placeholder:text-[#8c919b]
+             focus:border-[#315cff] focus:bg-white
+             focus:ring-4 focus:ring-[#315cff]/10"
+                [class.border-red-500]="
+        form.get('password')?.touched && form.get('password')?.invalid
+      "
+                [class.border-[#dfe3ea]]="
+        !form.get('password')?.touched || form.get('password')?.valid
+      "
+                [attr.aria-invalid]="
+        form.get('password')?.touched && form.get('password')?.invalid
+      "
+                aria-describedby="passwordError"
+              />
+
+              <p
+                id="passwordError"
+                class="mt-1.5 text-xs font-medium text-red-500"
+                *ngIf="
+        form.get('password')?.touched &&
+        form.get('password')?.hasError('required')
+      "
+              >
+                Le mot de passe est obligatoire.
+              </p>
+            </div>
+
+            <!-- Forgot password -->
+            <div class="-mt-1">
+              <a
+                routerLink="/forgot-password"
+                class="text-xs font-semibold text-[#315cff] transition hover:text-[#2448d8]"
+              >
+                Mot de passe oublié ?
+              </a>
+            </div>
+
+            <!-- API/authentication error -->
+            <div
+              *ngIf="error"
+              role="alert"
+              class="rounded-xl border border-red-200 bg-red-50 px-4 py-3
+           text-sm font-medium text-red-600"
+            >
+              {{ error }}
+            </div>
+
+            <!-- Submit -->
+            <button
+              type="submit"
+              class="flex h-12 w-full items-center justify-center rounded-xl
+           bg-[#315cff] px-5 text-sm font-semibold text-white
+           shadow-[0_12px_25px_rgba(49,92,255,0.30)]
+           transition
+           hover:bg-[#284fe5]
+           focus:outline-none focus:ring-4 focus:ring-[#315cff]/20
+           disabled:cursor-not-allowed disabled:opacity-60
+           disabled:shadow-none"
+              [disabled]="form.invalid || loading"
+            >
+              <svg
+                *ngIf="loading"
+                class="mr-2 h-4 w-4 animate-spin"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+              >
+                <circle
+                  class="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"
+                ></circle>
+                <path
+                  class="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 0 1 8-8v4a4 4 0 0 0-4 4H4Z"
+                ></path>
+              </svg>
+
+              {{ loading ? 'Inscription...' : "S'inscrire" }}
+            </button>
+
+
+
+
+
+
+            <!-- Registration -->
+            <p class="pt-1 text-center text-[13px] text-[#858d9d]">
+              Déjà un compte ?
+              <a
+                routerLink="/auth/login"
+                class="font-semibold text-[#315cff] transition hover:text-[#2448d8]"
+              >
+                Se connecter
+              </a>
+            </p>
+          </form>
+
+
+
+
+
+        </div>
+      </div>
+    </section>
+  </section>
+</main>

@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SortFilterBar } from './sort-filter-bar';
+import { Login } from './login';
 
-describe('SortFilterBar', () => {
-  let component: SortFilterBar;
-  let fixture: ComponentFixture<SortFilterBar>;
+describe('Login', () => {
+  let component: Login;
+  let fixture: ComponentFixture<Login>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SortFilterBar],
+      imports: [Login],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SortFilterBar);
+    fixture = TestBed.createComponent(Login);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

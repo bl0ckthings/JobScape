@@ -2,6 +2,7 @@ package com.jobscape.webgateway.service;
 
 import com.jobscape.webgateway.client.UserClient;
 import com.jobscape.webgateway.model.User;
+import com.jobscape.webgateway.service.dto.LoginResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,8 +21,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userClient.getUser(username).get(0);
 
+        LoginResponse user = userClient.checkUser(username);
+        System.out.println(user);
         if (user == null) {
             throw new UsernameNotFoundException("User not found with : " + username);
         }
