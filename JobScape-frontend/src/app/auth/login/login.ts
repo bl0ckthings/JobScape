@@ -3,6 +3,8 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Register } from '../register/register';
+import { AuthService } from '../../core/services/auth.service';
+import { LoginRequest } from '../../shared/models/auth';
 
 @Component({
   selector: 'app-login',
@@ -12,10 +14,9 @@ import { Register } from '../register/register';
   styleUrl: './login.css',
 })
 export class Login {
-
-  private formBuilder:FormBuilder = inject(FormBuilder);
+  private formBuilder: FormBuilder = inject(FormBuilder);
   private router = inject(Router);
-
+  private authService = inject(AuthService);
   loading = false;
   error: string | null = null;
 
@@ -25,5 +26,22 @@ export class Login {
   });
 
 
-  protected readonly Register = Register;
+
+  submit(): void {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+    this.loading = true;
+    this.error = null;
+    this.authService
+      .login(this.form.value)
+      .subscribe({
+        next: () => this.router.navigateByUrl('/dashboard'),
+        error:(err) => {
+          this.error = err?.error?.message || "Problème lors de la connexion";
+          this.loading = false;
+        }
+      });
+  }
 }

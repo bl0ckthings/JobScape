@@ -1,4 +1,4 @@
-<!-- login-page.component.html -->
+<!-- register-page.component.html -->
 <main
   class="min-h-screen bg-[#080e20] text-[#111827] lg:flex lg:items-center lg:justify-center  lg:min-h-full"
 >
@@ -23,7 +23,7 @@
           class="grid h-10 w-10 place-items-center rounded-xl bg-[#315cff]
                  shadow-[0_10px_28px_rgba(49,92,255,0.38)]"
         >
-         <img src="/assets/jobscape-logo.png">
+         <img src="/assets/jobscape-logo.png" alt="" />
         </span>
 
         <span>
@@ -93,23 +93,21 @@
           </p>
         </header>
 
-        <!--
-
-        -->
         <div class="mt-7 min-h-[420px] lg:min-h-[350px]">
           <form
-            id="loginForm"
+            id="registerForm"
             class="mt-7 space-y-5"
             [formGroup]="form"
+            (ngSubmit)="submit()"
             novalidate
           >
-            <div class="flex gap-4 ">
-              <div>
+            <div class="flex gap-4">
+              <div class="min-w-0 flex-1">
                 <label
                   for="firstName"
                   class="mb-2 block text-[13px] font-semibold text-[#30394b]"
                 >
-                 Nom
+                  Nom
                 </label>
 
                 <input
@@ -117,20 +115,20 @@
                   type="text"
                   formControlName="firstName"
                   placeholder="Johnny"
-                  autocomplete="firstname"
+                  autocomplete="family-name"
                   class="h-12 w-full rounded-xl border bg-[#fafbfc] px-4 text-sm
              text-[#30394b] outline-none transition
              placeholder:text-[#8c919b]
              focus:border-[#315cff] focus:bg-white
              focus:ring-4 focus:ring-[#315cff]/10"
                   [class.border-red-500]="
-        form.get('firstname')?.touched && form.get('firstname')?.invalid
+        form.get('firstName')?.touched && form.get('firstName')?.invalid
       "
                   [class.border-[#dfe3ea]]="
-        !form.get('firstname')?.touched || form.get('firstname')?.valid
+        !form.get('firstName')?.touched || form.get('firstName')?.valid
       "
                   [attr.aria-invalid]="
-        form.get('firstname')?.touched && form.get('firstname')?.invalid
+        form.get('firstName')?.touched && form.get('firstName')?.invalid
       "
                   aria-describedby="firstNameError"
                 />
@@ -139,8 +137,8 @@
                   id="firstNameError"
                   class="mt-1.5 text-xs font-medium text-red-500"
                   *ngIf="
-        form.get('first')?.touched &&
-        form.get('email')?.hasError('required')
+        form.get('firstName')?.touched &&
+        form.get('firstName')?.hasError('required')
       "
                 >
                   Le Nom est obligatoire.
@@ -148,9 +146,9 @@
 
 
               </div>
-              <div>
+              <div class="min-w-0 flex-1">
                 <label
-                  for="firstName"
+                  for="lastName"
                   class="mb-2 block text-[13px] font-semibold text-[#30394b]"
                 >
                   Prénom
@@ -161,7 +159,7 @@
                   type="text"
                   formControlName="lastName"
                   placeholder="Marvin"
-                  autocomplete="lastName"
+                  autocomplete="given-name"
                   class="h-12 w-full rounded-xl border bg-[#fafbfc] px-4 text-sm
              text-[#30394b] outline-none transition
              placeholder:text-[#8c919b]
@@ -183,8 +181,8 @@
                   id="lastNameError"
                   class="mt-1.5 text-xs font-medium text-red-500"
                   *ngIf="
-        form.get('first')?.touched &&
-        form.get('email')?.hasError('required')
+        form.get('lastName')?.touched &&
+        form.get('lastName')?.hasError('required')
       "
                 >
                   Le Prénom est obligatoire.
@@ -238,7 +236,7 @@
               </p>
 
               <p
-                id="emailError"
+                id="emailFormatError"
                 class="mt-1.5 text-xs font-medium text-red-500"
                 *ngIf="
         form.get('email')?.touched &&
@@ -264,7 +262,7 @@
                 type="password"
                 formControlName="password"
                 placeholder="••••••••"
-                autocomplete="current-password"
+                autocomplete="new-password"
                 class="h-12 w-full rounded-xl border bg-[#fafbfc] px-4 text-sm
              text-[#30394b] outline-none transition
              placeholder:text-[#8c919b]
@@ -349,7 +347,7 @@
                 ></path>
               </svg>
 
-              {{ loading ? 'Connexion...' : 'Se connecter' }}
+              {{ loading ? 'Inscription...' : "S'inscrire" }}
             </button>
 
 
@@ -359,12 +357,12 @@
 
             <!-- Registration -->
             <p class="pt-1 text-center text-[13px] text-[#858d9d]">
-              Pas encore de compte ?
+              Déjà un compte ?
               <a
                 routerLink="/auth/login"
                 class="font-semibold text-[#315cff] transition hover:text-[#2448d8]"
               >
-                Créer un compte
+                Se connecter
               </a>
             </p>
           </form>

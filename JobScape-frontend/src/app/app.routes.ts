@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { ApplicationsBoardPage } from './features/applications/pages/applications-board-page/applications-board-page';
 import { AppShell } from './core/layout/app-shell/app-shell';
+import { authGuard } from './core/guards/auth-guard';
 
 
 export const routes: Routes = [
@@ -10,22 +11,24 @@ export const routes: Routes = [
   },
   {
     path: '',
+    canActivate: [authGuard],
     component: AppShell,
     children: [
       {
-        path: 'applications',
+        path: 'dashboard',
         loadComponent: () =>
           import('./features/applications/pages/applications-board-page/applications-board-page').then(
             (m) => m.ApplicationsBoardPage,
           ),
       },
 
-      // Add all pages that should display the sidebar here.
+      // Ici toutes les routes qui vont détenir ma sidebar
       {
         path: '',
-        redirectTo: 'applications',
+        redirectTo: 'dashboard',
         pathMatch: 'full',
       },
     ],
   },
+  { path: '**', redirectTo: '' },
 ];

@@ -3,6 +3,21 @@
     class="cursor-pointer fixed bottom-2.5 self-center bg-primary rounded-apply-btn shadow-apply-btn px-apply-btn-x p-apply-btn-y text-sidebar-text lg:hidden"
   >+ Ajouter une candidature</button>
   <app-applications-header></app-applications-header>
-  <app-board></app-board>
+  <div class="board">
+    <app-status-column class="wishlist">
+      <app-application-card>
+      </app-application-card>
+    </app-status-column>
+    <app-status-column class="envoyé"></app-status-column>
+    <app-status-column class="entretien"></app-status-column>
+    <app-application-card-menu>
+      <div class="step"></div>
+      <div class="contact"></div>
+      <div class="reminder"></div>
+    </app-application-card-menu>
+    <app-application-card>
+    </app-application-card>
+
+  </div>
 </div>
 
