@@ -1,44 +1,19 @@
-<section class="Candidatures-listWrapper-list List wishlist">
-  <!-- Candidatures-listWrapper-list List wishList -->
-  <div class="List-header">
-    <figure class="List-header-figure">
-      <img class="List-header-figure-img" src="./assets/wishlist-dot.svg" alt="">
-      <h3 class="List-header-figure-title">Wishlist</h3>
-    </figure>
-    <p class="List-header-applyCount">2</p>
-  </div>
-  <p></p>
-  <div class="List-card Card">
-    <div class="Card-top">
-      <div class="Card-top-info">
-        <p class="Card-top-info-companyName">No application yet !</p>
-        <p class="Card-top-info-jobTitle"> Create your wished job offer.</p>
-      </div>
-
+<section class="px-[1em] pt-[1em] pb-[2em] [border:var(--border-card)] rounded-xl bg-list-bg shadow-card flex flex-col gap-[1em]">
+  <div class="flex justify-between items-center pb-[0.75em] border-b border-(--color-card-border,#E6E8F0)">
+    
+    <div class="flex gap-2 items-center">
+      <span class="w-2 h-2 rounded-full bg-gray-400 shrink-0"></span>
+      <h3 class="font-semibold text-base-size">Wishlist</h3>
     </div>
-
-
+    
+    <span class="bg-gray-100 text-secondary-font rounded-full min-w-[1.5em] h-[1.5em] px-1.5 flex items-center justify-center text-label-size font-medium">2</span>
   </div>
-  <!-- <div class="List-card Card">
-      <div class="Card-top">
-          <div class="Card-top-info">
-              <p class="Card-top-info-companyName">Dassault</p>
-              <p class="Card-top-info-jobTitle">Backend Engineer</p>
-          </div>
-          <button class="Card-right-editBtn">
-              <img src="./assets/ellipsis-btn.png" alt="">
-          </button>
-      </div>
-      <div class="Card-middle">
-              <p class="Card-middle-tag toApply">CV Envoyé</p>
-              <p class="Card-middle-tag">Remote</p>
-      </div>
-      <div class="Card-bottom">
-          <p class="Card-bottom-dateText">Envoyé il y a 3 j.</p>
-          <div class="Card-bottom-notis">
-              <img src="./assets/bell-small.svg" class="Card-right-notis-img"/>
-              <p class="Card-bottom-notis-text">A rappeler dans 3j.</p>
-          </div>
-      </div>
-  </div>  -->
+   <button class="mt-1 w-full cursor-pointer border border-dashed border-(--color-card-border) rounded-xl py-[0.6em] text-small-size text-card-muted hover:text-secondary-font transition-colors">
+    + Ajouter une candidature
+  </button>
+  <app-application-card></app-application-card>
+  <app-application-card></app-application-card>
+  <app-application-card></app-application-card>
+  <app-application-card></app-application-card>
+ 
 </section>

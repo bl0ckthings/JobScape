@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { ApplicationCard } from '../application-card/application-card';
 
 @Component({
   selector: 'app-status-column',
-  imports: [],
+  imports: [ApplicationCard],
   templateUrl: './status-column.html',
   styleUrl: './status-column.css',
 })
