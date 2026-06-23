@@ -1,1 +1,224 @@
-<p>application-form-dialog works!</p>
+<section
+  class="w-[600px] overflow-hidden rounded-[18px] border border-[#E2E8F0]/95 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.18)]"
+  aria-label="Ajouter une candidature"
+>
+  <header
+    class="flex items-start justify-between gap-6 border-b border-[#E2E8F0] px-6 pb-[18px] pt-[22px]"
+  >
+    <div>
+      <h2 class="m-0 text-[18px] font-[850] leading-tight tracking-[-0.035em] text-slate-950">
+        {{ title() }}
+      </h2>
+
+      <p class="mt-1.5 text-[13px] leading-relaxed text-slate-500">
+        {{ subtitle() }}
+      </p>
+    </div>
+
+    <button
+      type="button"
+      aria-label="Fermer"
+      class="grid h-8 w-8 place-items-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-800"
+      (click)="close()"
+    >
+      <svg
+        class="h-[18px] w-[18px]"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+      >
+        <path d="M18 6 6 18"></path>
+        <path d="m6 6 12 12"></path>
+      </svg>
+    </button>
+  </header>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <main class="px-6 pb-[18px] pt-[21px]">
+      <!-- Informations principales -->
+      <section>
+        <h3
+          class="mb-[15px] flex items-center gap-[11px] text-sm font-[850] leading-tight tracking-[-0.02em] text-slate-950"
+        >
+          <svg
+            class="h-[18px] w-[18px] shrink-0 text-slate-500"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M3 21h18"></path>
+            <path d="M5 21V7l8-4v18"></path>
+            <path d="M19 21V11l-6-4"></path>
+            <path d="M9 9h1"></path>
+            <path d="M9 13h1"></path>
+            <path d="M9 17h1"></path>
+          </svg>
+
+          Informations principales
+        </h3>
+
+        <div class="grid grid-cols-2 gap-x-[13px] gap-y-3.5">
+          <app-base-input
+            label="Nom de l’entreprise"
+            placeholder="Ex: Dassault"
+            formControlName="companyName"
+          />
+
+          <app-base-input
+            label="Intitulé du poste"
+            placeholder="Ex: Backend Engineer"
+            formControlName="jobTitle"
+          />
+
+          <app-base-input
+            label="Ville"
+            placeholder="Ex: Paris"
+            formControlName="city"
+          />
+
+          <app-base-select
+            label="Pays"
+            [values]="countries"
+            placeholder="Choisir un pays"
+            formControlName="country"
+          />
+        </div>
+      </section>
+
+      <!-- Détails de candidature -->
+      <section class="mt-5 border-t border-[#E2E8F0] pt-[19px]">
+        <h3
+          class="mb-[15px] flex items-center gap-[11px] text-sm font-[850] leading-tight tracking-[-0.02em] text-slate-950"
+        >
+          <svg
+            class="h-[18px] w-[18px] shrink-0 text-slate-500"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M10 13a5 5 0 0 0 7.07 0l2.83-2.83a5 5 0 0 0-7.07-7.07L11 4.93"></path>
+            <path d="M14 11a5 5 0 0 0-7.07 0L4.1 13.83a5 5 0 0 0 7.07 7.07L13 19.07"></path>
+          </svg>
+
+          Détails de candidature
+        </h3>
+
+        <div class="grid grid-cols-2 gap-x-[13px] gap-y-3.5">
+          <app-base-select
+            label="Canal de postulation"
+            [values]="sources"
+            placeholder="Choisir un canal"
+            formControlName="source"
+          />
+
+          <app-base-select
+            label="Mode de travail"
+            [values]="workModes"
+            placeholder="Choisir un mode"
+            formControlName="workMode"
+          />
+
+          <div class="col-span-2">
+            <app-base-input
+              label="URL de l’offre"
+              type="url"
+              placeholder="https://..."
+              formControlName="url"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- Suivi initial -->
+      <section class="mt-5 border-t border-[#E2E8F0] pt-[19px]">
+        <h3
+          class="mb-[15px] flex items-center gap-[11px] text-sm font-[850] leading-tight tracking-[-0.02em] text-slate-950"
+        >
+          <svg
+            class="h-[18px] w-[18px] shrink-0 text-slate-500"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 2 4 5v6c0 5.5 3.8 10.2 8 11 4.2-.8 8-5.5 8-11V5z"></path>
+            <path d="m9 12 2 2 4-4"></path>
+          </svg>
+
+          Suivi initial
+        </h3>
+
+        <div class="grid grid-cols-2 gap-x-[13px] gap-y-3.5">
+          <app-base-select
+            label="Statut initial"
+            [values]="statuses"
+            placeholder="Choisir un statut"
+            formControlName="initialStatus"
+          />
+
+          <app-date-input
+            label="Date"
+            placeholder="Choisir une date"
+            formControlName="initialDate"
+          />
+
+          <div class="col-span-2">
+            <app-base-textarea
+              label="Commentaire initial"
+              placeholder="Ajoutez un commentaire pour vous souvenir des détails importants..."
+              [optional]="true"
+              [rows]="3"
+              formControlName="comment"
+            />
+          </div>
+        </div>
+
+        <label
+          class="mt-[15px] flex cursor-pointer items-center gap-[9px] text-[13px] font-semibold leading-tight text-slate-700"
+        >
+          <input
+            type="checkbox"
+            formControlName="createReminder"
+            class="h-[15px] w-[15px] rounded border-slate-300 text-blue-600 focus:ring-blue-500/20"
+          />
+
+          Créer un rappel pour relancer plus tard
+
+          <span
+            class="grid h-4 w-4 place-items-center rounded-full border border-slate-300 text-[10px] font-extrabold text-slate-500"
+          >
+            i
+          </span>
+        </label>
+      </section>
+    </main>
+
+    <footer class="flex justify-end gap-[11px] px-6 pb-6 pt-[17px]">
+      <button
+        type="button"
+        class="h-[38px] min-w-[92px] rounded-[10px] bg-slate-950 text-[13px] font-bold text-white shadow-[0_10px_20px_rgba(15,23,42,0.14)] transition hover:bg-slate-900"
+        (click)="close()"
+      >
+        Annuler
+      </button>
+
+      <button
+        type="submit"
+        class="h-[38px] min-w-[92px] rounded-[10px] bg-gradient-to-br from-blue-600 to-blue-500 text-[13px] font-bold text-white shadow-[0_12px_26px_rgba(37,99,235,0.26)] transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-60"
+        [disabled]="form.invalid"
+      >
+        {{ mode === 'edit' ? 'Sauvegarder' : 'Ajouter' }}
+      </button>
+    </footer>
+  </form>
+</section>

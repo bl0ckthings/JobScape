@@ -5,8 +5,22 @@
   </button>
   <app-applications-header></app-applications-header>
   <div class="lg:flex lg:gap-[1em] lg:items-start">
-    <app-status-column></app-status-column>
-    <app-status-column></app-status-column>
-    <app-status-column></app-status-column>
+    <app-applications-status-column></app-applications-status-column>
+    <app-applications-status-column></app-applications-status-column>
+    <app-applications-status-column></app-applications-status-column>
+
+
   </div>
+  <app-badge status="HR_INTERVIEW"></app-badge>
+  <app-base-input ></app-base-input>
+  <app-base-select></app-base-select>
+  <app-date-input></app-date-input>
+  <app-base-textarea
+    label="Commentaire initial"
+    placeholder="Ajoutez un commentaire pour vous souvenir des détails importants..."
+    [rows]="3"
+    [optional]="true"
+  />
+  <button (click)="openCreateApplicationDialog()">Open MODAL</button>
+
 </div>

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-application-card-menu',
+  selector: 'app-application-card-actions',
   imports: [],
   templateUrl: './application-card-menu.html',
   styleUrl: './application-card-menu.css',

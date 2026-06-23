@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ApplicationFormDialog } from './application-form-dialog';
+import { ApplicationReminderForm } from './application-reminder-form';
 
-describe('ApplicationFormDialog', () => {
-  let component: ApplicationFormDialog;
-  let fixture: ComponentFixture<ApplicationFormDialog>;
+describe('ApplicationReminderForm', () => {
+  let component: ApplicationReminderForm;
+  let fixture: ComponentFixture<ApplicationReminderForm>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ApplicationFormDialog],
+      imports: [ApplicationReminderForm],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ApplicationFormDialog);
+    fixture = TestBed.createComponent(ApplicationReminderForm);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

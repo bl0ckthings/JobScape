@@ -1,0 +1,20 @@
+
+<div class="flex flex-col gap-2">
+  <label class="text-xs font-semibold text-slate-700">
+    {{label }}
+  </label>
+
+  <select [name]="name"
+    class="h-10 w-full rounded-[10px] border border-[#E2E8F0] bg-white px-3 text-sm text-slate-900 shadow-[0_1px_2px_rgba(15,23,42,0.03)] outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
+  >
+    <option value="" disabled selected>
+      {{placeholder}}
+    </option>
+    @for (value of values; track value) {
+    <option [value]="value"></option>
+    }
+  </select>
+  @if (error) {
+    <p class="text-xs text-red-600">{{ error }}</p>
+  }
+</div>

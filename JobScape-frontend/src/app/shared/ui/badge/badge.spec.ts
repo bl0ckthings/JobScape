@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CompanyFormDialog } from './company-form-dialog';
+import { Badge } from './badge';
 
-describe('CompanyFormDialog', () => {
-  let component: CompanyFormDialog;
-  let fixture: ComponentFixture<CompanyFormDialog>;
+describe('Badge', () => {
+  let component: Badge;
+  let fixture: ComponentFixture<Badge>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CompanyFormDialog],
+      imports: [Badge],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CompanyFormDialog);
+    fixture = TestBed.createComponent(Badge);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
