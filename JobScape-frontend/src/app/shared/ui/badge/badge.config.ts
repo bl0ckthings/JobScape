@@ -1,6 +1,6 @@
 // shared/ui/badge/badge.config.ts
 
-import { ApplicationStatus } from '../../models/application-status.model';
+import { ApplicationStatus } from '../../models/applications/application-status.model';
 
 
 

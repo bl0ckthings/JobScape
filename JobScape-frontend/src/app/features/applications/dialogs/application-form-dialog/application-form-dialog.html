@@ -1,16 +1,16 @@
 <section
-  class="w-[600px] overflow-hidden rounded-[18px] border border-[#E2E8F0]/95 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.18)]"
+  class="flex h-[750px] max-h-[80vh] w-full flex-col overflow-hidden rounded-[18px] border border-[#E2E8F0]/95 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.18)]"
   aria-label="Ajouter une candidature"
 >
   <header
-    class="flex items-start justify-between gap-6 border-b border-[#E2E8F0] px-6 pb-[18px] pt-[22px]"
+    class="flex shrink-0 items-start justify-between gap-6 border-b border-[#E2E8F0] px-6 pb-3.5 pt-4"
   >
     <div>
       <h2 class="m-0 text-[18px] font-[850] leading-tight tracking-[-0.035em] text-slate-950">
         {{ title() }}
       </h2>
 
-      <p class="mt-1.5 text-[13px] leading-relaxed text-slate-500">
+      <p class="mt-1 text-[12px] leading-relaxed text-slate-500">
         {{ subtitle() }}
       </p>
     </div>
@@ -35,12 +35,12 @@
     </button>
   </header>
 
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <main class="px-6 pb-[18px] pt-[21px]">
+  <form [formGroup]="form" (ngSubmit)="submit()" class="flex min-h-0 flex-1 flex-col">
+    <main class="flex-1 overflow-y-auto px-6 pb-3.5 pt-4">
       <!-- Informations principales -->
       <section>
         <h3
-          class="mb-[15px] flex items-center gap-[11px] text-sm font-[850] leading-tight tracking-[-0.02em] text-slate-950"
+          class="mb-3 flex items-center gap-[11px] text-[13px] font-[850] leading-tight tracking-[-0.02em] text-slate-950"
         >
           <svg
             class="h-[18px] w-[18px] shrink-0 text-slate-500"
@@ -62,38 +62,77 @@
           Informations principales
         </h3>
 
-        <div class="grid grid-cols-2 gap-x-[13px] gap-y-3.5">
-          <app-base-input
-            label="Nom de l’entreprise"
-            placeholder="Ex: Dassault"
-            formControlName="companyName"
-          />
+        <div class="grid grid-cols-2 gap-x-3 gap-y-2.5">
+          <div class="flex flex-col gap-2">
+            <label class="form-label" for="companyName">
+              Nom de l’entreprise
+            </label>
 
-          <app-base-input
-            label="Intitulé du poste"
-            placeholder="Ex: Backend Engineer"
-            formControlName="jobTitle"
-          />
+            <input
+              id="companyName"
+              type="text"
+              placeholder="Ex. Dassault"
+              formControlName="companyName"
+              class="form-input"
+            />
+          </div>
 
-          <app-base-input
-            label="Ville"
-            placeholder="Ex: Paris"
-            formControlName="city"
-          />
+          <div class="flex flex-col gap-2">
+            <label class="form-label" for="jobTitle">
+              Intitulé du poste
+            </label>
 
-          <app-base-select
-            label="Pays"
-            [values]="countries"
-            placeholder="Choisir un pays"
-            formControlName="country"
-          />
+            <input
+              id="jobTitle"
+              type="text"
+              placeholder="Ex: Backend Engineer"
+              formControlName="jobTitle"
+              class="form-input"
+            />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label class="form-label" for="city">
+              Ville
+            </label>
+
+            <input
+              id="city"
+              type="text"
+              placeholder="Ex: Paris"
+              formControlName="city"
+              class="form-input"
+            />
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label class="form-label" for="country">
+              Pays
+            </label>
+
+            <select
+              id="country"
+              formControlName="country"
+              class="form-input"
+            >
+              <option value="" disabled>
+                Sélectionner un Pays
+              </option>
+
+              @for (country of countries; track country) {
+                <option [value]="country">
+                  {{ country }}
+                </option>
+              }
+            </select>
+          </div>
         </div>
       </section>
 
       <!-- Détails de candidature -->
-      <section class="mt-5 border-t border-[#E2E8F0] pt-[19px]">
+      <section class="mt-3.5 border-t border-[#E2E8F0] pt-3.5">
         <h3
-          class="mb-[15px] flex items-center gap-[11px] text-sm font-[850] leading-tight tracking-[-0.02em] text-slate-950"
+          class="mb-3 flex items-center gap-[11px] text-[13px] font-[850] leading-tight tracking-[-0.02em] text-slate-950"
         >
           <svg
             class="h-[18px] w-[18px] shrink-0 text-slate-500"
@@ -111,36 +150,71 @@
           Détails de candidature
         </h3>
 
-        <div class="grid grid-cols-2 gap-x-[13px] gap-y-3.5">
-          <app-base-select
-            label="Canal de postulation"
-            [values]="sources"
-            placeholder="Choisir un canal"
-            formControlName="source"
-          />
+        <div class="grid grid-cols-2 gap-x-3 gap-y-2.5">
+          <div class="flex flex-col gap-2">
+            <label class="form-label" for="source">
+              Canal de postulation
+            </label>
 
-          <app-base-select
-            label="Mode de travail"
-            [values]="workModes"
-            placeholder="Choisir un mode"
-            formControlName="workMode"
-          />
+            <select
+              id="source"
+              formControlName="source"
+              class="form-input"
+            >
+              <option value="" disabled>
+                Choisir un canal
+              </option>
 
-          <div class="col-span-2">
-            <app-base-input
-              label="URL de l’offre"
+              @for (source of sources; track source) {
+                <option [value]="source">
+                  {{ source }}
+                </option>
+              }
+            </select>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label class="form-label" for="workMode">
+              Mode de travail
+            </label>
+
+            <select
+              id="workMode"
+              formControlName="workMode"
+              class="form-input"
+            >
+              <option value="" disabled>
+                Choisir un mode
+              </option>
+
+              @for (workMode of workModes; track workMode) {
+                <option [value]="workMode">
+                  {{ workMode }}
+                </option>
+              }
+            </select>
+          </div>
+
+          <div class="col-span-2 flex flex-col gap-2">
+            <label class="form-label" for="url">
+              URL de l’offre
+            </label>
+
+            <input
+              id="url"
               type="url"
               placeholder="https://..."
               formControlName="url"
+              class="form-input"
             />
           </div>
         </div>
       </section>
 
       <!-- Suivi initial -->
-      <section class="mt-5 border-t border-[#E2E8F0] pt-[19px]">
+      <section class="mt-3.5 border-t border-[#E2E8F0] pt-3.5">
         <h3
-          class="mb-[15px] flex items-center gap-[11px] text-sm font-[850] leading-tight tracking-[-0.02em] text-slate-950"
+          class="mb-3 flex items-center gap-[11px] text-[13px] font-[850] leading-tight tracking-[-0.02em] text-slate-950"
         >
           <svg
             class="h-[18px] w-[18px] shrink-0 text-slate-500"
@@ -158,33 +232,62 @@
           Suivi initial
         </h3>
 
-        <div class="grid grid-cols-2 gap-x-[13px] gap-y-3.5">
-          <app-base-select
-            label="Statut initial"
-            [values]="statuses"
-            placeholder="Choisir un statut"
-            formControlName="initialStatus"
-          />
+        <div class="grid grid-cols-2 gap-x-3 gap-y-2.5">
+          <div class="flex flex-col gap-2">
+            <label class="form-label" for="initialStatus">
+              Statut initial
+            </label>
 
-          <app-date-input
-            label="Date"
-            placeholder="Choisir une date"
-            formControlName="initialDate"
-          />
+            <select
+              id="initialStatus"
+              formControlName="initialStatus"
+              class="form-input"
+            >
+              <option value="" disabled>
+                Choisir un statut
+              </option>
 
-          <div class="col-span-2">
-            <app-base-textarea
-              label="Commentaire initial"
-              placeholder="Ajoutez un commentaire pour vous souvenir des détails importants..."
-              [optional]="true"
-              [rows]="3"
-              formControlName="comment"
+              @for (status of statuses; track status) {
+                <option [value]="status">
+                  {{ status }}
+                </option>
+              }
+            </select>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label class="form-label" for="initialDate">
+              Date
+            </label>
+
+            <input
+              id="initialDate"
+              type="date"
+              formControlName="initialDate"
+              class="form-input"
             />
+          </div>
+
+          <div class="col-span-2 flex flex-col gap-2">
+            <label class="form-label" for="comment">
+              Commentaire initial
+              <span class="font-semibold text-slate-400">
+                (optionnel)
+              </span>
+            </label>
+
+            <textarea
+              id="comment"
+              rows="3"
+              placeholder="Ajoutez un commentaire pour vous souvenir des détails importants..."
+              formControlName="comment"
+              class="form-input min-h-[60px] resize-none py-2"
+            ></textarea>
           </div>
         </div>
 
         <label
-          class="mt-[15px] flex cursor-pointer items-center gap-[9px] text-[13px] font-semibold leading-tight text-slate-700"
+          class="mt-2.5 flex cursor-pointer items-center gap-[9px] text-[13px] font-semibold leading-tight text-slate-700"
         >
           <input
             type="checkbox"
@@ -203,10 +306,10 @@
       </section>
     </main>
 
-    <footer class="flex justify-end gap-[11px] px-6 pb-6 pt-[17px]">
+    <footer class="flex shrink-0 items-center justify-end gap-[11px] border-t border-[#E2E8F0] px-6 pb-4 pt-3.5">
       <button
         type="button"
-        class="h-[38px] min-w-[92px] rounded-[10px] bg-slate-950 text-[13px] font-bold text-white shadow-[0_10px_20px_rgba(15,23,42,0.14)] transition hover:bg-slate-900"
+        class=" text-center h-[38px] min-w-[92px] rounded-[10px] bg-slate-950 text-[13px] font-bold text-white shadow-[0_10px_20px_rgba(15,23,42,0.14)] transition hover:bg-slate-900"
         (click)="close()"
       >
         Annuler
@@ -214,9 +317,10 @@
 
       <button
         type="submit"
-        class="h-[38px] min-w-[92px] rounded-[10px] bg-gradient-to-br from-blue-600 to-blue-500 text-[13px] font-bold text-white shadow-[0_12px_26px_rgba(37,99,235,0.26)] transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-60"
+        class="text-center h-[38px] min-w-[92px] rounded-[10px] bg-gradient-to-br from-blue-600 to-blue-500 text-[13px] font-bold text-white shadow-[0_12px_26px_rgba(37,99,235,0.26)] transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-60"
         [disabled]="form.invalid"
-      >
+        (click)="submit()"
+      >   
         {{ mode === 'edit' ? 'Sauvegarder' : 'Ajouter' }}
       </button>
     </footer>

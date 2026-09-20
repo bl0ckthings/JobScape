@@ -1,12 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
-import { NgIf } from '@angular/common';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
-import { BaseInput } from '../../../../shared/ui/base-input/input';
-import { BaseSelect } from '../../../../shared/ui/base-select/base-select';
-import { BaseTextarea } from '../../../../shared/ui/base-textarea/base-textarea';
-import { DateInput } from '../../../../shared/ui/date-input/date-input';
 
 export type ApplicationFormMode = 'create' | 'edit';
 
@@ -44,22 +39,14 @@ export type ApplicationFormValue = {
 @Component({
   selector: 'app-application-form-dialog',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    NgIf,
-
-
-    BaseInput,
-    BaseSelect,
-    BaseTextarea,
-    DateInput,
-  ],
+  imports: [ReactiveFormsModule],
   templateUrl: './application-form-dialog.html',
 })
 export class ApplicationFormDialog{
   private readonly fb = inject(FormBuilder);
-  private readonly dialogRef = inject(DialogRef<ApplicationFormValue | undefined>);
-  readonly data = inject<ApplicationFormDialogData | null>(DIALOG_DATA, {
+  private readonly dialogRef =
+    inject<MatDialogRef<ApplicationFormDialog, ApplicationFormValue | undefined>>(MatDialogRef);
+  readonly data = inject<ApplicationFormDialogData | null>(MAT_DIALOG_DATA, {
     optional: true,
   });
 
@@ -112,8 +99,8 @@ export class ApplicationFormDialog{
     ],
     city: [this.data?.application?.city ?? '', [Validators.required, Validators.maxLength(255)]],
     country: [this.data?.application?.country ?? 'France', [Validators.required]],
-    source: [this.data?.application?.source ?? 'Indeed', [Validators.required]],
-    workMode: [this.data?.application?.workMode ?? 'Remote', [Validators.required]],
+    source: [this.data?.application?.source ?? '', [Validators.required]],
+    workMode: [this.data?.application?.workMode ?? '', [Validators.required]],
     url: [this.data?.application?.url ?? '', [Validators.required, Validators.maxLength(2048)]],
     initialStatus: [this.data?.application?.initialStatus ?? 'CV envoyé', [Validators.required]],
     initialDate: [this.data?.application?.initialDate ?? null],
@@ -128,8 +115,10 @@ export class ApplicationFormDialog{
   submit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      return;
+
+      return
     }
+    console.log(this.form.value)
 
     this.dialogRef.close(this.form.getRawValue());
   }

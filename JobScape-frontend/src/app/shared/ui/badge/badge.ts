@@ -1,6 +1,6 @@
 import { Component, computed, input } from '@angular/core';
 import { APPLICATION_STATUS_BADGE_CONFIG } from './badge.config';
-import { ApplicationStatus } from '../../models/application-status.model';
+import { ApplicationStatus } from '../../models/applications/application-status.model';
 
 @Component({
   selector: 'app-badge',

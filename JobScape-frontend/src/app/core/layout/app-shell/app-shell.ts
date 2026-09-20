@@ -11,5 +11,5 @@ import {RouterOutlet } from '@angular/router';
   styleUrl: './app-shell.css',
 })
 export class AppShell {
-  
+
 }
