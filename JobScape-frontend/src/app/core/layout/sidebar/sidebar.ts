@@ -25,6 +25,9 @@ export class Sidebar {
 
 
 
+
+
+
 isOpen = false;
 
 toggleSidebar(event: Event):void {

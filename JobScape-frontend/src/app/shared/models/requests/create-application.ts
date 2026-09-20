@@ -1,6 +1,6 @@
-import { Application, ApplicationStep } from '../applications/application.model';
+import { ApplicationStatus } from '../applications/application-status.model';
 
-export interface NewApplicationDto {
+export interface CreateApplication {
   companyName: string;
   jobTitle: string;
   city: string;
@@ -8,7 +8,7 @@ export interface NewApplicationDto {
   source: string;
   workMode: string;
   url?: string;
-  initialStatus: string;
+  initialStatus: ApplicationStatus;
   initialDate: string | null;
   comment?: string;
   createReminder: boolean;

@@ -101,7 +101,7 @@ export class ApplicationFormDialog{
     country: [this.data?.application?.country ?? 'France', [Validators.required]],
     source: [this.data?.application?.source ?? '', [Validators.required]],
     workMode: [this.data?.application?.workMode ?? '', [Validators.required]],
-    url: [this.data?.application?.url ?? '', [Validators.required, Validators.maxLength(2048)]],
+    url: [this.data?.application?.url ?? '', [Validators.maxLength(2048)]],
     initialStatus: [this.data?.application?.initialStatus ?? 'CV envoyé', [Validators.required]],
     initialDate: [this.data?.application?.initialDate ?? null],
     comment: [this.data?.application?.comment ?? '', [Validators.maxLength(1000)]],

@@ -8,9 +8,28 @@ cursor-pointer transition-shadow hover:shadow-card-hover
       <p class="font-bold text-base-size">Componize - Aix en Provence</p>
       <p class="text-small-size text-card-muted">Développeur Full Stack Alternance</p>
     </div>
-    <button class="appearance-none border-0 bg-transparent p-0 m-0 cursor-pointer">
-      <img src="./assets/ellipsis-btn.png" alt="Options">
+
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="applicationMenu"
+      aria-label="Actions"
+    >
+      <mat-icon>more_horiz</mat-icon>
     </button>
+    <mat-menu #applicationMenu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>visibility</mat-icon>
+        <span>Voir en détails</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>edit</mat-icon>
+        <span>Modifier</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon >delete</mat-icon>
+        <span class="text-red-500">Supprimer</span>
+      </button>
+    </mat-menu>
   </div>
   <div class="flex gap-[0.5em] flex-wrap">
     <span class="text-label-size py-tag-padding-y px-tag-padding-x [border:var(--border-tag-applied)] bg-tag-applied-bg rounded-tag">CV Envoyé</span>

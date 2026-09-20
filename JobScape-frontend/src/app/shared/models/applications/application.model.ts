@@ -2,6 +2,7 @@ import { ApplicationStatus } from './application-status.model';
 
 export interface Application {
   id:number;
+  companyName:string;
   jobTitle: string;
   city: string;
   country: string;
