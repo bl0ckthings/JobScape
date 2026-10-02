@@ -24,7 +24,7 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-    @GetMapping("/")
+    @GetMapping()
     public UserResponse getUserByEmail(@RequestParam(required = false) String email) {
        return userService.getUserByEmail(email);
     }

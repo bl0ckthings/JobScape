@@ -1,15 +1,10 @@
 package com.jobscape.webgateway.client;
 
-import com.jobscape.webgateway.model.User;
-import com.jobscape.webgateway.service.dto.LoginRequest;
-import com.jobscape.webgateway.service.dto.LoginResponse;
-import com.jobscape.webgateway.service.dto.RegisterRequest;
-import com.jobscape.webgateway.service.dto.UserResponse;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+import com.jobscape.webgateway.service.authDto.LoginResponse;
+import com.jobscape.webgateway.service.authDto.RegisterRequest;
+import com.jobscape.webgateway.service.authDto.UserResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @FeignClient("user-service")
 public interface UserClient {

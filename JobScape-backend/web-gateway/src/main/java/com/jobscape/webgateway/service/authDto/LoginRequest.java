@@ -1,10 +1,8 @@
-package com.jobscape.webgateway.service.dto;
+package com.jobscape.webgateway.service.authDto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
-import lombok.Setter;
 
 @Data
 public class LoginRequest {

@@ -1,4 +1,4 @@
-package com.jobscape.webgateway.service.dto;
+package com.jobscape.webgateway.service.authDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

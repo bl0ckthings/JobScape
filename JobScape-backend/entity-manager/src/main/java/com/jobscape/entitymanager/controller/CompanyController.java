@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/data/companies")
+@RequestMapping("/internal/companies")
 public class CompanyController {
 
     @Autowired
@@ -31,8 +31,9 @@ public class CompanyController {
         return companyRepository.save(company);
     }
 
-    @DeleteMapping("/delete")
-    public void delete(@RequestBody Company company) {
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable Long id) {
+        Company company = companyRepository.findById(id).get();
         companyRepository.delete(company);
     }
 

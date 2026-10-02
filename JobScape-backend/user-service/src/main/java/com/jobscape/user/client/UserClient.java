@@ -9,16 +9,16 @@ import java.util.Optional;
 
 @FeignClient("entity-manager")
 public interface UserClient {
-    @RequestMapping(method = RequestMethod.GET, value = "/data/users/{id}", consumes = "application/json")
+    @RequestMapping(method = RequestMethod.GET, value = "/internal/users/{id}", consumes = "application/json")
     Optional<User> findById(@PathVariable long id);
 
-    @RequestMapping(method = RequestMethod.GET, value = "/data/users", consumes = "application/json")
+    @RequestMapping(method = RequestMethod.GET, value = "/internal/users", consumes = "application/json")
     List<User> findByEmail(@RequestParam(required = false) String email);
 
-    @RequestMapping(method = RequestMethod.POST, value = "/data/users/add", consumes = "application/json")
+    @RequestMapping(method = RequestMethod.POST, value = "/internal/users/add", consumes = "application/json")
     User save(@RequestBody User user);
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/data/users/delete/{id}", consumes = "application/json")
+    @RequestMapping(method = RequestMethod.DELETE, value = "/internal/users/delete/{id}", consumes = "application/json")
     void delete(@PathVariable Long id);
 
 
