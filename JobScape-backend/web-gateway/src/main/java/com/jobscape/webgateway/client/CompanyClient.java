@@ -12,8 +12,8 @@ public interface CompanyClient {
     @RequestMapping(method = RequestMethod.GET, value = "/companies", consumes = "application/json")
     List<Company> getCompanies();
 
-    @RequestMapping(method = RequestMethod.GET, value = "/companies", consumes = "application/json")
-    Company getCompanyById(@RequestParam Long id);
+    @RequestMapping(method = RequestMethod.GET, value = "/companies/{id}", consumes = "application/json")
+    Company getCompanyById(@PathVariable Long id);
 
     @RequestMapping(method = RequestMethod.POST, value = "/companies/create", consumes = "application/json")
     Company createCompany(@RequestBody Company company);

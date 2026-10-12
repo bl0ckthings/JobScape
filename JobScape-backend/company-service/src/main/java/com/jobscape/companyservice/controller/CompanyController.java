@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@RestController
 @RequestMapping("/companies")
 @RequiredArgsConstructor
 public class CompanyController {
@@ -20,8 +20,8 @@ public class CompanyController {
         return companyClient.getCompanies();
     }
 
-    @GetMapping()
-    public Company getCompanyById(@RequestParam Long id) {
+    @GetMapping("/{id}")
+    public Company getCompanyById(@PathVariable Long id) {
         return companyClient.getCompanyById(id);
     }
 

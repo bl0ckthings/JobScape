@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: application-service
+  cloud:
+    consul:
+      port: 8500
+      host: localhost
+      discovery:
+        health-check-path: /actuator/health
+        enabled: true
+server:
+  port: 8083
