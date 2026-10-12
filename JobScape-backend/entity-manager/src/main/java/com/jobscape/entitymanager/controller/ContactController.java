@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/data/contact")
+@RequestMapping("/internal/contact")
 public class ContactController {
     @Autowired
     ContactRepository contactRepository;

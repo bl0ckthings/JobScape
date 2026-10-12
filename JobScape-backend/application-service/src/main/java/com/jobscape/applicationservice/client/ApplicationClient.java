@@ -13,22 +13,22 @@ import java.util.List;
 
 @FeignClient("entity-manager")
 public interface ApplicationClient {
-    @RequestMapping(method = RequestMethod.GET, value = "/applications/{id}", consumes = "application/json")
+    @RequestMapping(method = RequestMethod.GET, value = "/internal/applications/{id}", consumes = "application/json")
     Application getApplicationById(@PathVariable long id);
 
-    @RequestMapping(method = RequestMethod.GET, value = "/applications/user/{id}", consumes = "application/json")
+    @RequestMapping(method = RequestMethod.GET, value = "/internal/applications/user/{id}", consumes = "application/json")
     List<Application> getApplicationByUserId(@PathVariable long id);
 
-    @RequestMapping(method = RequestMethod.GET, value = "/applications", consumes = "application/json")
+    @RequestMapping(method = RequestMethod.GET, value = "/internal/applications", consumes = "application/json")
     List<Application> getAllApplications();
 
-    @RequestMapping(method = RequestMethod.POST, value = "/applications/create", consumes = "application/json")
+    @RequestMapping(method = RequestMethod.POST, value = "/internal/applications/create", consumes = "application/json")
     Application create(@RequestBody Application application);
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/applications/delete/{id}", consumes = "application/json")
+    @RequestMapping(method = RequestMethod.DELETE, value = "/internal/applications/delete/{id}", consumes = "application/json")
     void delete(@PathVariable Long id);
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/applications/update/{id}", consumes = "application/json")
+    @RequestMapping(method = RequestMethod.PUT, value = "/internal/applications/update/{id}", consumes = "application/json")
     Application update(@PathVariable Long id, @RequestBody Application application);
 
 }

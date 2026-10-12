@@ -1,10 +1,9 @@
 package com.jobscape.webgateway.service;
 
 import com.jobscape.webgateway.client.UserClient;
-import com.jobscape.webgateway.service.dto.UserResponse;
+import com.jobscape.webgateway.service.authDto.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 @Service

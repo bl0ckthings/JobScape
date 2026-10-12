@@ -21,13 +21,13 @@ public class Application {
     private String url;
     private ApplicationStatus status;
     private String workMode;
+
+    private Long userId;
+
+    private Long companyId;
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-
-    private User user;
-
-    private Company company;
-
 
     private List<ApplicationStep> steps = new ArrayList<>();
 }

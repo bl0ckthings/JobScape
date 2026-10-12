@@ -16,14 +16,7 @@ public class ApplicationStep {
 
     private LocalDateTime stepDate;
 
-
     private ApplicationStatus stepStatus;
 
-    private LocalDateTime createdAt;
-
-    private LocalDateTime updatedAt;
-
-    private Application application;
-
-    private Contact contact;
+    private Long contactId;
 }

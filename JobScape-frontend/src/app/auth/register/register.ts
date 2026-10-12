@@ -12,24 +12,20 @@ import { RegisterRequest } from '../../shared/models/auth';
 })
 export class Register {
   private formBuilder: FormBuilder = inject(FormBuilder);
-  private router:Router = inject(Router);
+  private router: Router = inject(Router);
   private authService = new AuthService();
 
-  loading:boolean = false;
-  error:string | null = null;
+  loading: boolean = false;
+  error: string | null = null;
 
-
-  form:FormGroup = this.formBuilder.group({
+  form: FormGroup = this.formBuilder.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
     email: ['', Validators.required],
     password: ['', Validators.required],
   });
 
-
-
-
-  submit():void {
+  submit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -43,12 +39,10 @@ export class Register {
         this.loading = false;
         this.router.navigateByUrl('/login');
       },
-      error: err => {
+      error: (err) => {
         this.loading = false;
         this.error = err?.error?.message || 'Erreur lors de la création du compte';
-      }
-    })
+      },
+    });
   }
-
-
 }
