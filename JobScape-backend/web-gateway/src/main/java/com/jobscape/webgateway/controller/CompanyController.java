@@ -3,12 +3,10 @@ package com.jobscape.webgateway.controller;
 import com.jobscape.webgateway.client.CompanyClient;
 import com.jobscape.webgateway.model.Company;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@RestController
 @RequestMapping("/api/companies")
 @RequiredArgsConstructor
 public class CompanyController {
@@ -20,8 +18,8 @@ public class CompanyController {
         return companyClient.getCompanies();
     }
 
-    @GetMapping()
-    public Company getCompany(@RequestParam Long id) {
+    @GetMapping("/{id}")
+    public Company getCompany(@PathVariable Long id) {
         return companyClient.getCompanyById(id);
     }
 
