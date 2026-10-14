@@ -1,19 +1,17 @@
 package com.jobscape.entitymanager.service;
 
 import com.jobscape.entitymanager.dto.ApplicationDto;
-import com.jobscape.entitymanager.dto.ApplicationStepDto;
 import com.jobscape.entitymanager.dto.ReminderDto;
 import com.jobscape.entitymanager.model.Application;
 import com.jobscape.entitymanager.model.Reminder;
-import com.jobscape.entitymanager.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
 public class ApplicationMapper {
+    private final ApplicationStepMapper applicationStepMapper;
+
     // Entity -> DTO: outgoing response
     public ApplicationDto toDto(Application application) {
         ApplicationDto dto = new ApplicationDto();
@@ -30,7 +28,9 @@ public class ApplicationMapper {
         dto.setUpdatedAt(application.getUpdatedAt());
         dto.setUserId(application.getUser().getId());
         dto.setCompanyId(application.getCompany().getId());
-        dto.setSteps();
+        dto.setSteps(application.getSteps().stream()
+                .map(applicationStepMapper::toDto)
+                .toList());
 
         return dto;
     }
