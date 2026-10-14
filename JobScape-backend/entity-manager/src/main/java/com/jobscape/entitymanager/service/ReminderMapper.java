@@ -16,6 +16,7 @@ public class ReminderMapper {
         dto.setReminderDate(reminder.getReminderDate());
         dto.setComment(reminder.getComment());
         dto.setCreatedAt(reminder.getCreatedAt());
+        dto.setUpdatedAt(reminder.getUpdatedAt());
         dto.setApplicationId(reminder.getApplication().getId());
 
         return dto;

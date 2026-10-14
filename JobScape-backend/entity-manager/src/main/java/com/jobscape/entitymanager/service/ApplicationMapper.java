@@ -1,9 +1,9 @@
 package com.jobscape.entitymanager.service;
 
 import com.jobscape.entitymanager.dto.ApplicationDto;
-import com.jobscape.entitymanager.dto.ReminderDto;
 import com.jobscape.entitymanager.model.Application;
-import com.jobscape.entitymanager.model.Reminder;
+import com.jobscape.entitymanager.model.Company;
+import com.jobscape.entitymanager.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -36,16 +36,23 @@ public class ApplicationMapper {
     }
 
     // DTO -> Entity: incoming request
-    public Reminder toEntity(
-            ReminderDto dto,
-            Application application
+    public Application toEntity(
+            ApplicationDto dto,
+            User user,
+            Company company
     ) {
-        Reminder reminder = new Reminder();
+        Application application = new Application();
 
-        reminder.setReminderDate(dto.getReminderDate());
-        reminder.setComment(dto.getComment());
-        reminder.setApplication(application);
+        application.setJobTitle(dto.getJobTitle());
+        application.setCity(dto.getCity());
+        application.setCountry(dto.getCountry());
+        application.setSource(dto.getSource());
+        application.setUrl(dto.getUrl());
+        application.setStatus(dto.getStatus());
+        application.setWorkMode(dto.getWorkMode());
+        application.setUser(user);
+        application.setCompany(company);
 
-        return reminder;
+        return application;
     }
 }
