@@ -1,7 +1,7 @@
 package com.jobscape.entitymanager.dto;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -10,9 +10,8 @@ import java.util.List;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class CompanyDto {
-
     private Long id;
     private String name;
     private String website;

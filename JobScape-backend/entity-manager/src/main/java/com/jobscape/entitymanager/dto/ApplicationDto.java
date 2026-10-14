@@ -2,11 +2,14 @@ package com.jobscape.entitymanager.dto;
 
 import com.jobscape.entitymanager.model.ApplicationStatus;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@NoArgsConstructor
 public class ApplicationDto {
     private Long id;
     private String jobTitle;
@@ -21,5 +24,5 @@ public class ApplicationDto {
 
     private Long userId;
     private Long companyId;
-    private List<ApplicationStepDto> steps;
+    private List<ApplicationStepDto> steps = new ArrayList<>();
 }
