@@ -14,12 +14,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.jobscape.entitymanager.model.ApplicationStatus.APPLIED;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -39,8 +37,8 @@ public class ApplicationControllerTest {
     public void CreateNewApplicationTest() {
         // Arrange
         Company company = new Company(
-                "Google",
-                "google.com"
+                "google.com",
+                "Google"
         );
 
         User user = new User("Alice", "Martin", "alice@mail.com", "1234");
@@ -70,8 +68,8 @@ public class ApplicationControllerTest {
     public void getApplicationByUserIdTest() {
         //Arrange
         Company company = new Company(
-                "Google",
-                "google.com"
+                "google.com",
+                "Google"
         );
 
         User user = new User("Alice", "Martin", "alice@mail.com", "1234");
@@ -88,7 +86,7 @@ public class ApplicationControllerTest {
 
 
         // Assert
-        assertEquals(controller.getApplicationsByUserId(user.getId()).size(), applications.size());
+        assertEquals(applications.size(), controller.getApplicationsByUserId(user.getId()).size());
 
     }
 
