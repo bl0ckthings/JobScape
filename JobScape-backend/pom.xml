@@ -16,6 +16,7 @@
         <module>entity-manager</module>
         <module>user-service</module>
         <module>web-gateway</module>
+        <module>reminder-service</module>
     </modules>
 
 </project>

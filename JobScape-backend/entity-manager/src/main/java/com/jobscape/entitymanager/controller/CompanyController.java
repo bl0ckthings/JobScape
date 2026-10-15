@@ -1,40 +1,40 @@
 package com.jobscape.entitymanager.controller;
 
-import com.jobscape.entitymanager.model.Company;
-import com.jobscape.entitymanager.repository.ApplicationRepository;
-import com.jobscape.entitymanager.repository.CompanyRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.jobscape.entitymanager.dto.CompanyDto;
+import com.jobscape.entitymanager.service.CompanyService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/internal/companies")
+@RequiredArgsConstructor
 public class CompanyController {
-
-    @Autowired
-    CompanyRepository companyRepository;
+    private final CompanyService companyService;
 
     @GetMapping()
-    public List<Company> findAll() {
-        return companyRepository.findAll();
+    public List<CompanyDto> findAll() {
+        return companyService.getAll();
     }
 
     @GetMapping("/{id}")
-    public Company getCompanyById(@PathVariable Long id) {
-        return companyRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Company not found"));
+    public CompanyDto getCompanyById(@PathVariable Long id) {
+        return companyService.getById(id);
     }
 
     @PostMapping("/create")
-    public Company create(@RequestBody Company company) {
-        return companyRepository.save(company);
+    public CompanyDto create(@RequestBody CompanyDto company) {
+        return companyService.create(company);
+    }
+
+    @PutMapping("/update/{id}")
+    public CompanyDto update(@PathVariable Long id, @RequestBody CompanyDto company) {
+        return companyService.update(id, company);
     }
 
     @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable Long id) {
-        Company company = companyRepository.findById(id).get();
-        companyRepository.delete(company);
+        companyService.delete(id);
     }
-
 }

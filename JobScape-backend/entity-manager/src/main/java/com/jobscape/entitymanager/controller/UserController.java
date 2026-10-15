@@ -1,43 +1,40 @@
 package com.jobscape.entitymanager.controller;
 
 import com.jobscape.entitymanager.model.User;
-import com.jobscape.entitymanager.repository.UserRepository;
+import com.jobscape.entitymanager.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("internal/users")
+@RequiredArgsConstructor
 public class UserController {
-   @Autowired
-   UserRepository userRepository;
-
+    private final UserService userService;
 
     @GetMapping("/{id}")
-    public Optional<User> findById(@PathVariable Long id) {
-        return userRepository.findById(id);
+    public User findById(@PathVariable Long id) {
+        return userService.getById(id);
     }
 
     @GetMapping
     public List<User> findAll(@RequestParam(required = false) String email) {
-
-        if (email != null) {
-            Optional<User> user = userRepository.findByEmail(email);
-            return user.isPresent() ? List.of(user.get()) : List.of();
-        }
-        return userRepository.findAll();
+        return userService.getAll(email);
     }
 
     @PostMapping("/add")
     public User saveUser(@RequestBody User user) {
-        return userRepository.save(user);
+        return userService.create(user);
     }
 
-    @DeleteMapping("/delete")
-    public  void deleteUser(@RequestParam Long id) {
-        userRepository.deleteById(id);
+    @PutMapping("/update/{id}")
+    public User updateUser(@PathVariable Long id, @RequestBody User user) {
+        return userService.update(id, user);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteUser(@PathVariable Long id) {
+        userService.delete(id);
     }
 }

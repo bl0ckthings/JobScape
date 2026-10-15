@@ -3,6 +3,7 @@ package com.jobscape.entitymanager.service;
 import com.jobscape.entitymanager.dto.ReminderDto;
 import com.jobscape.entitymanager.model.Application;
 import com.jobscape.entitymanager.model.Reminder;
+import com.jobscape.entitymanager.service.mapper.ReminderMapper;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

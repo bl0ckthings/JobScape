@@ -5,6 +5,8 @@ import com.jobscape.entitymanager.model.Application;
 import com.jobscape.entitymanager.model.ApplicationStep;
 import com.jobscape.entitymanager.model.Company;
 import com.jobscape.entitymanager.model.User;
+import com.jobscape.entitymanager.service.mapper.ApplicationMapper;
+import com.jobscape.entitymanager.service.mapper.ApplicationStepMapper;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

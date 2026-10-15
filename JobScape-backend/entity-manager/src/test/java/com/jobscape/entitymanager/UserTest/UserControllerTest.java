@@ -66,7 +66,7 @@ public class UserControllerTest {
 
         );
         userRepository.save(user);
-        User result = userController.findById(user.getId()).get();
+        User result = userController.findById(user.getId());
         assertEquals(result.getId(), user.getId());
     }
 }
