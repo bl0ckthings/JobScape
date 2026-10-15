@@ -1,52 +1,48 @@
 package com.jobscape.entitymanager.controller;
 
-import com.jobscape.entitymanager.model.ApplicationStep;
-import com.jobscape.entitymanager.repository.ApplicationStepRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.jobscape.entitymanager.dto.ApplicationStepDto;
+import com.jobscape.entitymanager.service.ApplicationStepService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/internal/steps")
+@RequiredArgsConstructor
 public class ApplicationStepController {
-    @Autowired
-    ApplicationStepRepository applicationStepRepository;
+    private final ApplicationStepService applicationStepService;
 
-    @GetMapping("/application/{id}")
-    public List<ApplicationStep> getStepsByApplicationId(@PathVariable Long id) {
-        return applicationStepRepository.findByApplicationId(id);
+    @GetMapping("/{id}")
+    public ApplicationStepDto getById(@PathVariable Long id) {
+        return applicationStepService.getById(id);
     }
 
+    @GetMapping
+    public List<ApplicationStepDto> getAll() {
+        return applicationStepService.getAll();
+    }
 
+    @GetMapping("/application/{applicationId}")
+    public List<ApplicationStepDto> getStepsByApplicationId(@PathVariable Long applicationId) {
+        return applicationStepService.getByApplicationId(applicationId);
+    }
 
     @PostMapping("/create")
-    public ApplicationStep createStep(@RequestBody ApplicationStep step) {
-        return applicationStepRepository.save(step);
+    public ApplicationStepDto createStep(@RequestBody ApplicationStepDto step) {
+        return applicationStepService.create(step);
     }
 
     @DeleteMapping("/delete")
-    public void DeleteStep(@RequestBody Long id) {
-        applicationStepRepository.deleteById(id);
+    public void deleteStep(@RequestBody Long id) {
+        applicationStepService.delete(id);
     }
 
     @PutMapping("/update/{id}")
-    public ApplicationStep updateStep(@PathVariable Long id ,@RequestBody ApplicationStep updatedStep) {
-        ApplicationStep existing = applicationStepRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Step not found"));
-
-        if (updatedStep.getComment() != null) {
-            existing.setComment(updatedStep.getComment());
-        }
-        if (updatedStep.getStepDate() != null) {
-            existing.setStepDate(updatedStep.getStepDate());
-        }
-        if (updatedStep.getStepStatus() != null) {
-            existing.setStepStatus(updatedStep.getStepStatus());
-        }
-        return applicationStepRepository.save(existing);
+    public ApplicationStepDto updateStep(
+            @PathVariable Long id,
+            @RequestBody ApplicationStepDto updatedStep
+    ) {
+        return applicationStepService.update(id, updatedStep);
     }
-
-
-
 }

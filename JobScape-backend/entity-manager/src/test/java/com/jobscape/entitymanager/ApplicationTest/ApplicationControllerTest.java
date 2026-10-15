@@ -1,6 +1,7 @@
 package com.jobscape.entitymanager.ApplicationTest;
 
 import com.jobscape.entitymanager.controller.ApplicationController;
+import com.jobscape.entitymanager.dto.ApplicationDto;
 import com.jobscape.entitymanager.model.Application;
 import com.jobscape.entitymanager.model.Company;
 import com.jobscape.entitymanager.model.User;
@@ -45,15 +46,24 @@ public class ApplicationControllerTest {
         User user = new User("Alice", "Martin", "alice@mail.com", "1234");
 
 
-        Application application = new Application("Backend Dev", "Paris", "France", "LinkedIn", "null", APPLIED, "remote", user, company);
-        // Act
         companyRepository.save(company);
         userRepository.save(user);
-        Application saved = controller.create(application);
+        ApplicationDto application = new ApplicationDto();
+        application.setJobTitle("Backend Dev");
+        application.setCity("Paris");
+        application.setCountry("France");
+        application.setSource("LinkedIn");
+        application.setUrl("null");
+        application.setStatus(APPLIED);
+        application.setWorkMode("remote");
+        application.setUserId(user.getId());
+        application.setCompanyId(company.getId());
+
+        ApplicationDto saved = controller.create(application);
 
 
         // Assert
-        assertEquals(saved.getUser().getId(), application.getUser().getId());
+        assertEquals(user.getId(), saved.getUserId());
     }
 
     @Test

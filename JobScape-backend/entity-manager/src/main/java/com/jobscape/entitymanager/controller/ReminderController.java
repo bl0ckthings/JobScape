@@ -1,38 +1,46 @@
 package com.jobscape.entitymanager.controller;
 
 
-import com.jobscape.entitymanager.model.Reminder;
-import com.jobscape.entitymanager.repository.ReminderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.jobscape.entitymanager.dto.ReminderDto;
+import com.jobscape.entitymanager.service.ReminderService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/internal/reminders")
+@RequiredArgsConstructor
 public class ReminderController {
+    private final ReminderService reminderService;
 
-    @Autowired
-    ReminderRepository reminderRepository;
+    @GetMapping
+    public List<ReminderDto> getAll() {
+        return reminderService.getAll();
+    }
 
-    @GetMapping("/applications/{id}")
-    public List<Reminder> getReminderByApplication(@PathVariable Long id) {
-        return reminderRepository.findByApplicationId(id);
+    @GetMapping("/applications/{applicationId}")
+    public List<ReminderDto> getReminderByApplication(@PathVariable Long applicationId) {
+        return reminderService.getByApplicationId(applicationId);
     }
 
     @GetMapping("/{id}")
-    public Reminder getReminderById(@PathVariable Long id) {
-        return reminderRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Reminder not found"));
+    public ReminderDto getReminderById(@PathVariable Long id) {
+        return reminderService.getById(id);
     }
 
     @PostMapping("/create")
-    public Reminder createReminder(@RequestBody Reminder reminder) {
-        return reminderRepository.save(reminder);
+    public ReminderDto createReminder(@RequestBody ReminderDto reminder) {
+        return reminderService.create(reminder);
+    }
+
+    @PutMapping("/update/{id}")
+    public ReminderDto updateReminder(@PathVariable Long id, @RequestBody ReminderDto reminder) {
+        return reminderService.update(id, reminder);
     }
 
     @DeleteMapping("/delete")
     public void deleteReminderById(@RequestParam Long id) {
-        reminderRepository.deleteById(id);
+        reminderService.delete(id);
     }
 }

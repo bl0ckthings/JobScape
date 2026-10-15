@@ -13,6 +13,7 @@ public class ApplicationStepDto {
     private String comment;
     private LocalDateTime stepDate;
     private ApplicationStatus stepStatus;
+    private Long applicationId;
     private Long contactId;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
