@@ -4,6 +4,7 @@ import com.jobscape.entitymanager.dto.ContactDto;
 import com.jobscape.entitymanager.model.Company;
 import com.jobscape.entitymanager.model.Contact;
 import com.jobscape.entitymanager.model.User;
+import com.jobscape.entitymanager.service.mapper.ContactMapper;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

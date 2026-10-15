@@ -27,6 +27,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         "spring.datasource.username=sa",
         "spring.datasource.password=",
         "spring.jpa.hibernate.ddl-auto=create-drop",
+        "spring.jpa.show-sql=false",
+        "spring.jpa.open-in-view=false",
+        "spring.cloud.consul.enabled=false",
         "spring.cloud.consul.discovery.enabled=false"
 })
 @Transactional

@@ -3,10 +3,6 @@ package com.jobscape.entitymanager.UserTest;
 import com.jobscape.entitymanager.controller.UserController;
 import com.jobscape.entitymanager.model.User;
 import com.jobscape.entitymanager.repository.UserRepository;
-import lombok.AllArgsConstructor;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,9 +10,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -54,19 +49,17 @@ public class UserControllerTest {
     }
 
     @Test
-    public void getUserById() {
+    public void createUserTest() {
         User user = new User(
-                null,
                 "Amine",
                 "Momo",
-                "amine.momo@gmail.com",
-                "azeazifrg",
-                null,
-                null
-
+                "new.amine.momo@gmail.com",
+                "azeazifrg"
         );
-        userRepository.save(user);
-        User result = userController.findById(user.getId()).get();
-        assertEquals(result.getId(), user.getId());
+
+        User result = userController.saveUser(user);
+
+        assertNotNull(result.getId());
+        assertEquals(user.getEmail(), result.getEmail());
     }
 }

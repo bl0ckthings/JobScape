@@ -5,21 +5,24 @@ spring:
   application:
     name: entity-manager-service
   datasource:
-    url: jdbc:mysql://localhost:3308/jobscape_test
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: root
+    url: jdbc:h2:mem:entity-manager-test;MODE=MySQL;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
   jpa:
     hibernate:
       ddl-auto: create-drop
-    show-sql: true
+    show-sql: false
+    open-in-view: false
   cloud:
+    discovery:
+      enabled: false
     consul:
-      host: localhost
-      port: 8500
+      enabled: false
+      config:
+        enabled: false
       discovery:
-        health-check-path: /actuator/health
-        enabled: true
+        enabled: false
 
 server:
   port: 8085

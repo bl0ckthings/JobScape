@@ -3,6 +3,7 @@ package com.jobscape.entitymanager.service;
 import com.jobscape.entitymanager.dto.CompanyDto;
 import com.jobscape.entitymanager.model.Company;
 import com.jobscape.entitymanager.model.Contact;
+import com.jobscape.entitymanager.service.mapper.CompanyMapper;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

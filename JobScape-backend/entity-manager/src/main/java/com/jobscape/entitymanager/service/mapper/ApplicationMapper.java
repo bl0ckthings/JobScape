@@ -1,4 +1,4 @@
-package com.jobscape.entitymanager.service;
+package com.jobscape.entitymanager.service.mapper;
 
 import com.jobscape.entitymanager.dto.ApplicationDto;
 import com.jobscape.entitymanager.model.Application;

@@ -1,4 +1,4 @@
-package com.jobscape.entitymanager.service;
+package com.jobscape.entitymanager.service.mapper;
 
 import com.jobscape.entitymanager.dto.ApplicationStepDto;
 import com.jobscape.entitymanager.model.Application;
@@ -18,8 +18,11 @@ public class ApplicationStepMapper {
         dto.setStepStatus(step.getStepStatus());
         dto.setCreatedAt(step.getCreatedAt());
         dto.setUpdatedAt(step.getUpdatedAt());
-
-
+        dto.setApplicationId(
+                step.getApplication() == null
+                        ? null
+                        : step.getApplication().getId()
+        );
         dto.setContactId(
                 step.getContact() == null
                         ? null

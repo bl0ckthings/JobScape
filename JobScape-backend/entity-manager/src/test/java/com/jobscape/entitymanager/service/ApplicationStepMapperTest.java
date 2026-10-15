@@ -4,6 +4,7 @@ import com.jobscape.entitymanager.dto.ApplicationStepDto;
 import com.jobscape.entitymanager.model.Application;
 import com.jobscape.entitymanager.model.ApplicationStep;
 import com.jobscape.entitymanager.model.Contact;
+import com.jobscape.entitymanager.service.mapper.ApplicationStepMapper;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -54,6 +55,7 @@ class ApplicationStepMapperTest {
         dto.setStepStatus(HR_INTERVIEW);
 
         Application application = new Application();
+        application.setId(8L);
         Contact contact = new Contact();
 
         ApplicationStep step = mapper.toEntity(dto, application, contact);
@@ -63,5 +65,17 @@ class ApplicationStepMapperTest {
         assertEquals(dto.getStepStatus(), step.getStepStatus());
         assertSame(application, step.getApplication());
         assertSame(contact, step.getContact());
+    }
+
+    @Test
+    void mapsApplicationRelationshipToDto() {
+        Application application = new Application();
+        application.setId(8L);
+        ApplicationStep step = new ApplicationStep();
+        step.setApplication(application);
+
+        ApplicationStepDto dto = mapper.toDto(step);
+
+        assertEquals(8L, dto.getApplicationId());
     }
 }

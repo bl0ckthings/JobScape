@@ -1,4 +1,4 @@
-package com.jobscape.entitymanager.service;
+package com.jobscape.entitymanager.service.mapper;
 
 import com.jobscape.entitymanager.dto.ReminderDto;
 import com.jobscape.entitymanager.model.Application;
