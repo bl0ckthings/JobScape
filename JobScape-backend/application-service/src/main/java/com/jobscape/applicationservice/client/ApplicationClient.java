@@ -1,8 +1,6 @@
 package com.jobscape.applicationservice.client;
 
-import com.jobscape.applicationservice.model.Application;
-import com.jobscape.applicationservice.model.ApplicationStep;
-import com.jobscape.applicationservice.model.User;
+import com.jobscape.applicationservice.dto.ApplicationDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,24 +9,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
-@FeignClient("entity-manager")
+@FeignClient(name = "entity-manager", contextId = "applicationClient")
 public interface ApplicationClient {
     @RequestMapping(method = RequestMethod.GET, value = "/internal/applications/{id}", consumes = "application/json")
-    Application getApplicationById(@PathVariable long id);
+    ApplicationDto getApplicationById(@PathVariable Long id);
 
     @RequestMapping(method = RequestMethod.GET, value = "/internal/applications/user/{id}", consumes = "application/json")
-    List<Application> getApplicationByUserId(@PathVariable long id);
+    List<ApplicationDto> getApplicationByUserId(@PathVariable long id);
 
     @RequestMapping(method = RequestMethod.GET, value = "/internal/applications", consumes = "application/json")
-    List<Application> getAllApplications();
+    List<ApplicationDto> getAllApplications();
 
     @RequestMapping(method = RequestMethod.POST, value = "/internal/applications/create", consumes = "application/json")
-    Application create(@RequestBody Application application);
+    ApplicationDto create(@RequestBody ApplicationDto application);
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/internal/applications/delete/{id}", consumes = "application/json")
     void delete(@PathVariable Long id);
 
     @RequestMapping(method = RequestMethod.PUT, value = "/internal/applications/update/{id}", consumes = "application/json")
-    Application update(@PathVariable Long id, @RequestBody Application application);
+    ApplicationDto update(@PathVariable Long id, @RequestBody ApplicationDto application);
 
 }
