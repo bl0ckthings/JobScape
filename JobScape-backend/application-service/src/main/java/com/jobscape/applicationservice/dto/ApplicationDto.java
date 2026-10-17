@@ -1,19 +1,17 @@
-package com.jobscape.applicationservice.model;
+package com.jobscape.applicationservice.dto;
 
-import lombok.AllArgsConstructor;
+import com.jobscape.applicationservice.model.ApplicationStatus;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Application {
-
+public class ApplicationDto {
     private Long id;
-
     private String jobTitle;
     private String city;
     private String country;
@@ -21,13 +19,9 @@ public class Application {
     private String url;
     private ApplicationStatus status;
     private String workMode;
-
-    private Long userId;
-
-    private Long companyId;
-
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-
-    private List<ApplicationStep> steps = new ArrayList<>();
+    private Long userId;
+    private Long companyId;
+    private List<ApplicationStepDto> steps = new ArrayList<>();
 }

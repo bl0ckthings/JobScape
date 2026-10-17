@@ -33,8 +33,8 @@ public class ApplicationStepController {
         return applicationStepService.create(step);
     }
 
-    @DeleteMapping("/delete")
-    public void deleteStep(@RequestBody Long id) {
+    @DeleteMapping("/delete/{id}")
+    public void deleteStep(@PathVariable Long id) {
         applicationStepService.delete(id);
     }
 

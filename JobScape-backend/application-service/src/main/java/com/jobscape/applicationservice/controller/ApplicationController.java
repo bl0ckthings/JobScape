@@ -1,0 +1,46 @@
+package com.jobscape.applicationservice.controller;
+
+import com.jobscape.applicationservice.dto.ApplicationDto;
+import com.jobscape.applicationservice.dto.CreateApplicationRequest;
+import com.jobscape.applicationservice.service.ApplicationService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/application-service/applications")
+@RequiredArgsConstructor
+public class ApplicationController {
+    private final ApplicationService applicationService;
+
+
+    @GetMapping("/{id}")
+    public ApplicationDto getApplicationById(@PathVariable Long id) {
+        return null;
+    }
+
+    @GetMapping("/user/{id}")
+    public List<ApplicationDto> getApplicationByUserId(@PathVariable Long id) {
+        return null;
+    }
+
+    @PostMapping("/create")
+    public ApplicationDto createApplication(@Valid @RequestBody CreateApplicationRequest createApplicationRequest) {
+        return null;
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteApplicationById(@PathVariable Long id) {
+
+    }
+
+    @PutMapping("/update/{id}")
+    public ApplicationDto updateApplicationById(@PathVariable Long id, @RequestBody ApplicationDto updatedApplication) {
+        return null;
+    }
+
+
+
+}
