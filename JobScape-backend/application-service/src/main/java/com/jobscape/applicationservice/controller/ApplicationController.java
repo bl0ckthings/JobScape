@@ -1,6 +1,7 @@
 package com.jobscape.applicationservice.controller;
 
 import com.jobscape.applicationservice.dto.ApplicationDto;
+import com.jobscape.applicationservice.dto.ApplicationsByStatusResponse;
 import com.jobscape.applicationservice.dto.CreateApplicationRequest;
 import com.jobscape.applicationservice.service.ApplicationService;
 import jakarta.validation.Valid;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/application-service/applications")
+@RequestMapping("/application")
 @RequiredArgsConstructor
 public class ApplicationController {
     private final ApplicationService applicationService;
@@ -22,8 +23,8 @@ public class ApplicationController {
     }
 
     @GetMapping("/user/{id}")
-    public List<ApplicationDto> getApplicationByUserId(@PathVariable Long id) {
-        return null;
+    public ApplicationsByStatusResponse getApplicationByUserId(@PathVariable Long id) {
+        return applicationService.getApplicationsByStatus(id);
     }
 
     @PostMapping("/create")

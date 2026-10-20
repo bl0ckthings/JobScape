@@ -37,7 +37,9 @@ public class ApplicationStepService {
 
     @Transactional(readOnly = true)
     public List<ApplicationStepDto> getByApplicationId(Long applicationId) {
-        return applicationStepRepository.findByApplicationId(applicationId).stream()
+        return applicationStepRepository
+                .findByApplication_IdOrderByStepDateDescIdDesc(applicationId)
+                .stream()
                 .map(applicationStepMapper::toDto)
                 .toList();
     }

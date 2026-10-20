@@ -15,7 +15,7 @@ public interface ApplicationClient {
     ApplicationDto getApplicationById(@PathVariable Long id);
 
     @RequestMapping(method = RequestMethod.GET, value = "/internal/applications/user/{id}", consumes = "application/json")
-    List<ApplicationDto> getApplicationByUserId(@PathVariable long id);
+    List<ApplicationDto> getApplicationByUserId(@PathVariable Long id);
 
     @RequestMapping(method = RequestMethod.GET, value = "/internal/applications", consumes = "application/json")
     List<ApplicationDto> getAllApplications();

@@ -34,7 +34,9 @@ public class ReminderService {
 
     @Transactional(readOnly = true)
     public List<ReminderDto> getByApplicationId(Long applicationId) {
-        return reminderRepository.findByApplicationId(applicationId).stream()
+        return reminderRepository
+                .findByApplication_IdOrderByReminderDateAscIdAsc(applicationId)
+                .stream()
                 .map(reminderMapper::toDto)
                 .toList();
     }

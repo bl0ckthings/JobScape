@@ -150,7 +150,8 @@ class CrudServiceTest {
         when(steps.save(entity)).thenReturn(entity);
         when(mapper.toDto(entity)).thenReturn(response);
         when(steps.findById(3L)).thenReturn(Optional.of(entity));
-        when(steps.findByApplicationId(1L)).thenReturn(List.of(entity));
+        when(steps.findByApplication_IdOrderByStepDateDescIdDesc(1L))
+                .thenReturn(List.of(entity));
 
         assertSame(response, service.create(request));
         assertSame(response, service.getById(3L));
@@ -177,7 +178,8 @@ class CrudServiceTest {
         when(reminders.save(entity)).thenReturn(entity);
         when(mapper.toDto(entity)).thenReturn(response);
         when(reminders.findById(2L)).thenReturn(Optional.of(entity));
-        when(reminders.findByApplicationId(1L)).thenReturn(List.of(entity));
+        when(reminders.findByApplication_IdOrderByReminderDateAscIdAsc(1L))
+                .thenReturn(List.of(entity));
 
         assertSame(response, service.create(request));
         assertSame(response, service.getById(2L));
