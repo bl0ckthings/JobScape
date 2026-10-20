@@ -8,10 +8,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/application")
+@RequestMapping("/application-service/applications")
 @RequiredArgsConstructor
 public class ApplicationController {
     private final ApplicationService applicationService;

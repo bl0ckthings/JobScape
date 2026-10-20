@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/application/steps")
+@RequestMapping("/application-service/steps")
 public class ApplicationStepController {
 
     @GetMapping("/{id}")
