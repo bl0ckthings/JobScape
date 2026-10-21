@@ -40,8 +40,11 @@ public class JwtFilter extends OncePerRequestFilter {
         }
         // On s'assure que l'user n'est pas authentifié ( premiere connexion)
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+
             UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
             if (jwtUtils.validateToken(jwt, userDetails)) {
+                Long userId = jwtUtils.extractUserId(jwt);
+                request.setAttribute("authenticatedUserId", userId);
                 // On crée un nouveau token d'authentification
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 // Récupérer les informations de la requête, pour des raisons de logs

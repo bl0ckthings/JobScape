@@ -8,5 +8,7 @@ import java.util.List;
 
 @Repository
 public interface ApplicationStepRepository extends JpaRepository<ApplicationStep, Long> {
-    List<ApplicationStep> findByApplicationId(Long id);
+    List<ApplicationStep> findByApplication_IdOrderByStepDateDescIdDesc(
+            Long applicationId
+    );
 }
