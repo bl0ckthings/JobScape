@@ -16,6 +16,8 @@ public class CompanyDto {
     private String name;
     private String website;
     private List<ContactSummaryDto> contacts = new ArrayList<>();
+    private String logoUrl;
+    private String domain;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

@@ -34,6 +34,10 @@ public class Company {
     @OneToMany(mappedBy = "company")
     private List<Contact> contacts = new ArrayList<>();
 
+    private String logoUrl;
+    @Column(nullable = false)
+    private String domain;
+
     public Company(String website, String name) {
         this.website = website;
         this.name = name;
