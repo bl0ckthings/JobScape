@@ -9,6 +9,7 @@ import com.jobscape.applicationservice.model.ApplicationStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,7 +53,9 @@ public class ApplicationService {
         if (request.isCreateReminder()) {
             CreateReminderRequest reminder = new CreateReminderRequest();
             reminder.setApplicationId(createdApplication.getId());
-            reminder.setApplicationDate(request.getInitialDate());
+            reminder.setApplicationDate(request.getInitialDate() != null
+                    ? request.getInitialDate()
+                    : createdApplication.getCreatedAt().toLocalDate());
             reminder.setComment("Relancer l'entreprise");
             reminderClient.create(reminder);
         }
@@ -96,5 +99,15 @@ public class ApplicationService {
 
         return response;
     }
+
+    public ApplicationDto getApplicationById(Long id) {
+        return applicationClient.getApplicationById(id);
+    }
+
+    public void deleteApplicationById(Long id) {
+        applicationClient.delete(id);
+    }
+
+
 
 }

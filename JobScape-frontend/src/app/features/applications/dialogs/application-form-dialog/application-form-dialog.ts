@@ -1,6 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ApplicationStatus } from '../../../../shared/models/applications/application-status.model';
 
 
 export type ApplicationFormMode = 'create' | 'edit';
@@ -16,7 +17,7 @@ export type ApplicationFormDialogData = {
     source: string;
     workMode: string;
     url: string;
-    initialStatus?: string;
+    initialStatus?: ApplicationStatus;
     initialDate?: string;
     comment?: string;
   };
@@ -30,7 +31,7 @@ export type ApplicationFormValue = {
   source: string;
   workMode: string;
   url: string;
-  initialStatus: string;
+  initialStatus: ApplicationStatus;
   initialDate: string | null;
   comment: string;
   createReminder: boolean;
@@ -76,16 +77,16 @@ export class ApplicationFormDialog{
 
   readonly countries = ['France', 'Belgique', 'Suisse', 'Luxembourg', 'Canada'];
 
-  readonly statuses = [
-    'À postuler',
-    'CV envoyé',
-    'Relancé',
-    'Premier contact',
-    'Entretien RH',
-    'Entretien Manager',
-    'Test technique',
-    'Offre reçue',
-    'Rejeté',
+  readonly statuses: { value: ApplicationStatus; label: string }[] = [
+    { value: 'WISHLIST', label: 'À postuler' },
+    { value: 'APPLIED', label: 'CV envoyé' },
+    { value: 'FOLLOWED_UP', label: 'Relancé' },
+    { value: 'FIRST_CONTACT', label: 'Premier contact' },
+    { value: 'HR_INTERVIEW', label: 'Entretien RH' },
+    { value: 'MANAGER_INTERVIEW', label: 'Entretien Manager' },
+    { value: 'TECHNICAL_TEST', label: 'Test technique' },
+    { value: 'OFFER_RECEIVED', label: 'Offre reçue' },
+    { value: 'REJECTED', label: 'Rejeté' },
   ];
 
   readonly form = this.fb.nonNullable.group({
@@ -102,7 +103,7 @@ export class ApplicationFormDialog{
     source: [this.data?.application?.source ?? '', [Validators.required]],
     workMode: [this.data?.application?.workMode ?? '', [Validators.required]],
     url: [this.data?.application?.url ?? '', [Validators.maxLength(2048)]],
-    initialStatus: [this.data?.application?.initialStatus ?? 'CV envoyé', [Validators.required]],
+    initialStatus: [this.data?.application?.initialStatus ?? 'APPLIED', [Validators.required]],
     initialDate: [this.data?.application?.initialDate ?? null],
     comment: [this.data?.application?.comment ?? '', [Validators.maxLength(1000)]],
     createReminder: [false],
@@ -118,8 +119,7 @@ export class ApplicationFormDialog{
 
       return
     }
-    console.log(this.form.value)
-
-    this.dialogRef.close(this.form.getRawValue());
+    const value = this.form.getRawValue();
+    this.dialogRef.close({ ...value, initialDate: value.initialDate || null });
   }
 }

@@ -13,6 +13,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -64,5 +65,32 @@ class ApplicationServiceTest {
         assertEquals(42L, reminderCaptor.getValue().getApplicationId());
         assertEquals(LocalDate.of(2026, 10, 19), reminderCaptor.getValue().getApplicationDate());
         assertEquals("Relancer l'entreprise", reminderCaptor.getValue().getComment());
+    }
+
+    @Test
+    void usesCreatedApplicationDateForReminderWhenInitialDateIsMissing() {
+        ApplicationClient applicationClient = mock(ApplicationClient.class);
+        ApplicationStepClient applicationStepClient = mock(ApplicationStepClient.class);
+        ReminderClient reminderClient = mock(ReminderClient.class);
+        ApplicationService service = new ApplicationService(applicationClient, applicationStepClient, reminderClient);
+
+        CreateApplicationRequest request = new CreateApplicationRequest();
+        request.setInitialStatus(ApplicationStatus.APPLIED);
+        request.setCreateReminder(true);
+
+        ApplicationDto createdApplication = new ApplicationDto();
+        createdApplication.setId(42L);
+        createdApplication.setCreatedAt(LocalDateTime.of(2026, 10, 26, 15, 30));
+        when(applicationClient.create(any(ApplicationDto.class))).thenReturn(createdApplication);
+
+        service.create(request);
+
+        ArgumentCaptor<CreateReminderRequest> reminderCaptor = ArgumentCaptor.forClass(CreateReminderRequest.class);
+        InOrder calls = inOrder(applicationClient, applicationStepClient, reminderClient);
+        calls.verify(applicationClient).create(any(ApplicationDto.class));
+        calls.verify(applicationStepClient).create(any(ApplicationStepDto.class));
+        calls.verify(reminderClient).create(reminderCaptor.capture());
+        assertEquals(42L, reminderCaptor.getValue().getApplicationId());
+        assertEquals(LocalDate.of(2026, 10, 26), reminderCaptor.getValue().getApplicationDate());
     }
 }

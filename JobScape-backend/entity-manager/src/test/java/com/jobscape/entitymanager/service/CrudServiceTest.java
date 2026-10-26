@@ -6,6 +6,7 @@ import com.jobscape.entitymanager.dto.CompanyDto;
 import com.jobscape.entitymanager.dto.CompanySummaryDto;
 import com.jobscape.entitymanager.dto.ContactDto;
 import com.jobscape.entitymanager.dto.ReminderDto;
+import com.jobscape.entitymanager.dto.UserDto;
 import com.jobscape.entitymanager.exception.ResourceNotFoundException;
 import com.jobscape.entitymanager.model.Application;
 import com.jobscape.entitymanager.model.ApplicationStep;
@@ -24,6 +25,7 @@ import com.jobscape.entitymanager.service.mapper.ApplicationStepMapper;
 import com.jobscape.entitymanager.service.mapper.CompanyMapper;
 import com.jobscape.entitymanager.service.mapper.ContactMapper;
 import com.jobscape.entitymanager.service.mapper.ReminderMapper;
+import com.jobscape.entitymanager.service.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -192,9 +194,10 @@ class CrudServiceTest {
     @Test
     void userServiceProvidesCrudAndReportsMissingUsers() {
         UserRepository users = mock(UserRepository.class);
-        UserService service = new UserService(users);
+        UserService service = new UserService(users, new UserMapper());
         User user = new User("Alice", "Martin", "alice@example.com", "hash");
-        User update = new User("Alicia", null, null, null);
+        UserDto update = new UserDto();
+        update.setFirstName("Alicia");
 
         when(users.save(user)).thenReturn(user);
         when(users.findById(1L)).thenReturn(Optional.of(user));
@@ -205,8 +208,9 @@ class CrudServiceTest {
         assertSame(user, service.getById(1L));
         assertEquals(List.of(user), service.getAll(null));
         assertEquals(List.of(user), service.getAll("alice@example.com"));
-        assertSame(user, service.update(1L, update));
+        assertEquals("Alicia", service.update(1L, update).getFirstName());
         assertEquals("Alicia", user.getFirstName());
+        assertEquals("hash", user.getPassword());
         service.delete(1L);
         verify(users).delete(user);
 

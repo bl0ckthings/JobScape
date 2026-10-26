@@ -1,5 +1,6 @@
 package com.jobscape.entitymanager.controller;
 
+import com.jobscape.entitymanager.dto.UserDto;
 import com.jobscape.entitymanager.model.User;
 import com.jobscape.entitymanager.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,7 @@ public class UserController {
     }
 
     @PutMapping("/update/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User user) {
+    public UserDto updateUser(@PathVariable Long id, @RequestBody UserDto user) {
         return userService.update(id, user);
     }
 

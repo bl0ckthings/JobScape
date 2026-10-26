@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ApplicationDialogService } from '../../services/application-dialog.service';
+import { ApplicationService } from '../../services/application.service';
 
 export interface DialogData {
   animal: string;
@@ -40,8 +41,11 @@ export class ApplicationsBoardPage {
   readonly animal = signal('');
   readonly name = model('');
   private readonly applicationDialog = inject(ApplicationDialogService);
-
+  private readonly applicationService = inject(ApplicationService);
   openCreateApplicationDialog(): void {
     this.applicationDialog.openCreate();
   }
+
+
+
 }

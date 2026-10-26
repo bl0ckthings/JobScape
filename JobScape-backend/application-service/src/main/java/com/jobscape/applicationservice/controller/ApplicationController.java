@@ -27,7 +27,7 @@ public class ApplicationController {
 
     @PostMapping("/create")
     public ApplicationDto createApplication(@Valid @RequestBody CreateApplicationRequest createApplicationRequest) {
-        return null;
+       return applicationService.create(createApplicationRequest);
     }
 
     @DeleteMapping("/delete/{id}")

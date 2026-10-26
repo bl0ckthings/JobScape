@@ -44,4 +44,6 @@ public class CreateApplicationRequest {
     private String comment;
 
     private boolean createReminder;
+
+    private Long userId;
 }

@@ -247,9 +247,9 @@
                 Choisir un statut
               </option>
 
-              @for (status of statuses; track status) {
-                <option [value]="status">
-                  {{ status }}
+              @for (status of statuses; track status.value) {
+                <option [value]="status.value">
+                  {{ status.label }}
                 </option>
               }
             </select>

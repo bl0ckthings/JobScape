@@ -1,6 +1,7 @@
 package com.jobscape.entitymanager.UserTest;
 
 import com.jobscape.entitymanager.controller.UserController;
+import com.jobscape.entitymanager.dto.UserDto;
 import com.jobscape.entitymanager.model.User;
 import com.jobscape.entitymanager.repository.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -61,5 +62,18 @@ public class UserControllerTest {
 
         assertNotNull(result.getId());
         assertEquals(user.getEmail(), result.getEmail());
+        assertEquals(user.getPassword(), userRepository.findById(result.getId()).orElseThrow().getPassword());
+    }
+
+    @Test
+    public void updateUserWithDtoKeepsPassword() {
+        User user = userRepository.save(new User("Amine", "Momo", "update.amine@gmail.com", "encoded-password"));
+        UserDto update = new UserDto();
+        update.setFirstName("Amine Updated");
+
+        UserDto result = userController.updateUser(user.getId(), update);
+
+        assertEquals("Amine Updated", result.getFirstName());
+        assertEquals("encoded-password", userRepository.findById(user.getId()).orElseThrow().getPassword());
     }
 }
