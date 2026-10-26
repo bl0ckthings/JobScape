@@ -36,6 +36,7 @@ class ApplicationContractTest {
     void createApplicationRequestCarriesCreationInputsAndAuthenticatedUser() {
         CreateApplicationRequest request = new CreateApplicationRequest();
         request.setCompanyName("JobScape");
+        request.setCompanyDomain("jobscape.com");
         request.setJobTitle("Backend Developer");
         request.setCity("Paris");
         request.setCountry("France");
@@ -49,6 +50,7 @@ class ApplicationContractTest {
         request.setUserId(11L);
 
         assertEquals("JobScape", request.getCompanyName());
+        assertEquals("jobscape.com", request.getCompanyDomain());
         assertEquals(ApplicationStatus.APPLIED, request.getInitialStatus());
         assertEquals(LocalDate.of(2026, 10, 16), request.getInitialDate());
         assertEquals(11L, request.getUserId());

@@ -15,6 +15,9 @@ public class CreateApplicationRequest {
     @Size(max = 255)
     private String companyName;
 
+    @Size(max = 255)
+    private String companyDomain;
+
     @NotBlank
     @Size(max = 255)
     private String jobTitle;

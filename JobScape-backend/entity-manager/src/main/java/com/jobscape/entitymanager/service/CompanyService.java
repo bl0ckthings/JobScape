@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -51,8 +52,17 @@ public class CompanyService {
         companyRepository.delete(findCompany(id));
     }
 
+    @Transactional(readOnly = true)
+    public Optional<CompanyDto> getCompanyByDomain(String domain) {
+        return companyRepository.getCompanyByDomain(domain)
+                .map(companyMapper::toDto);
+    }
+
+
     private Company findCompany(Long id) {
         return companyRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Company", id));
     }
+
+
 }

@@ -1,37 +1,45 @@
 package com.jobscape.companyservice.controller;
 
-import com.jobscape.companyservice.client.CompanyClient;
-import com.jobscape.companyservice.model.Company;
-import lombok.Getter;
+import com.jobscape.companyservice.dto.CompanyDto;
+import com.jobscape.companyservice.service.CompanyService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/companies")
 @RequiredArgsConstructor
 public class CompanyController {
 
-    private final CompanyClient companyClient;
+    private final CompanyService companyService;
 
     @GetMapping()
-    public List<Company> getCompanies() {
+    public List<CompanyDto> getCompanies() {
         // TODO : HANDLE THE CASES WHERE THE LIST IS EMPTY
-        return companyClient.getCompanies();
+        return companyService.getCompanies();
     }
 
     @GetMapping("/{id}")
-    public Company getCompanyById(@PathVariable Long id) {
-        return companyClient.getCompanyById(id);
+    public CompanyDto getCompanyById(@PathVariable Long id) {
+        return companyService.getCompanyById(id);
     }
 
     @PostMapping("/create")
-    public Company createCompany(@RequestBody Company company) {
-        return companyClient.createCompany(company);
+    public CompanyDto createCompany(@RequestBody CompanyDto company) {
+        return companyService.createCompany(company);
     }
 
     @DeleteMapping("/delete")
     public void deleteCompany(@RequestParam Long id) {
-        companyClient.deleteCompany(id);
+        companyService.deleteCompany(id);
+    }
+
+    @GetMapping("/domain")
+    public ResponseEntity<CompanyDto> getCompanyByDomain(@RequestParam("domain") String domain) {
+        Optional<CompanyDto> company = companyService.findCompanyByDomain(domain);
+        return ResponseEntity.of(company);
     }
 }

@@ -3,6 +3,7 @@ package com.jobscape.entitymanager.controller;
 import com.jobscape.entitymanager.dto.CompanyDto;
 import com.jobscape.entitymanager.service.CompanyService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,11 @@ public class CompanyController {
     @GetMapping("/{id}")
     public CompanyDto getCompanyById(@PathVariable Long id) {
         return companyService.getById(id);
+    }
+
+    @GetMapping("/by-domain")
+    public ResponseEntity<CompanyDto> getCompanyByDomain(@RequestParam("domain") String domain) {
+        return ResponseEntity.of(companyService.getCompanyByDomain(domain));
     }
 
     @PostMapping("/create")

@@ -22,11 +22,11 @@ export class ApplicationService {
   }
 
   createNewApplication(application: CreateApplication): Observable<ApplicationDto> {
-    return this.http.post<ApplicationDto>(`${this.baseUrl}/applications/create`, application);
+    return this.http.post<ApplicationDto>(`${this.baseUrl}/api/application/create`, application);
   }
 
   getApplicationByUserId(): Observable<ApplicationsByStatusResponse> {
-    return this.http.get<ApplicationsByStatusResponse>(`${this.baseUrl}/applications/user`);
+    return this.http.get<ApplicationsByStatusResponse>(`${this.baseUrl}/api/application/user`);
   }
 
 

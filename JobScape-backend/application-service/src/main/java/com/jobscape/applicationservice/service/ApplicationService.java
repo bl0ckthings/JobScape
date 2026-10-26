@@ -40,6 +40,7 @@ public class ApplicationService {
         application.setWorkMode(request.getWorkMode());
         application.setUserId(request.getUserId());
 
+
         applicationStep.setComment(request.getComment());
         applicationStep.setStepStatus(request.getInitialStatus());
         if (request.getInitialDate() != null) {

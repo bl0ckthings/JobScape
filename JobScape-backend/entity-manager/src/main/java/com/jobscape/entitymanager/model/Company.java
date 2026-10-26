@@ -35,7 +35,7 @@ public class Company {
     private List<Contact> contacts = new ArrayList<>();
 
     private String logoUrl;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String domain;
 
     public Company(String website, String name) {

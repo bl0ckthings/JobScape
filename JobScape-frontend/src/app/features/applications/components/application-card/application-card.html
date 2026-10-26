@@ -5,7 +5,14 @@ cursor-pointer transition-shadow hover:shadow-card-hover
 ">
   <div class="flex justify-between">
     <div>
-      <p class="font-bold text-base-size">Componize - Aix en Provence</p>
+      <p data-testid="company-heading" class="flex items-center gap-[0.4em] font-bold text-base-size">
+        @if (logoUrl(); as src) {
+          <img [src]="src" alt="" class="h-[1em] w-[1em] shrink-0 rounded-sm object-contain" />
+        } @else {
+          <span class="flex h-[1em] w-[1em] shrink-0 items-center justify-center rounded-sm bg-slate-100 text-[0.8em]" aria-hidden="true">{{ companyName().charAt(0) }}</span>
+        }
+        <span>{{ companyName() }} - Aix en Provence</span>
+      </p>
       <p class="text-small-size text-card-muted">Développeur Full Stack Alternance</p>
     </div>
 
