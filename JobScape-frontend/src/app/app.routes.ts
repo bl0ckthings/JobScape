@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { ApplicationsBoardPage } from './features/applications/pages/applications-board-page/applications-board-page';
 import { AppShell } from './core/layout/app-shell/app-shell';
 import { authGuard } from './core/guards/auth-guard';
 
@@ -15,17 +14,21 @@ export const routes: Routes = [
     component: AppShell,
     children: [
       {
-        path: 'dashboard',
+        path: 'applications',
         loadComponent: () =>
           import('./features/applications/pages/applications-board-page/applications-board-page').then(
             (m) => m.ApplicationsBoardPage,
           ),
       },
+      {
+        path: 'dashboard',
+        loadComponent: () => import('./features/dashboard/dashboard-page').then(m => m.DashboardPage),
+      },
 
       // Ici toutes les routes qui vont détenir ma sidebar
       {
         path: '',
-        redirectTo: 'dashboard',
+        redirectTo: 'applications',
         pathMatch: 'full',
       },
     ],

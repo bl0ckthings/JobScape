@@ -11,4 +11,6 @@ public interface ReminderClient {
 
     @RequestMapping(method = RequestMethod.POST, value = "/reminder/create", consumes = "application/json")
     void create(@RequestBody CreateReminderRequest request);
+
+
 }

@@ -36,7 +36,8 @@ export class ApplicationDialogService {
   private open(data: ApplicationFormDialogData): ApplicationDialogRef {
     this.dialogRef = this.dialog.open(ApplicationFormDialog, {
       width: '600px',
-      maxWidth: 'calc(100vw - 32px)',
+      maxWidth: 'calc(100vw - 24px)',
+      maxHeight: 'calc(100dvh - 24px)',
       panelClass: 'jobscape-dialog-panel',
       backdropClass: 'jobscape-dialog-backdrop',
       disableClose: false,

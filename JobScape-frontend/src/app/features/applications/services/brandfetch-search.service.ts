@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, timeout } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
 
@@ -28,6 +28,6 @@ export class BrandfetchSearchService {
     return this.http.get<BrandfetchResult[]>(
       `https://api.brandfetch.io/v2/search/${encodeURIComponent(query)}`,
       { params: { c: environment.brandFetch_clientId } },
-    );
+    ).pipe(timeout(8000));
   }
 }

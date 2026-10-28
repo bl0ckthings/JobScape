@@ -6,6 +6,8 @@ services:
       MYSQL_USER: jobscape
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env}
+    ports:
+      - "127.0.0.1:3308:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
@@ -33,8 +35,8 @@ services:
     environment:
       SPRING_CLOUD_CONSUL_HOST: consul
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/jobscape
-      SPRING_DATASOURCE_USERNAME: jobscape
-      SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env}
     depends_on:
       consul:
         condition: service_healthy

@@ -1,6 +1,6 @@
 <div class="
 p-[1em] flex flex-col justify-between gap-[1em]
-[border:var(--border-card)] shadow-card rounded-2xl
+[border:var(--border-card)] bg-white shadow-card rounded-2xl
 cursor-pointer transition-shadow hover:shadow-card-hover
 ">
   <div class="flex justify-between">
@@ -16,30 +16,28 @@ cursor-pointer transition-shadow hover:shadow-card-hover
       <p class="text-small-size text-card-muted">{{ application()?.jobTitle ?? 'Développeur Full Stack Alternance' }}</p>
     </div>
 
-    <button
-      mat-icon-button
-      [matMenuTriggerFor]="applicationMenu"
-      aria-label="Actions"
-    >
-      <mat-icon>more_horiz</mat-icon>
-    </button>
-    <mat-menu #applicationMenu="matMenu">
-      <button mat-menu-item>
-        <mat-icon>visibility</mat-icon>
-        <span>Voir en détails</span>
+    <div class="relative shrink-0 self-start">
+      <button
+        type="button"
+        aria-label="Actions"
+        [attr.aria-expanded]="actionsOpen()"
+        class="grid h-8 w-8 place-items-center rounded-lg border border-[#E6E8F0] bg-white text-slate-500 hover:border-blue-300 hover:text-slate-900 focus-visible:outline-2 focus-visible:outline-blue-600"
+        (click)="toggleActions()"
+      >
+        <span class="relative -top-1 text-lg font-bold leading-none" aria-hidden="true">...</span>
       </button>
-      <button mat-menu-item>
-        <mat-icon>edit</mat-icon>
-        <span>Modifier</span>
-      </button>
-      <button mat-menu-item>
-        <mat-icon >delete</mat-icon>
-        <span class="text-red-500">Supprimer</span>
-      </button>
-    </mat-menu>
+      @if (actionsOpen()) {
+        <div data-testid="application-actions-menu" class="absolute right-0 top-full z-30 w-44 rounded-xl border border-[#E6E8F0] bg-white p-1.5 shadow-card">
+          <button type="button" class="w-full rounded-lg px-3 py-2 text-left text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700" (click)="closeActions()">Voir en détails</button>
+          <button type="button" class="w-full rounded-lg px-3 py-2 text-left text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700" (click)="closeActions()">Modifier</button>
+          <div class="my-1 border-t border-[#E6E8F0]"></div>
+          <button type="button" class="w-full rounded-lg px-3 py-2 text-left text-sm text-red-600 hover:bg-red-50" (click)="closeActions()">Supprimer</button>
+        </div>
+      }
+    </div>
   </div>
   <div class="flex gap-[0.5em] flex-wrap">
-    <span class="text-label-size py-tag-padding-y px-tag-padding-x [border:var(--border-tag-applied)] bg-tag-applied-bg rounded-tag">{{ statusLabel() }}</span>
+    <app-badge [status]="application()?.status ?? 'APPLIED'" />
     <span class="text-label-size py-tag-padding-y px-tag-padding-x [border:var(--border-card)] rounded-tag text-card-muted">{{ application()?.workMode ?? 'Présentiel' }}</span>
   </div>
   <div class="flex justify-between">

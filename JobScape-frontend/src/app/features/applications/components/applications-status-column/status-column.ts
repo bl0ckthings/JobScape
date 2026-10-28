@@ -1,11 +1,6 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { ApplicationCard } from '../application-card/application-card';
-import { ApplicationDto } from '../../../../shared/models/applications/applications-by-status-response.model';
-import { ApplicationDialogService } from '../../services/application-dialog.service';
-import { ApplicationService } from '../../services/application.service';
-import { filter, switchMap } from 'rxjs';
-import { ApplicationFormValue } from '../../dialogs/application-form-dialog/application-form-dialog';
-import { ApplicationCreation } from '../../services/application-creation';
+import { ApplicationCategory, ApplicationDto } from '../../../../shared/models/applications/applications-by-status-response.model';
 
 @Component({
   selector: 'app-applications-status-column',
@@ -15,11 +10,13 @@ import { ApplicationCreation } from '../../services/application-creation';
 })
 export class StatusColumn {
   readonly title = input('Wishlist');
+  readonly category = input<ApplicationCategory>('WISHLIST');
   readonly applications = input<ApplicationDto[]>([]);
-
-  private readonly applicationCreation = inject(ApplicationCreation);
-
-  openCreateApplicationDialog(): void {
-   this.applicationCreation.openCreateApplicationDialog();
-  }
+  readonly dotColor = computed(() => {
+    switch (this.category()) {
+      case 'APPLIED': return 'bg-[#6D5EFC]';
+      case 'INTERVIEW': return 'bg-[#23C483]';
+      default: return 'bg-gray-400';
+    }
+  });
 }

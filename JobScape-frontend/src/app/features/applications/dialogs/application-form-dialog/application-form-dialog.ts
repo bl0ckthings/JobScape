@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { catchError, of, switchMap, tap, timer } from 'rxjs';
 import { ApplicationStatus } from '../../../../shared/models/applications/application-status.model';
 import { BrandfetchResult, BrandfetchSearchService } from '../../services/brandfetch-search.service';
+import { ApplicationFormSelect } from './application-form-select';
 
 
 export type ApplicationFormMode = 'create' | 'edit';
@@ -45,7 +46,7 @@ export type ApplicationFormValue = {
 @Component({
   selector: 'app-application-form-dialog',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ApplicationFormSelect],
   templateUrl: './application-form-dialog.html',
 })
 export class ApplicationFormDialog{
@@ -87,6 +88,9 @@ export class ApplicationFormDialog{
   readonly workModes = ['Remote', 'Hybride', 'Présentiel'];
 
   readonly countries = ['France', 'Belgique', 'Suisse', 'Luxembourg', 'Canada'];
+  readonly countryOptions = this.countries.map(value => ({ value, label: value }));
+  readonly sourceOptions = this.sources.map(value => ({ value, label: value }));
+  readonly workModeOptions = this.workModes.map(value => ({ value, label: value }));
 
   readonly statuses: { value: ApplicationStatus; label: string }[] = [
     { value: 'WISHLIST', label: 'À postuler' },
@@ -175,7 +179,7 @@ export class ApplicationFormDialog{
       ...value,
       companyDomain: this.selectedCompany()?.domain ?? null,
       initialDate: value.initialDate || null,
-      companyLogoUrl: this.selectedCompany()?.icon ?? null,
+      companyLogoUrl: null,
     });
   }
 }

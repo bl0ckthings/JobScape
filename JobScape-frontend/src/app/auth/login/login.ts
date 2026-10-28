@@ -1,15 +1,13 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { Register } from '../register/register';
 import { AuthService } from '../../core/services/auth.service';
-import { LoginRequest } from '../../shared/models/auth';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, NgOptimizedImage],
+  imports: [CommonModule, RouterLink, ReactiveFormsModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -37,7 +35,7 @@ export class Login {
     this.authService
       .login(this.form.value)
       .subscribe({
-        next: () => this.router.navigateByUrl('/dashboard'),
+        next: () => this.router.navigateByUrl('/applications'),
         error:(err) => {
           this.error = err?.error?.message || "Problème lors de la connexion";
           this.loading = false;

@@ -1,11 +1,16 @@
 package com.jobscape.webgateway.controller;
 
 import com.jobscape.webgateway.client.ApplicationClient;
+import com.jobscape.webgateway.service.applicationDto.ApplicationDetailDto;
 import com.jobscape.webgateway.service.applicationDto.ApplicationDto;
 import com.jobscape.webgateway.service.applicationDto.ApplicationsByStatusResponse;
 import com.jobscape.webgateway.service.applicationDto.CreateApplicationRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/application")
@@ -24,6 +29,28 @@ public class ApplicationController {
     @GetMapping("/user")
     public ApplicationsByStatusResponse  getApplicationsByUserId(@RequestAttribute("authenticatedUserId") Long userId) {
         return applicationClient.getApplicationsByUserId(userId);
+    }
+
+    @GetMapping("/{id}")
+    public ApplicationDto getApplicationById(@PathVariable Long id, @RequestAttribute("authenticatedUserId") Long userId) {
+        ApplicationDto application = applicationClient.getApplicationById(id);
+        if (!Objects.equals(application.getUserId(), userId)) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Application not found"
+            );
+        }
+        return application;
+
+
+    }
+
+    @GetMapping("/detail/{id}")
+    public ApplicationDetailDto getApplicationDetail(
+            @PathVariable Long id,
+            @RequestAttribute("authenticatedUserId") Long userId
+    ) {
+        return null;
     }
 
 

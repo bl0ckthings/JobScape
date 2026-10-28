@@ -42,6 +42,14 @@ public class ContactService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
+    public List<ContactDto> getByUserId(Long companyId, Long userId) {
+        return contactRepository.findByCompany_IdAndUser_IdOrderByCreatedAtAscIdAsc(companyId, userId)
+                .stream()
+                .map(contactMapper::toDto)
+                .toList();
+    }
+
     @Transactional
     public ContactDto create(ContactDto dto) {
         Company company = resolveCompany(dto);
@@ -99,4 +107,6 @@ public class ContactService {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", userId));
     }
+
+
 }

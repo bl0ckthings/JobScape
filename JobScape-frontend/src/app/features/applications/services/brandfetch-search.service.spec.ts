@@ -1,6 +1,7 @@
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { TimeoutError } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
 import { BrandfetchSearchService } from './brandfetch-search.service';
@@ -46,5 +47,21 @@ describe('BrandfetchSearchService', () => {
 
     http.expectNone(request => request.url.includes('brandfetch.io'));
     expect(received).toEqual([]);
+  });
+
+  it('times out when Brandfetch never responds', async () => {
+    vi.useFakeTimers();
+    try {
+      let receivedError: unknown;
+      service.search('ACME').subscribe({ error: error => receivedError = error });
+      const request = http.expectOne(request => request.url.includes('/v2/search/ACME'));
+
+      await vi.advanceTimersByTimeAsync(8000);
+
+      expect(receivedError).toBeInstanceOf(TimeoutError);
+      expect(request.cancelled).toBe(true);
+    } finally {
+      vi.useRealTimers();
+    }
   });
 });

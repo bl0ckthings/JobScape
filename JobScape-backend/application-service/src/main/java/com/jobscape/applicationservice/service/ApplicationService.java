@@ -4,6 +4,7 @@ import com.jobscape.applicationservice.client.ApplicationClient;
 import com.jobscape.applicationservice.client.ApplicationStepClient;
 import com.jobscape.applicationservice.client.CompanyClient;
 import com.jobscape.applicationservice.client.ReminderClient;
+import com.jobscape.applicationservice.dto.application.ApplicationDetailDto;
 import com.jobscape.applicationservice.dto.application.ApplicationDto;
 import com.jobscape.applicationservice.dto.application.ApplicationsByStatusResponse;
 import com.jobscape.applicationservice.dto.application.CreateApplicationRequest;
@@ -15,12 +16,11 @@ import com.jobscape.applicationservice.model.ApplicationCategory;
 import com.jobscape.applicationservice.service.mapper.ApplicationMapper;
 import com.jobscape.applicationservice.service.mapper.ApplicationStepMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -98,6 +98,15 @@ public class ApplicationService {
 
         return response;
     }
+
+    public ApplicationDetailDto getApplicationDetail(Long applicationId, Long userId) {
+        ApplicationDto application = applicationClient.getApplicationById(applicationId);
+        if (!Objects.equals(userId, application.getUserId())) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Application not found");
+        }
+
+    }
+
 
     public ApplicationDto getApplicationById(Long id) {
         return applicationClient.getApplicationById(id);

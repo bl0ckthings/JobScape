@@ -102,6 +102,13 @@
     @apply overflow-hidden rounded-[18px];
   }
 
+  .jobscape-dialog-panel .mat-mdc-dialog-surface {
+    background: transparent;
+    border-radius: 18px;
+    box-shadow: none;
+    padding: 0;
+  }
+
 }
 
 
