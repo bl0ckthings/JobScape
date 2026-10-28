@@ -1,0 +1,107 @@
+services:
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: jobscape
+      MYSQL_USER: jobscape
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p\"$$MYSQL_ROOT_PASSWORD\" --silent"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  consul:
+    image: hashicorp/consul:1.17
+    command: agent -dev -client=0.0.0.0
+    ports:
+      - "8500:8500"
+    healthcheck:
+      test: ["CMD", "consul", "info"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  entity-manager:
+    build: ./JobScape-backend/entity-manager
+    entrypoint: ["sh", "-c", "sleep 3; exec java -jar app.jar"]
+    environment:
+      SPRING_CLOUD_CONSUL_HOST: consul
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/jobscape
+      SPRING_DATASOURCE_USERNAME: jobscape
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
+    depends_on:
+      consul:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+    restart: on-failure
+
+  user-service:
+    build: ./JobScape-backend/user-service
+    entrypoint: ["sh", "-c", "sleep 3; exec java -jar app.jar"]
+    environment:
+      SPRING_CLOUD_CONSUL_HOST: consul
+    depends_on:
+      consul:
+        condition: service_healthy
+    restart: on-failure
+
+  company-service:
+    build: ./JobScape-backend/company-service
+    entrypoint: ["sh", "-c", "sleep 3; exec java -jar app.jar"]
+    environment:
+      SPRING_CLOUD_CONSUL_HOST: consul
+    depends_on:
+      consul:
+        condition: service_healthy
+    restart: on-failure
+
+  application-service:
+    build: ./JobScape-backend/application-service
+    entrypoint: ["sh", "-c", "sleep 3; exec java -jar app.jar"]
+    environment:
+      SPRING_CLOUD_CONSUL_HOST: consul
+    depends_on:
+      consul:
+        condition: service_healthy
+    restart: on-failure
+
+  reminder-service:
+    build: ./JobScape-backend/reminder-service
+    entrypoint: ["sh", "-c", "sleep 3; exec java -jar app.jar"]
+    environment:
+      SPRING_CLOUD_CONSUL_HOST: consul
+    depends_on:
+      consul:
+        condition: service_healthy
+    restart: on-failure
+
+  web-gateway:
+    build: ./JobScape-backend/web-gateway
+    entrypoint: ["sh", "-c", "sleep 3; exec java -jar app.jar"]
+    environment:
+      SPRING_CLOUD_CONSUL_HOST: consul
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in .env}
+    ports:
+      - "8080:8080"
+    depends_on:
+      consul:
+        condition: service_healthy
+    restart: on-failure
+
+  frontend:
+    build: ./JobScape-frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - web-gateway
+    restart: unless-stopped
+
+volumes:
+  mysql_data:

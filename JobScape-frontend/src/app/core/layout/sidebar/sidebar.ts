@@ -10,6 +10,7 @@ import {
 import { ApplicationDialogService } from '../../../features/applications/services/application-dialog.service';
 import { ApplicationService } from '../../../features/applications/services/application.service';
 import { filter, switchMap } from 'rxjs';
+import { ApplicationCreation } from '../../../features/applications/services/application-creation';
 
 @Component({
   selector: 'app-sidebar',
@@ -19,31 +20,11 @@ import { filter, switchMap } from 'rxjs';
   styleUrl: './sidebar.css',
 })
 export class Sidebar {
-  private readonly applicationDialog = inject(ApplicationDialogService);
 
-  private readonly applicationService = inject(ApplicationService);
+  private readonly applicationCreate = inject(ApplicationCreation);
 
   openCreateApplicationDialog(): void {
-    this.applicationDialog.openCreate()
-      .afterClosed()
-      .pipe(
-        // Une fermeture sans valeur signifie que l'utilisateur a annulé le formulaire.
-        filter((value): value is ApplicationFormValue => value !== undefined),
-        // Transforme les données du formulaire en requête HTTP, sans souscription imbriquée.
-        switchMap((value) => this.applicationService.createNewApplication(value)),
-      )
-      .subscribe({
-        // La souscription déclenche la requête HTTP et reçoit son résultat.
-        next: (createdApplication) => {
-          // Actualiser les candidatures quand le tableau utilisera les données de l'API.
-          console.log(createdApplication);
-          console.log('ID :', createdApplication.id);
-        },
-        error: (error) => {
-          // Afficher une erreur à l'utilisateur si la création échoue.
-          console.error('Création échouée :', error);
-        },
-      });
+   this.applicationCreate.openCreateApplicationDialog();
   }
 
   isOpen = false;
