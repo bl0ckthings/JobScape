@@ -13,6 +13,7 @@ class CreateApplicationRequestTest {
     void carriesPublicApplicationCreationInputs() {
         CreateApplicationRequest request = new CreateApplicationRequest();
         request.setCompanyName("JobScape");
+        request.setCompanyDomain("jobscape.com");
         request.setJobTitle("Backend Developer");
         request.setCity("Paris");
         request.setCountry("France");
@@ -25,6 +26,7 @@ class CreateApplicationRequestTest {
         request.setCreateReminder(true);
 
         assertEquals("JobScape", request.getCompanyName());
+        assertEquals("jobscape.com", request.getCompanyDomain());
         assertEquals(ApplicationStatus.APPLIED, request.getInitialStatus());
         assertEquals(LocalDate.of(2026, 10, 16), request.getInitialDate());
         assertTrue(request.isCreateReminder());

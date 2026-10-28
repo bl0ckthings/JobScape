@@ -1,4 +1,4 @@
-package com.jobscape.applicationservice.dto;
+package com.jobscape.applicationservice.dto.application;
 
 import com.jobscape.applicationservice.model.ApplicationStatus;
 import jakarta.validation.constraints.NotBlank;
@@ -17,6 +17,10 @@ public class CreateApplicationRequest {
     @Size(max = 255)
     private String companyName;
 
+    @Size(max = 255)
+    private String companyDomain;
+
+    private String companyLogoUrl;
     @NotBlank
     @Size(max = 255)
     private String jobTitle;

@@ -1,8 +1,10 @@
 package com.jobscape.entitymanager.service;
 
 import com.jobscape.entitymanager.exception.ResourceNotFoundException;
+import com.jobscape.entitymanager.dto.UserDto;
 import com.jobscape.entitymanager.model.User;
 import com.jobscape.entitymanager.repository.UserRepository;
+import com.jobscape.entitymanager.service.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     @Transactional(readOnly = true)
     public User getById(Long id) {
@@ -29,11 +32,12 @@ public class UserService {
 
     @Transactional
     public User create(User user) {
+
         return userRepository.save(user);
     }
 
     @Transactional
-    public User update(Long id, User update) {
+    public UserDto update(Long id, UserDto update) {
         User user = findUser(id);
         if (update.getFirstName() != null) {
             user.setFirstName(update.getFirstName());
@@ -44,10 +48,7 @@ public class UserService {
         if (update.getEmail() != null) {
             user.setEmail(update.getEmail());
         }
-        if (update.getPassword() != null) {
-            user.setPassword(update.getPassword());
-        }
-        return userRepository.save(user);
+        return userMapper.toDto(userRepository.save(user));
     }
 
     @Transactional

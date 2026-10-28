@@ -63,7 +63,7 @@
         </h3>
 
         <div class="grid grid-cols-2 gap-x-3 gap-y-2.5">
-          <div class="flex flex-col gap-2">
+          <div class="relative flex flex-col gap-2">
             <label class="form-label" for="companyName">
               Nom de l’entreprise
             </label>
@@ -73,8 +73,35 @@
               type="text"
               placeholder="Ex. Dassault"
               formControlName="companyName"
+              autocomplete="off"
               class="form-input"
             />
+            @if (searching()) {
+              <span class="text-xs text-slate-500" aria-live="polite">Recherche d’entreprises…</span>
+            }
+            @if (searchFailed()) {
+              <span class="text-xs text-red-600" aria-live="polite">Recherche indisponible. Réessayez.</span>
+            }
+            @if (suggestions().length > 0) {
+              <div class="absolute left-0 right-0 top-full z-20 mt-1 max-h-52 overflow-y-auto rounded-lg border border-slate-200 bg-white shadow-lg">
+                @for (company of suggestions(); track company.brandId) {
+                  <button
+                    type="button"
+                    data-testid="company-suggestion"
+                    class="flex w-full items-center gap-2 px-3 py-2 text-left hover:bg-slate-50 focus:bg-slate-50"
+                    (click)="selectCompany(company)"
+                  >
+                    @if (company.icon) {
+                      <img [src]="company.icon" [alt]="''" class="h-7 w-7 rounded object-contain" />
+                    }
+                    <span class="min-w-0">
+                      <span class="block truncate text-sm text-slate-900">{{ company.name || company.domain }}</span>
+                      <span class="block truncate text-xs text-slate-500">{{ company.domain }}</span>
+                    </span>
+                  </button>
+                }
+              </div>
+            }
           </div>
 
           <div class="flex flex-col gap-2">
@@ -247,9 +274,9 @@
                 Choisir un statut
               </option>
 
-              @for (status of statuses; track status) {
-                <option [value]="status">
-                  {{ status }}
+              @for (status of statuses; track status.value) {
+                <option [value]="status.value">
+                  {{ status.label }}
                 </option>
               }
             </select>
@@ -319,8 +346,7 @@
         type="submit"
         class="text-center h-[38px] min-w-[92px] rounded-[10px] bg-gradient-to-br from-blue-600 to-blue-500 text-[13px] font-bold text-white shadow-[0_12px_26px_rgba(37,99,235,0.26)] transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-60"
         [disabled]="form.invalid"
-        (click)="submit()"
-      >   
+      >
         {{ mode === 'edit' ? 'Sauvegarder' : 'Ajouter' }}
       </button>
     </footer>

@@ -17,6 +17,8 @@ public class CompanyMapper {
         dto.setWebsite(company.getWebsite());
         dto.setCreatedAt(company.getCreatedAt());
         dto.setUpdatedAt(company.getUpdatedAt());
+        dto.setDomain(company.getDomain());
+        dto.setLogoUrl(company.getLogoUrl());
         dto.setContacts(company.getContacts().stream()
                 .map(this::toSummaryDto)
                 .toList());
@@ -29,6 +31,8 @@ public class CompanyMapper {
 
         company.setName(dto.getName());
         company.setWebsite(dto.getWebsite());
+        company.setDomain(dto.getDomain());
+        company.setLogoUrl(dto.getLogoUrl());
 
         return company;
     }

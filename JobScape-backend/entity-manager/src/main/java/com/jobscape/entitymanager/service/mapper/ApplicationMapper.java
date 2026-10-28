@@ -28,6 +28,9 @@ public class ApplicationMapper {
         dto.setUpdatedAt(application.getUpdatedAt());
         dto.setUserId(application.getUser().getId());
         dto.setCompanyId(application.getCompany().getId());
+        dto.setCompanyName(application.getCompany().getName());
+        dto.setCompanyDomain(application.getCompany().getDomain());
+        dto.setCompanyLogoUrl(application.getCompany().getLogoUrl());
         dto.setSteps(application.getSteps().stream()
                 .map(applicationStepMapper::toDto)
                 .toList());

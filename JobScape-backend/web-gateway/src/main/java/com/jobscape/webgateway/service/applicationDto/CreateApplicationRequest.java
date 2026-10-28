@@ -15,6 +15,11 @@ public class CreateApplicationRequest {
     @Size(max = 255)
     private String companyName;
 
+    @Size(max = 255)
+    private String companyDomain;
+
+    private String companyLogoUrl;
+
     @NotBlank
     @Size(max = 255)
     private String jobTitle;
@@ -44,4 +49,6 @@ public class CreateApplicationRequest {
     private String comment;
 
     private boolean createReminder;
+
+    private Long userId;
 }

@@ -2,6 +2,8 @@ import { ApplicationStatus } from '../applications/application-status.model';
 
 export interface CreateApplication {
   companyName: string;
+  companyDomain?: string | null;
+  companyLogoUrl?: string | null;
   jobTitle: string;
   city: string;
   country: string;

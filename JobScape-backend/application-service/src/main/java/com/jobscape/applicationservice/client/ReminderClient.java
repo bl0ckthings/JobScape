@@ -1,6 +1,6 @@
 package com.jobscape.applicationservice.client;
 
-import com.jobscape.applicationservice.dto.CreateReminderRequest;
+import com.jobscape.applicationservice.dto.reminder.CreateReminderRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

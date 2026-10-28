@@ -2,20 +2,25 @@ package com.jobscape.applicationservice.service;
 
 import com.jobscape.applicationservice.client.ApplicationClient;
 import com.jobscape.applicationservice.client.ApplicationStepClient;
+import com.jobscape.applicationservice.client.CompanyClient;
 import com.jobscape.applicationservice.client.ReminderClient;
-import com.jobscape.applicationservice.dto.*;
+import com.jobscape.applicationservice.dto.application.ApplicationDto;
+import com.jobscape.applicationservice.dto.application.ApplicationsByStatusResponse;
+import com.jobscape.applicationservice.dto.application.CreateApplicationRequest;
+import com.jobscape.applicationservice.dto.applicationstep.ApplicationStepDto;
+import com.jobscape.applicationservice.dto.company.CompanyDto;
+import com.jobscape.applicationservice.dto.company.CompanySelectionDto;
+import com.jobscape.applicationservice.dto.reminder.CreateReminderRequest;
 import com.jobscape.applicationservice.model.ApplicationCategory;
-import com.jobscape.applicationservice.model.ApplicationStatus;
+import com.jobscape.applicationservice.service.mapper.ApplicationMapper;
+import com.jobscape.applicationservice.service.mapper.ApplicationStepMapper;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static com.jobscape.applicationservice.model.ApplicationStatus.*;
 
 @Service
 @RequiredArgsConstructor
@@ -25,34 +30,31 @@ public class ApplicationService {
     private final ApplicationClient applicationClient;
     private final ApplicationStepClient applicationStepClient;
     private final ReminderClient reminderClient;
+    private final CompanyClient companyClient;
+    private final ApplicationMapper applicationMapper;
+    private final ApplicationStepMapper applicationStepMapper;
+
 
     public ApplicationDto create(CreateApplicationRequest request) {
-        ApplicationDto application = new ApplicationDto();
-        ApplicationStepDto applicationStep = new ApplicationStepDto();
 
-        application.setJobTitle(request.getJobTitle());
-        application.setCity(request.getCity());
-        application.setCountry(request.getCountry());
-        application.setSource(request.getSource());
-        application.setUrl(request.getUrl());
-        application.setStatus(request.getInitialStatus());
-        application.setWorkMode(request.getWorkMode());
-        application.setUserId(request.getUserId());
+        CompanySelectionDto companySelectionDto = new CompanySelectionDto();
+        companySelectionDto.setName(request.getCompanyName());
+        companySelectionDto.setDomain(request.getCompanyDomain());
+        companySelectionDto.setLogoUrl(request.getCompanyLogoUrl());
 
-        applicationStep.setComment(request.getComment());
-        applicationStep.setStepStatus(request.getInitialStatus());
-        if (request.getInitialDate() != null) {
-            applicationStep.setStepDate(request.getInitialDate().atStartOfDay());
-        }
-
+        CompanyDto company = companyClient.resolveCompany(companySelectionDto);
+        ApplicationDto application = applicationMapper.toDto(request);
+        application.setCompanyId(company.getId());
         ApplicationDto createdApplication = applicationClient.create(application);
-        applicationStep.setApplicationId(createdApplication.getId());
+        ApplicationStepDto applicationStep = applicationStepMapper.toInitialDto(request, createdApplication);
         applicationStepClient.create(applicationStep);
 
         if (request.isCreateReminder()) {
             CreateReminderRequest reminder = new CreateReminderRequest();
             reminder.setApplicationId(createdApplication.getId());
-            reminder.setApplicationDate(request.getInitialDate());
+            reminder.setApplicationDate(request.getInitialDate() != null
+                    ? request.getInitialDate()
+                    : createdApplication.getCreatedAt().toLocalDate());
             reminder.setComment("Relancer l'entreprise");
             reminderClient.create(reminder);
         }
@@ -96,5 +98,15 @@ public class ApplicationService {
 
         return response;
     }
+
+    public ApplicationDto getApplicationById(Long id) {
+        return applicationClient.getApplicationById(id);
+    }
+
+    public void deleteApplicationById(Long id) {
+        applicationClient.delete(id);
+    }
+
+
 
 }

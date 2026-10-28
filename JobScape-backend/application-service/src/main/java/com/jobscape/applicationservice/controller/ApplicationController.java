@@ -1,8 +1,8 @@
 package com.jobscape.applicationservice.controller;
 
-import com.jobscape.applicationservice.dto.ApplicationDto;
-import com.jobscape.applicationservice.dto.ApplicationsByStatusResponse;
-import com.jobscape.applicationservice.dto.CreateApplicationRequest;
+import com.jobscape.applicationservice.dto.application.ApplicationDto;
+import com.jobscape.applicationservice.dto.application.ApplicationsByStatusResponse;
+import com.jobscape.applicationservice.dto.application.CreateApplicationRequest;
 import com.jobscape.applicationservice.service.ApplicationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ public class ApplicationController {
 
     @PostMapping("/create")
     public ApplicationDto createApplication(@Valid @RequestBody CreateApplicationRequest createApplicationRequest) {
-        return null;
+       return applicationService.create(createApplicationRequest);
     }
 
     @DeleteMapping("/delete/{id}")

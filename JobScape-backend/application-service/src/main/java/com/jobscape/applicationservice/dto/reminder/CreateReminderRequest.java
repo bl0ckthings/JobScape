@@ -1,4 +1,4 @@
-package com.jobscape.applicationservice.dto;
+package com.jobscape.applicationservice.dto.reminder;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

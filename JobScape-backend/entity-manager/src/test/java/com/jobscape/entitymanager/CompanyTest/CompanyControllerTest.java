@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.http.HttpStatus;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -43,5 +44,15 @@ class CompanyControllerTest {
         CompanyDto result = controller.getCompanyById(company.getId());
 
         assertEquals(company.getId(), result.getId());
+    }
+
+    @Test
+    void getCompanyByDomainReturnsCompanyOrNotFound() {
+        Company company = new Company("https://jobscape.test", "JobScape");
+        company.setDomain("jobscape.test");
+        companyRepository.save(company);
+
+        assertEquals(company.getId(), controller.getCompanyByDomain("jobscape.test").getBody().getId());
+        assertEquals(HttpStatus.NOT_FOUND, controller.getCompanyByDomain("missing.test").getStatusCode());
     }
 }

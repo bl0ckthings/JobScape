@@ -1,6 +1,6 @@
 package com.jobscape.applicationservice.controller;
 
-import com.jobscape.applicationservice.dto.CreateApplicationRequest;
+import com.jobscape.applicationservice.dto.application.CreateApplicationRequest;
 import jakarta.validation.Valid;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.bind.annotation.DeleteMapping;

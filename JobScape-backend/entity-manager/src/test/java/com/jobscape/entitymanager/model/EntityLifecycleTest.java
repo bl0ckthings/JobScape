@@ -44,6 +44,17 @@ class EntityLifecycleTest {
     @Autowired EntityManager entityManager;
 
     @Test
+    void savesCompanyWithoutDomain() {
+        Company company = new Company();
+        company.setName("New startup");
+
+        Company saved = companyRepository.saveAndFlush(company);
+
+        entityManager.clear();
+        assertNull(companyRepository.findById(saved.getId()).orElseThrow().getDomain());
+    }
+
+    @Test
     void deletingApplicationDeletesStepsAndReminders() {
         Graph graph = persistGraph();
 
