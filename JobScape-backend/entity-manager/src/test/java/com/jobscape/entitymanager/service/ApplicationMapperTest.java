@@ -53,6 +53,9 @@ class ApplicationMapperTest {
 
         Company company = new Company();
         company.setId(2L);
+        company.setName("Acme");
+        company.setDomain("acme.com");
+        company.setLogoUrl("https://example.com/acme.png");
 
         Application application = new Application();
         application.setId(3L);
@@ -82,6 +85,9 @@ class ApplicationMapperTest {
         assertEquals(updatedAt, dto.getUpdatedAt());
         assertEquals(1L, dto.getUserId());
         assertEquals(2L, dto.getCompanyId());
+        assertEquals("Acme", dto.getCompanyName());
+        assertEquals("acme.com", dto.getCompanyDomain());
+        assertEquals("https://example.com/acme.png", dto.getCompanyLogoUrl());
         assertEquals(0, dto.getSteps().size());
     }
 

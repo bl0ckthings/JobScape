@@ -22,5 +22,8 @@ public class ApplicationDto {
     private LocalDateTime updatedAt;
     private Long userId;
     private Long companyId;
+    private String companyName;
+    private String companyDomain;
+    private String companyLogoUrl;
     private List<ApplicationStepDto> steps = new ArrayList<>();
 }

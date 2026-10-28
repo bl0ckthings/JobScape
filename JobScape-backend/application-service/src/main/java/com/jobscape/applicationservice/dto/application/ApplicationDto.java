@@ -1,5 +1,6 @@
-package com.jobscape.applicationservice.dto;
+package com.jobscape.applicationservice.dto.application;
 
+import com.jobscape.applicationservice.dto.applicationstep.ApplicationStepDto;
 import com.jobscape.applicationservice.model.ApplicationStatus;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,5 +24,8 @@ public class ApplicationDto {
     private LocalDateTime updatedAt;
     private Long userId;
     private Long companyId;
+    private String companyName;
+    private String companyDomain;
+    private String companyLogoUrl;
     private List<ApplicationStepDto> steps = new ArrayList<>();
 }

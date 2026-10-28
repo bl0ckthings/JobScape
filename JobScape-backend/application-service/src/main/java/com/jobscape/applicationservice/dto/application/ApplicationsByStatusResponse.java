@@ -1,4 +1,4 @@
-package com.jobscape.applicationservice.dto;
+package com.jobscape.applicationservice.dto.application;
 
 import com.jobscape.applicationservice.model.ApplicationCategory;
 import com.jobscape.applicationservice.model.ApplicationStatus;

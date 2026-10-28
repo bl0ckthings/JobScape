@@ -2,12 +2,16 @@ package com.jobscape.applicationservice.service;
 
 import com.jobscape.applicationservice.client.ApplicationClient;
 import com.jobscape.applicationservice.client.ApplicationStepClient;
+import com.jobscape.applicationservice.client.CompanyClient;
 import com.jobscape.applicationservice.client.ReminderClient;
-import com.jobscape.applicationservice.dto.ApplicationDto;
-import com.jobscape.applicationservice.dto.ApplicationStepDto;
-import com.jobscape.applicationservice.dto.CreateApplicationRequest;
-import com.jobscape.applicationservice.dto.CreateReminderRequest;
+import com.jobscape.applicationservice.dto.application.ApplicationDto;
+import com.jobscape.applicationservice.dto.application.CreateApplicationRequest;
+import com.jobscape.applicationservice.dto.applicationstep.ApplicationStepDto;
+import com.jobscape.applicationservice.dto.company.CompanyDto;
+import com.jobscape.applicationservice.dto.reminder.CreateReminderRequest;
 import com.jobscape.applicationservice.model.ApplicationStatus;
+import com.jobscape.applicationservice.service.mapper.ApplicationMapper;
+import com.jobscape.applicationservice.service.mapper.ApplicationStepMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
@@ -28,10 +32,17 @@ class ApplicationServiceTest {
         ApplicationClient applicationClient = mock(ApplicationClient.class);
         ApplicationStepClient applicationStepClient = mock(ApplicationStepClient.class);
         ReminderClient reminderClient = mock(ReminderClient.class);
+        CompanyClient companyClient = mock(CompanyClient.class);
+        CompanyDto company = new CompanyDto();
+        company.setId(13L);
+        when(companyClient.resolveCompany(any())).thenReturn(company);
         ApplicationService service = new ApplicationService(
                 applicationClient,
                 applicationStepClient,
-                reminderClient
+                reminderClient,
+                companyClient,
+                new ApplicationMapper(),
+                new ApplicationStepMapper()
         );
 
         CreateApplicationRequest request = new CreateApplicationRequest();
@@ -49,19 +60,24 @@ class ApplicationServiceTest {
 
         ApplicationDto createdApplication = new ApplicationDto();
         createdApplication.setId(42L);
+        createdApplication.setStatus(ApplicationStatus.APPLIED);
         when(applicationClient.create(any(ApplicationDto.class))).thenReturn(createdApplication);
 
         ApplicationDto result = service.create(request);
 
+        ArgumentCaptor<ApplicationDto> applicationCaptor = ArgumentCaptor.forClass(ApplicationDto.class);
         ArgumentCaptor<ApplicationStepDto> stepCaptor = ArgumentCaptor.forClass(ApplicationStepDto.class);
         ArgumentCaptor<CreateReminderRequest> reminderCaptor = ArgumentCaptor.forClass(CreateReminderRequest.class);
         InOrder calls = inOrder(applicationClient, applicationStepClient, reminderClient);
-        calls.verify(applicationClient).create(any(ApplicationDto.class));
+        calls.verify(applicationClient).create(applicationCaptor.capture());
         calls.verify(applicationStepClient).create(stepCaptor.capture());
         calls.verify(reminderClient).create(reminderCaptor.capture());
 
         assertEquals(42L, result.getId());
+        assertEquals("Backend Developer", applicationCaptor.getValue().getJobTitle());
+        assertEquals(11L, applicationCaptor.getValue().getUserId());
         assertEquals(42L, stepCaptor.getValue().getApplicationId());
+        assertEquals(ApplicationStatus.APPLIED, stepCaptor.getValue().getStepStatus());
         assertEquals(42L, reminderCaptor.getValue().getApplicationId());
         assertEquals(LocalDate.of(2026, 10, 19), reminderCaptor.getValue().getApplicationDate());
         assertEquals("Relancer l'entreprise", reminderCaptor.getValue().getComment());
@@ -72,7 +88,18 @@ class ApplicationServiceTest {
         ApplicationClient applicationClient = mock(ApplicationClient.class);
         ApplicationStepClient applicationStepClient = mock(ApplicationStepClient.class);
         ReminderClient reminderClient = mock(ReminderClient.class);
-        ApplicationService service = new ApplicationService(applicationClient, applicationStepClient, reminderClient);
+        CompanyClient companyClient = mock(CompanyClient.class);
+        CompanyDto company = new CompanyDto();
+        company.setId(13L);
+        when(companyClient.resolveCompany(any())).thenReturn(company);
+        ApplicationService service = new ApplicationService(
+                applicationClient,
+                applicationStepClient,
+                reminderClient,
+                companyClient,
+                new ApplicationMapper(),
+                new ApplicationStepMapper()
+        );
 
         CreateApplicationRequest request = new CreateApplicationRequest();
         request.setInitialStatus(ApplicationStatus.APPLIED);
@@ -80,6 +107,7 @@ class ApplicationServiceTest {
 
         ApplicationDto createdApplication = new ApplicationDto();
         createdApplication.setId(42L);
+        createdApplication.setStatus(ApplicationStatus.APPLIED);
         createdApplication.setCreatedAt(LocalDateTime.of(2026, 10, 26, 15, 30));
         when(applicationClient.create(any(ApplicationDto.class))).thenReturn(createdApplication);
 

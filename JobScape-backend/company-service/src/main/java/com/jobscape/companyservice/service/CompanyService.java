@@ -1,5 +1,4 @@
 package com.jobscape.companyservice.service;
-import java.net.CookieManager;
 import java.net.URI;
 import java.util.Locale;
 import java.util.List;
@@ -7,6 +6,7 @@ import java.util.Optional;
 import com.jobscape.companyservice.client.CompanyClient;
 import com.jobscape.companyservice.dto.CompanyDto;
 import com.jobscape.companyservice.dto.CompanySelectionDto;
+import com.jobscape.companyservice.service.mapper.CompanyMapper;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 public class CompanyService {
 
         private final CompanyClient companyClient;
+        private final CompanyMapper companyMapper;
 
         public List<CompanyDto> getCompanies() {
                 return companyClient.getCompanies();
@@ -46,13 +47,20 @@ public class CompanyService {
                 companyClient.deleteCompany(id);
         }
 
-        public Optional<CompanyDto> resolveCompany(CompanySelectionDto companySelectionDto) {
-                Optional<CompanyDto> company = findCompanyByDomain(companySelectionDto.getDomain());
-                if (company.isPresent()) {
-                        return company;
-                } else {
-                        createCompany()
+        public CompanyDto resolveCompany(CompanySelectionDto companySelectionDto) {
+                if (companySelectionDto == null || companySelectionDto.getName() == null
+                        || companySelectionDto.getName().isBlank()) {
+                        throw new IllegalArgumentException("Company name is required");
                 }
+
+                if (companySelectionDto.getDomain() != null && !companySelectionDto.getDomain().isBlank()) {
+                        Optional<CompanyDto> company = findCompanyByDomain(companySelectionDto.getDomain());
+                        if (company.isPresent()) {
+                                return company.get();
+                        }
+                }
+                CompanyDto companyDto = companyMapper.toDto(companySelectionDto);
+                return createCompany(companyDto);
         }
 
         private String normalizeDomain(String rawDomain) {

@@ -1,6 +1,6 @@
 package com.jobscape.applicationservice.controller;
 
-import com.jobscape.applicationservice.dto.ApplicationStepDto;
+import com.jobscape.applicationservice.dto.applicationstep.ApplicationStepDto;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

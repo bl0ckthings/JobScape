@@ -1,4 +1,4 @@
-package com.jobscape.applicationservice.dto;
+package com.jobscape.applicationservice.dto.applicationstep;
 
 import com.jobscape.applicationservice.model.ApplicationStatus;
 import lombok.Data;

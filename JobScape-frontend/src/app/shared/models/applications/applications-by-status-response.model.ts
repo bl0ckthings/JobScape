@@ -26,6 +26,9 @@ export interface ApplicationDto {
   updatedAt: string;
   userId: number;
   companyId: number;
+  companyName: string;
+  companyDomain: string | null;
+  companyLogoUrl: string | null;
   steps: ApplicationStepDto[];
 }
 

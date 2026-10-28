@@ -1,6 +1,7 @@
 package com.jobscape.companyservice.controller;
 
 import com.jobscape.companyservice.dto.CompanyDto;
+import com.jobscape.companyservice.dto.CompanySelectionDto;
 import com.jobscape.companyservice.service.CompanyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,11 @@ public class CompanyController {
         return companyService.createCompany(company);
     }
 
+    @PostMapping("/resolve")
+    public CompanyDto resolveCompany(@RequestBody CompanySelectionDto selection) {
+        return companyService.resolveCompany(selection);
+    }
+
     @DeleteMapping("/delete")
     public void deleteCompany(@RequestParam Long id) {
         companyService.deleteCompany(id);
@@ -42,4 +48,8 @@ public class CompanyController {
         Optional<CompanyDto> company = companyService.findCompanyByDomain(domain);
         return ResponseEntity.of(company);
     }
+
+
+
+
 }

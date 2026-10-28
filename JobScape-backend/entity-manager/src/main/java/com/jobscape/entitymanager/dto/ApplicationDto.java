@@ -24,5 +24,8 @@ public class ApplicationDto {
 
     private Long userId;
     private Long companyId;
+    private String companyName;
+    private String companyDomain;
+    private String companyLogoUrl;
     private List<ApplicationStepDto> steps = new ArrayList<>();
 }

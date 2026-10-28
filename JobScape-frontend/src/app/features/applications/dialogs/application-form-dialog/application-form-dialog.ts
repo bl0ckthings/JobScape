@@ -29,6 +29,7 @@ export type ApplicationFormDialogData = {
 export type ApplicationFormValue = {
   companyName: string;
   companyDomain: string | null;
+  companyLogoUrl: string | null;
   jobTitle: string;
   city: string;
   country: string;
@@ -113,7 +114,7 @@ export class ApplicationFormDialog{
     source: [this.data?.application?.source ?? '', [Validators.required]],
     workMode: [this.data?.application?.workMode ?? '', [Validators.required]],
     url: [this.data?.application?.url ?? '', [Validators.maxLength(2048)]],
-    initialStatus: [this.data?.application?.initialStatus ?? 'APPLIED', [Validators.required]],
+    initialStatus: [this.data?.application?.initialStatus ?? 'WISHLIST', [Validators.required]],
     initialDate: [this.data?.application?.initialDate ?? null],
     comment: [this.data?.application?.comment ?? '', [Validators.maxLength(1000)]],
     createReminder: [false],
@@ -174,6 +175,7 @@ export class ApplicationFormDialog{
       ...value,
       companyDomain: this.selectedCompany()?.domain ?? null,
       initialDate: value.initialDate || null,
+      companyLogoUrl: this.selectedCompany()?.icon ?? null,
     });
   }
 }

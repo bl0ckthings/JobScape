@@ -23,6 +23,7 @@ describe('ApplicationService', () => {
   it('posts new applications to the gateway application route', () => {
     const application: CreateApplication = {
       companyName: 'Acme',
+      companyLogoUrl: 'https://example.com/acme.png',
       jobTitle: 'Developer',
       city: 'Paris',
       country: 'France',

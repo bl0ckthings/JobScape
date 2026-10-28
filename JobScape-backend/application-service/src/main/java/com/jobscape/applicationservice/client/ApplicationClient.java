@@ -1,6 +1,6 @@
 package com.jobscape.applicationservice.client;
 
-import com.jobscape.applicationservice.dto.ApplicationDto;
+import com.jobscape.applicationservice.dto.application.ApplicationDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
