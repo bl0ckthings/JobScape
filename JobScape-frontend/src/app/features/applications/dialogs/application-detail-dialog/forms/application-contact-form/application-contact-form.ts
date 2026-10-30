@@ -4,9 +4,9 @@ import { DetailContact } from '../../application-detail.models';
 import { DetailTag } from '../../components/detail-tag';
 @Component({
   selector: 'app-application-contact-form',
+  host: { class: 'flex flex-col flex-1 min-h-0' },
   imports: [ReactiveFormsModule, DetailTag],
   templateUrl: './application-contact-form.html',
-  styleUrl: '../../detail-form.css',
 })
 export class ApplicationContactForm implements OnInit {
   readonly contact = input<DetailContact | null>(null);

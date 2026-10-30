@@ -4,9 +4,9 @@ import { DetailReminder } from '../../application-detail.models';
 import { DetailTag } from '../../components/detail-tag';
 @Component({
   selector: 'app-application-reminder-form',
+  host: { class: 'flex flex-col flex-1 min-h-0' },
   imports: [ReactiveFormsModule, DetailTag],
   templateUrl: './application-reminder-form.html',
-  styleUrl: '../../detail-form.css',
 })
 export class ApplicationReminderForm implements OnInit {
   readonly reminder = input<DetailReminder | null>(null);

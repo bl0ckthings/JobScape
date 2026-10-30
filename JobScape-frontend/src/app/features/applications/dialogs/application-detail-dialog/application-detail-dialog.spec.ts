@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ApplicationDetailDialog } from './application-detail-dialog';
-import { createApplicationDetailDemo } from './application-detail.demo';
+import { createApplicationDetailFixture } from './testing/application-detail.fixture';
 
 describe('ApplicationDetailDialog preview', () => {
   async function render(empty = false) {
-    const data = createApplicationDetailDemo();
+    const data = createApplicationDetailFixture();
     if (empty) {
       data.steps = [];
       data.contacts = [];

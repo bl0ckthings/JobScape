@@ -1,13 +1,16 @@
 import { Component, computed, input, OnInit, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { DetailContact, DetailStep, StepState } from '../../application-detail.models';
+import { DetailContact, DetailStep } from '../../application-detail.models';
 import { DetailTag } from '../../components/detail-tag';
 import { ApplicationFormSelect } from '../../../application-form-dialog/application-form-select';
+import { ApplicationStatus } from '../../../../../../shared/models/applications/application-status.model';
+import { APPLICATION_STATUS_BADGE_CONFIG } from '../../../../../../shared/ui/badge/badge.config';
+
 @Component({
   selector: 'app-application-step-form',
+  host: { class: 'flex flex-col flex-1 min-h-0' },
   imports: [ReactiveFormsModule, DetailTag, ApplicationFormSelect],
   templateUrl: './application-step-form.html',
-  styleUrl: '../../detail-form.css',
 })
 export class ApplicationStepForm implements OnInit {
   readonly step = input<DetailStep | null>(null);
@@ -16,39 +19,41 @@ export class ApplicationStepForm implements OnInit {
   readonly cancelled = output<void>();
   readonly removed = output<void>();
   readonly form = new FormGroup({
-    nature: new FormControl('Premier contact', {
+    status: new FormControl<ApplicationStatus>('FIRST_CONTACT', {
       nonNullable: true,
       validators: [Validators.required],
     }),
-    status: new FormControl('interview', { nonNullable: true, validators: [Validators.required] }),
     comment: new FormControl('', { nonNullable: true }),
     date: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     contactId: new FormControl('', { nonNullable: true }),
   });
-  readonly natureOptions = [
-    'Premier contact',
-    'Entretien RH',
-    'Entretien Manager',
-    'Test technique',
-    'Relance',
-    'Offre reçue',
-  ].map((value) => ({ value, label: value }));
-  readonly statusOptions = [
-    { value: 'interview', label: 'Entretien' },
-    { value: 'todo', label: 'À faire' },
-    { value: 'done', label: 'Effectué' },
-  ];
+
+  // 1. Récuperer les status disponibles
+  readonly statuses = Object.keys(APPLICATION_STATUS_BADGE_CONFIG) as ApplicationStatus[];
+
+  readonly statusOptions = this.statuses.map((status) => {
+    const config = APPLICATION_STATUS_BADGE_CONFIG[status];
+
+    return {
+      value: status,
+      label: config.label,
+    };
+  });
+
   readonly contactOptions = computed(() => [
     { value: '', label: 'Aucun interlocuteur' },
     ...this.contacts().map((item) => ({ value: String(item.id), label: item.name })),
   ]);
   ngOnInit(): void {
     const step = this.step();
-    if (step)
-      this.form.patchValue({
-        ...step,
-        contactId: step.contactId === null ? '' : String(step.contactId),
-      });
+    if (!step) return;
+
+    this.form.patchValue({
+      status: step.status,
+      comment: step.comment,
+      date: step.date,
+      contactId: step.contactId === null ? '' : String(step.contactId),
+    });
   }
   selectedContact(): DetailContact | undefined {
     return this.contacts().find((item) => String(item.id) === this.form.controls.contactId.value);
@@ -60,9 +65,10 @@ export class ApplicationStepForm implements OnInit {
     }
     const value = this.form.getRawValue();
     this.saved.emit({
-      ...value,
-      status: value.status as StepState,
-      contactId: value.contactId ? Number(value.contactId) : null,
+      status: value.status,
+      date: value.date,
+      comment: value.comment,
+      contactId: value.contactId === '' ? null : Number(value.contactId),
     });
   }
 }

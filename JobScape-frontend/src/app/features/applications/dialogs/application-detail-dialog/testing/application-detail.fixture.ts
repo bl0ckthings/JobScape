@@ -1,27 +1,25 @@
-import { ApplicationDetailData } from './application-detail.models';
+import { ApplicationDetailData } from '../application-detail.models';
 
-export function createApplicationDetailDemo(): ApplicationDetailData {
+export function createApplicationDetailFixture(): ApplicationDetailData {
   return {
     companyName: 'Dassault',
     companyLogoUrl: null,
     jobTitle: 'Back-end Engineer',
     source: 'Réponse à offre',
     workMode: 'Remote',
-    status: 'APPLIED',
+    status: 'TECHNICAL_TEST',
     createdLabel: 'Créée il y a 2 j.',
     steps: [
       {
         id: 1,
-        nature: 'Entretien RH',
-        status: 'interview',
+        status: 'HR_INTERVIEW',
         date: '2026-01-08',
         comment: 'Bon échange, contact sous 7 jours.',
         contactId: 1,
       },
       {
         id: 2,
-        nature: 'Test technique',
-        status: 'todo',
+        status: 'TECHNICAL_TEST',
         date: '2026-01-12',
         comment: 'Préparer Angular, Spring Boot et SQL.',
         contactId: null,

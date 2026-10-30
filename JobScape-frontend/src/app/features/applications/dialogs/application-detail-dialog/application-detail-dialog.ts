@@ -22,6 +22,7 @@ registerLocaleData(localeFr);
 
 @Component({
   selector: 'app-application-detail-dialog',
+  host: { class: 'block text-detail-ink' },
   imports: [
     ApplicationDetailHeader,
     ApplicationDetailTabs,
@@ -34,11 +35,9 @@ registerLocaleData(localeFr);
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'fr' }],
   templateUrl: './application-detail-dialog.html',
-  styleUrl: './application-detail-dialog.css',
 })
 export class ApplicationDetailDialog {
   private readonly dialogRef = inject(MatDialogRef<ApplicationDetailDialog>, { optional: true });
-  // L'aperçu travaille sur une copie : aucune mutation des données fournies, aucun appel API.
   readonly data = signal(structuredClone(inject<ApplicationDetailData>(MAT_DIALOG_DATA)));
   readonly tab = signal<DetailTab>('steps');
   readonly formOpen = signal(false);

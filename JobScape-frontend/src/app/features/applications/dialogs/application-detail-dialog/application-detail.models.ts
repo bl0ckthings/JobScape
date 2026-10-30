@@ -2,11 +2,10 @@ import { ApplicationStatus } from '../../../../shared/models/applications/applic
 
 export type DetailTab = 'steps' | 'contacts' | 'reminders';
 export type DetailTone = 'blue' | 'green' | 'purple' | 'amber' | 'neutral';
-export type StepState = 'interview' | 'todo' | 'done';
+
 export interface DetailStep {
   id: number;
-  nature: string;
-  status: StepState;
+  status: ApplicationStatus;
   date: string;
   comment: string;
   contactId: number | null;
@@ -26,9 +25,9 @@ export interface DetailReminder {
   date: string;
   time: string;
   comment: string;
-  completed: boolean;
+  completed: boolean | null;
 }
-// Modèle de présentation de la maquette ; aucune dépendance aux appels HTTP.
+// Modèle de présentation de la maquette;
 export interface ApplicationDetailData {
   companyName: string;
   companyLogoUrl: string | null;
@@ -40,4 +39,5 @@ export interface ApplicationDetailData {
   steps: DetailStep[];
   contacts: DetailContact[];
   reminders: DetailReminder[];
+  readOnly?: boolean;
 }

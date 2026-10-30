@@ -28,7 +28,7 @@ cursor-pointer transition-shadow hover:shadow-card-hover
       </button>
       @if (actionsOpen()) {
         <div data-testid="application-actions-menu" class="absolute right-0 top-full z-30 w-44 rounded-xl border border-[#E6E8F0] bg-white p-1.5 shadow-card">
-          <button type="button" class="w-full rounded-lg px-3 py-2 text-left text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700" (click)="closeActions()">Voir en détails</button>
+          <button type="button" class="w-full rounded-lg px-3 py-2 text-left text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700" (click)="openDetail()" [disabled]="detailLoading()">Voir en détails</button>
           <button type="button" class="w-full rounded-lg px-3 py-2 text-left text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700" (click)="closeActions()">Modifier</button>
           <div class="my-1 border-t border-[#E6E8F0]"></div>
           <button type="button" class="w-full rounded-lg px-3 py-2 text-left text-sm text-red-600 hover:bg-red-50" (click)="closeActions()">Supprimer</button>
@@ -51,4 +51,18 @@ cursor-pointer transition-shadow hover:shadow-card-hover
       </div>
     }
   </div>
+  @if(detailLoading()) {
+    <p role="status"
+       class="text-sm text-slate-500"
+       >
+      Chargement des détails...
+    </p>
+  }
+
+  @if(detailError(); as message) {
+    <p role="alert"
+    class="text-sm text-shadow-slate-500">
+       {{message}}
+    </p>
+  }
 </div>

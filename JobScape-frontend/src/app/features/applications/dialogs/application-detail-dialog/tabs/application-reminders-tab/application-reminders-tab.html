@@ -1,25 +1,54 @@
-<button type="button" class="add-button" (click)="added.emit()">
-  <span class="plus" aria-hidden="true">+</span>Ajouter un rappel
+
+@if (editable()) {
+<button
+  type="button"
+  class="add-button flex items-center justify-center w-full gap-2 min-h-11 py-[10px] px-[14px] border border-detail-border rounded-[10px] bg-detail-surface text-[13px] font-semibold hover:text-detail-blue hover:border-[#bfdbfe] hover:bg-[#eff6ff] detail-mobile:justify-start detail-mobile:bg-white detail-mobile:text-[12px]"
+  (click)="added.emit()"
+>
+  <span class="plus text-[20px] leading-none font-normal" aria-hidden="true">+</span>Ajouter un
+  rappel
 </button>
-<div class="items">
+}
+<div class="items grid gap-4 mt-[18px]">
   @for (reminder of reminders(); track reminder.id) {
     <button
       type="button"
-      class="detail-card"
+      [disabled]="!editable()"
+      class="detail-card w-full text-left border border-detail-border bg-detail-surface rounded-[14px]  disabled:cursor-default p-[14px] transition-[border-color,box-shadow] duration-150 hover:border-[#b9cffb] hover:shadow-[0_3px_12px_#3478f60a] detail-mobile:bg-white detail-mobile:min-h-[140px] detail-mobile:p-4"
       [attr.aria-label]="'Modifier le rappel ' + reminder.title"
       (click)="edited.emit(reminder)"
     >
-      <div class="card-top">
-        <h3>{{ reminder.title }}</h3>
-        <app-detail-tag [tone]="reminder.completed ? 'green' : 'amber'">{{
-          reminder.completed ? 'Effectué' : 'À venir'
-        }}</app-detail-tag>
+      <div
+        class="card-top flex justify-between items-start gap-[10px] [&_app-detail-tag]:min-w-[90px]"
+      >
+        <h3
+          class="text-[14px] font-bold m-0 leading-[1.45] [overflow-wrap:anywhere] detail-mobile:text-[13px]"
+        >
+          {{ reminder.title }}
+        </h3>
+        @if (reminder.completed !== null) {
+          <app-detail-tag
+            [tone]="reminder.completed ? 'green' : 'amber'"
+          >
+            {{ reminder.completed ? 'Effectué' : 'À venir' }}
+          </app-detail-tag>
+        }
       </div>
-      <p class="date">{{ reminder.date | date: 'd MMMM yyyy' }} · {{ reminder.time }}</p>
-      <p class="comment">{{ reminder.comment || 'Aucun commentaire.' }}</p>
+      <p
+        class="date text-detail-muted text-[12px] font-semibold mt-[6px] detail-mobile:font-normal detail-mobile:text-[11px]"
+      >
+        {{ reminder.date | date: 'd MMMM yyyy' }} · {{ reminder.time }}
+      </p>
+      <p
+        class="comment text-[12px] leading-[1.6] mt-[10px] whitespace-pre-wrap [overflow-wrap:anywhere]"
+      >
+        {{ reminder.comment || 'Aucun commentaire.' }}
+      </p>
     </button>
   } @empty {
-    <div class="empty">
+    <div
+      class="empty grid place-items-center text-center py-12 px-5 text-detail-muted border border-dashed border-detail-border rounded-[14px] text-[13px] [&_strong]:block [&_strong]:text-detail-ink [&_strong]:mb-[5px]"
+    >
       <div>
         <strong>Aucun rappel pour le moment</strong>Programmez une relance pour garder le fil.
       </div>

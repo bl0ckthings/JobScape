@@ -7,6 +7,9 @@ import {
   ApplicationFormValue,
 } from '../dialogs/application-form-dialog/application-form-dialog';
 
+import { ApplicationDetailDialog } from '../dialogs/application-detail-dialog/application-detail-dialog';
+import {ApplicationDetailData} from '../dialogs/application-detail-dialog/application-detail.models';
+
 type ApplicationDialogRef = MatDialogRef<ApplicationFormDialog, ApplicationFormValue | undefined>;
 
 @Injectable({
@@ -52,7 +55,27 @@ export class ApplicationDialogService {
     return this.dialogRef;
   }
 
-  private openDetail(applicationId: number): void {
-
+  openDetail(data:ApplicationDetailData): MatDialogRef<ApplicationDetailDialog, void> {
+      return this.dialog.open<ApplicationDetailDialog, ApplicationDetailData, void>(
+        ApplicationDetailDialog,
+        {
+          width: '600px',
+          maxWidth: '100vw',
+          maxHeight: 'calc(100dvh - 48px)',
+          panelClass: [
+            'jobscape-dialog-panel',
+            'jobscape-detail-dialog-panel',
+            'detail-mobile:w-screen!',
+            'detail-mobile:max-w-[100vw]!',
+            'detail-mobile:h-dvh',
+            'detail-mobile:max-h-dvh!',
+            'detail-mobile:rounded-none',
+            'detail-mobile:[&_.mat-mdc-dialog-surface]:rounded-none!',
+          ],
+          backdropClass: 'jobscape-dialog-panel',
+          ariaLabelledBy: 'application-detail-dialog-title',
+          data
+        },
+      );
   }
 }

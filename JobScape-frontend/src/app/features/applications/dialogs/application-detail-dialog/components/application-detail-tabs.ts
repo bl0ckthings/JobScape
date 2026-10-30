@@ -3,12 +3,18 @@ import { DetailTab } from '../application-detail.models';
 
 @Component({
   selector: 'app-application-detail-tabs',
+  host: { class: 'block' },
   template: `
-    <div class="tabs" role="tablist" aria-label="Détails de la candidature">
+    <div
+      class="tabs flex border-y border-detail-border bg-detail-surface"
+      role="tablist"
+      aria-label="Détails de la candidature"
+    >
       @for (tab of tabs; track tab.id) {
         <button
           type="button"
           role="tab"
+          class="group flex-1 min-w-0 flex items-center justify-center gap-[9px] py-[11px] px-2 border-b-2 border-transparent text-detail-muted text-[13px] font-semibold aria-selected:text-detail-blue aria-selected:border-detail-blue aria-selected:bg-[linear-gradient(180deg,transparent,#eff6ff80)] detail-mobile:pt-[17px] detail-mobile:px-1 detail-mobile:pb-[15px] detail-mobile:text-[11px] detail-mobile:gap-[5px]"
           [id]="'detail-tab-' + tab.id"
           [attr.aria-controls]="'detail-panel-' + tab.id"
           [attr.aria-selected]="active() === tab.id"
@@ -17,66 +23,14 @@ import { DetailTab } from '../application-detail.models';
           (keydown)="onKeydown($event, tab.id)"
         >
           <span>{{ tab.label }}</span
-          ><span class="count">{{ counts()[tab.id] }}</span>
+          ><span
+            class="count grid place-items-center min-w-[25px] h-6 px-[5px] rounded-full bg-[#f1f5f9] text-[11px] group-aria-selected:bg-[#eff6ff] detail-mobile:min-w-[19px] detail-mobile:h-[19px] detail-mobile:text-[10px]"
+            >{{ counts()[tab.id] }}</span
+          >
         </button>
       }
     </div>
   `,
-  styles: [
-    `
-      :host {
-        display: block;
-      }
-      .tabs {
-        display: flex;
-        border-block: 1px solid var(--detail-border);
-        background: var(--detail-surface);
-      }
-      button {
-        flex: 1;
-        min-width: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 9px;
-        padding: 11px 8px;
-        border-bottom: 2px solid transparent;
-        color: var(--detail-muted);
-        font-size: 13px;
-        font-weight: 600;
-      }
-      button[aria-selected='true'] {
-        color: var(--detail-blue);
-        border-bottom-color: var(--detail-blue);
-        background: linear-gradient(180deg, transparent, #eff6ff80);
-      }
-      .count {
-        display: grid;
-        place-items: center;
-        min-width: 25px;
-        height: 24px;
-        padding: 0 5px;
-        border-radius: 50%;
-        background: #f1f5f9;
-        font-size: 11px;
-      }
-      button[aria-selected='true'] .count {
-        background: #eff6ff;
-      }
-      @media (max-width: 600px) {
-        button {
-          padding: 17px 4px 15px;
-          font-size: 11px;
-          gap: 5px;
-        }
-        .count {
-          min-width: 19px;
-          height: 19px;
-          font-size: 10px;
-        }
-      }
-    `,
-  ],
 })
 export class ApplicationDetailTabs {
   readonly active = input<DetailTab>('steps');

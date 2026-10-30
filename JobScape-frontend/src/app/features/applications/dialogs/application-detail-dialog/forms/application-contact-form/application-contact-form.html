@@ -1,42 +1,57 @@
-<form class="detail-form" [formGroup]="form" (ngSubmit)="submit()">
-  <div class="form-body">
-    <div class="form-title">
-      <h3>{{ contact() ? 'Modifier un interlocuteur' : 'Nouvel interlocuteur' }}</h3>
+<form class="detail-form flex flex-1 flex-col min-h-0" [formGroup]="form" (ngSubmit)="submit()">
+  <div
+    class="form-body p-6 overflow-y-auto flex-1 detail-mobile:py-[22px] detail-mobile:px-5 detail-mobile:bg-detail-surface"
+  >
+    <div class="form-title flex items-center justify-between gap-3 mb-6 detail-mobile:mb-[22px]">
+      <h3 class="text-[15px] font-bold m-0">
+        {{ contact() ? 'Modifier un interlocuteur' : 'Nouvel interlocuteur' }}
+      </h3>
       <app-detail-tag>Contact</app-detail-tag>
     </div>
-    <div class="fields">
-      <div class="field">
-        <label for="detail-contact-name">Nom et prénom</label
+    <div
+      class="fields grid grid-cols-2 gap-x-4 gap-y-5 detail-mobile:grid-cols-1 detail-mobile:gap-[18px]"
+    >
+      <div class="field flex flex-col gap-[7px] min-w-0">
+        <label class="text-[12px] font-semibold text-detail-ink" for="detail-contact-name"
+          >Nom et prénom</label
         ><input
           id="detail-contact-name"
-          class="control"
+          class="control w-full h-10 border border-detail-border rounded-[9px] py-[10px] px-3 [font-family:inherit] [font-style:inherit] [font-weight:inherit] [line-height:inherit] text-[13px] text-detail-ink outline-none bg-white shadow-[0_1px_2px_#0f172a03] focus:border-detail-blue focus:shadow-[0_0_0_3px_#3478f61a] placeholder:text-[#8691a3] [&[readonly]]:bg-detail-surface [&[readonly]]:text-detail-muted"
           formControlName="name"
           autocomplete="name"
           placeholder="Ex : Marie Blachère"
           [attr.aria-invalid]="form.controls.name.touched && form.controls.name.invalid"
         />
         @if (form.controls.name.touched && form.controls.name.invalid) {
-          <p class="error" role="alert">Le nom est obligatoire.</p>
+          <p class="error text-[#b42318] text-[11px]" role="alert">Le nom est obligatoire.</p>
         }
       </div>
-      <div class="field">
-        <label for="detail-contact-role">Fonction</label
+      <div class="field flex flex-col gap-[7px] min-w-0">
+        <label class="text-[12px] font-semibold text-detail-ink" for="detail-contact-role"
+          >Fonction</label
         ><input
           id="detail-contact-role"
-          class="control"
+          class="control w-full h-10 border border-detail-border rounded-[9px] py-[10px] px-3 [font-family:inherit] [font-style:inherit] [font-weight:inherit] [line-height:inherit] text-[13px] text-detail-ink outline-none bg-white shadow-[0_1px_2px_#0f172a03] focus:border-detail-blue focus:shadow-[0_0_0_3px_#3478f61a] placeholder:text-[#8691a3] [&[readonly]]:bg-detail-surface [&[readonly]]:text-detail-muted"
           formControlName="role"
           placeholder="Ex : Responsable RH"
         />
       </div>
-      <div class="field">
-        <label for="detail-contact-company">Entreprise</label
-        ><input id="detail-contact-company" class="control" formControlName="company" readonly />
+      <div class="field flex flex-col gap-[7px] min-w-0">
+        <label class="text-[12px] font-semibold text-detail-ink" for="detail-contact-company"
+          >Entreprise</label
+        ><input
+          id="detail-contact-company"
+          class="control w-full h-10 border border-detail-border rounded-[9px] py-[10px] px-3 [font-family:inherit] [font-style:inherit] [font-weight:inherit] [line-height:inherit] text-[13px] text-detail-ink outline-none bg-white shadow-[0_1px_2px_#0f172a03] focus:border-detail-blue focus:shadow-[0_0_0_3px_#3478f61a] placeholder:text-[#8691a3] [&[readonly]]:bg-detail-surface [&[readonly]]:text-detail-muted"
+          formControlName="company"
+          readonly
+        />
       </div>
-      <div class="field">
-        <label for="detail-contact-email">E-mail</label
+      <div class="field flex flex-col gap-[7px] min-w-0">
+        <label class="text-[12px] font-semibold text-detail-ink" for="detail-contact-email"
+          >E-mail</label
         ><input
           id="detail-contact-email"
-          class="control"
+          class="control w-full h-10 border border-detail-border rounded-[9px] py-[10px] px-3 [font-family:inherit] [font-style:inherit] [font-weight:inherit] [line-height:inherit] text-[13px] text-detail-ink outline-none bg-white shadow-[0_1px_2px_#0f172a03] focus:border-detail-blue focus:shadow-[0_0_0_3px_#3478f61a] placeholder:text-[#8691a3] [&[readonly]]:bg-detail-surface [&[readonly]]:text-detail-muted"
           type="email"
           formControlName="email"
           autocomplete="email"
@@ -44,14 +59,17 @@
           [attr.aria-invalid]="form.controls.email.touched && form.controls.email.invalid"
         />
         @if (form.controls.email.touched && form.controls.email.invalid) {
-          <p class="error" role="alert">Saisissez une adresse e-mail valide.</p>
+          <p class="error text-[#b42318] text-[11px]" role="alert">
+            Saisissez une adresse e-mail valide.
+          </p>
         }
       </div>
-      <div class="field">
-        <label for="detail-contact-phone">Téléphone</label
+      <div class="field flex flex-col gap-[7px] min-w-0">
+        <label class="text-[12px] font-semibold text-detail-ink" for="detail-contact-phone"
+          >Téléphone</label
         ><input
           id="detail-contact-phone"
-          class="control"
+          class="control w-full h-10 border border-detail-border rounded-[9px] py-[10px] px-3 [font-family:inherit] [font-style:inherit] [font-weight:inherit] [line-height:inherit] text-[13px] text-detail-ink outline-none bg-white shadow-[0_1px_2px_#0f172a03] focus:border-detail-blue focus:shadow-[0_0_0_3px_#3478f61a] placeholder:text-[#8691a3] [&[readonly]]:bg-detail-surface [&[readonly]]:text-detail-muted"
           type="tel"
           formControlName="phone"
           autocomplete="tel"
@@ -59,19 +77,37 @@
         />
       </div>
     </div>
-    <div class="context">
+    <div
+      class="context flex items-center gap-[10px] mt-6 p-[14px] border border-detail-border rounded-[10px] bg-detail-surface text-[12px] [&_strong]:text-[12px] [&_strong]:block [&_strong]:mb-[3px] [&_p]:text-detail-muted [&_p]:text-[11px] [&_p]:leading-[1.6] detail-mobile:bg-white"
+    >
       <div>
         <strong>Lié à cette candidature</strong>
         <p>{{ companyName() }} · {{ jobTitle() }}</p>
       </div>
     </div>
   </div>
-  <footer class="form-footer">
+  <footer
+    class="form-footer flex justify-end items-center gap-[10px] py-[18px] px-6 border-t border-detail-border bg-white shrink-0 detail-mobile:pt-4 detail-mobile:px-5 detail-mobile:pb-[max(16px,env(safe-area-inset-bottom))] detail-mobile:flex-wrap"
+  >
     @if (contact()) {
-      <button class="button delete" type="button" (click)="removed.emit()">Supprimer</button>
+      <button
+        class="button delete inline-flex justify-center items-center min-h-10 py-[10px] px-[18px] rounded-[10px] text-[12px] font-semibold mr-auto text-[#b42318] pl-0 detail-mobile:basis-full detail-mobile:justify-start detail-mobile:min-h-8"
+        type="button"
+        (click)="removed.emit()"
+      >
+        Supprimer
+      </button>
     }
-    <button class="button secondary" type="button" (click)="cancelled.emit()">Annuler</button
-    ><button class="button primary" type="submit">
+    <button
+      class="button secondary inline-flex justify-center items-center min-h-10 py-[10px] px-[18px] rounded-[10px] text-[12px] font-semibold detail-mobile:min-h-11 text-white bg-[#0f172a] shadow-[0_4px_12px_#0f172a14] detail-mobile:flex-1"
+      type="button"
+      (click)="cancelled.emit()"
+    >
+      Annuler</button
+    ><button
+      class="button primary inline-flex justify-center items-center min-h-10 py-[10px] px-[18px] rounded-[10px] text-[12px] font-semibold detail-mobile:min-h-11 text-white bg-detail-blue shadow-[0_6px_14px_#3478f626] detail-mobile:flex-1"
+      type="submit"
+    >
       {{ contact() ? 'Enregistrer' : 'Sauvegarder' }}
     </button>
   </footer>

@@ -1,31 +1,42 @@
-<button type="button" class="add-button" (click)="added.emit()">
-  <span class="plus" aria-hidden="true">+</span>Ajouter une étape
+@if (editable()) {
+
+  <button
+  type="button"
+  class="add-button flex items-center justify-center w-full gap-2 min-h-11 py-[10px] px-[14px] border border-detail-border rounded-[10px] bg-detail-surface text-[13px] font-semibold hover:text-detail-blue hover:border-[#bfdbfe] hover:bg-[#eff6ff] detail-mobile:justify-start detail-mobile:bg-white detail-mobile:text-[12px]"
+  (click)="added.emit()"
+>
+  <span class="plus text-[20px] leading-none font-normal" aria-hidden="true">+</span>Ajouter une
+  étape
 </button>
-<div class="items timeline">
+}
+<div
+  class="items timeline grid gap-4 mt-[18px] pl-[22px] relative before:content-[''] before:absolute before:left-2 before:top-[3px] before:bottom-[2px] before:w-[2px] before:bg-[#e2e8f0] detail-mobile:pl-0 detail-mobile:before:hidden"
+>
   @for (step of steps(); track step.id) {
     <button
       type="button"
-      class="detail-card"
-      [attr.aria-label]="'Modifier l’étape ' + step.nature"
+      [disabled]="!editable()"
+
+      class="detail-card w-full text-left border border-detail-border bg-detail-surface rounded-[14px] disabled:cursor-default p-[14px] transition-[border-color,box-shadow] duration-150 hover:border-[#b9cffb] hover:shadow-[0_3px_12px_#3478f60a] detail-mobile:bg-white detail-mobile:min-h-[140px] detail-mobile:p-4 relative before:content-[''] before:absolute before:-left-5 before:top-[18px] before:h-[11px] before:w-[11px] before:bg-white before:border-2 before:border-detail-blue before:rounded-full before:shadow-[0_0_0_3px_#dbeafe] detail-mobile:before:hidden"
+      [attr.aria-label]="'Modifier l’étape ' + statusConfig[step.status].label"
       (click)="edited.emit(step)"
     >
-      <div class="card-top">
-        <h3>{{ step.nature }}</h3>
-        <app-detail-tag
-          [tone]="
-            step.status === 'interview' ? 'purple' : step.status === 'todo' ? 'amber' : 'green'
-          "
-          >{{
-            step.status === 'interview'
-              ? 'Entretien'
-              : step.status === 'todo'
-                ? 'À faire'
-                : 'Effectué'
-          }}</app-detail-tag
+      <div class="card-top flex justify-between items-start gap-[10px] [&_app-badge]:shrink-0">
+        <h3
+          class="text-[14px] font-bold m-0 leading-[1.45] [overflow-wrap:anywhere] detail-mobile:text-[13px]"
         >
+          {{ statusConfig[step.status].label }}
+        </h3>
+        <app-badge [status]="step.status" />
       </div>
-      <p class="date">{{ step.date | date: 'd MMMM yyyy' }}</p>
-      <p class="comment">
+      <p
+        class="date text-detail-muted text-[12px] font-semibold mt-[6px] detail-mobile:font-normal detail-mobile:text-[11px]"
+      >
+        {{ step.date | date: 'd MMMM yyyy' }}
+      </p>
+      <p
+        class="comment text-[12px] leading-[1.6] mt-[10px] whitespace-pre-wrap [overflow-wrap:anywhere]"
+      >
         {{ step.comment || 'Aucun commentaire.' }}
         @if (contactName(step.contactId); as name) {
           <span> · {{ name }}</span>
@@ -33,7 +44,9 @@
       </p>
     </button>
   } @empty {
-    <div class="empty">
+    <div
+      class="empty grid place-items-center text-center py-12 px-5 text-detail-muted border border-dashed border-detail-border rounded-[14px] text-[13px] [&_strong]:block [&_strong]:text-detail-ink [&_strong]:mb-[5px]"
+    >
       <div>
         <strong>Aucune étape pour le moment</strong>Ajoutez le prochain échange de votre
         candidature.

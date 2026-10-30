@@ -1,5 +1,5 @@
 export interface Reminder {
   id:number;
-  comment:string;
+  comment:string | null;
   reminderDate:string;
 }
