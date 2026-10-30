@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface ContactRepository extends JpaRepository<Contact, Long> {
     List<Contact> findByCompanyId(Long id);
-
+    List<Contact> findByUserId(Long id);
     List<Contact> findByCompany_IdAndUser_IdOrderByCreatedAtAscIdAsc(Long companyId, Long userId);
 }

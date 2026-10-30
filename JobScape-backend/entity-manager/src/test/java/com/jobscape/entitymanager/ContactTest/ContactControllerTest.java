@@ -50,13 +50,24 @@ class ContactControllerTest {
     @Test
     void getContactsByCompanyTest() {
         Company company = companyRepository.save(new Company("https://jobscape.test", "JobScape"));
+        User user = userRepository.save(new User("Alice", "Martin", "contact-read@test.com", "hash"));
+        User otherUser = userRepository.save(new User("Bob", "Martin", "contact-other@test.com", "hash"));
         Contact contact = new Contact();
         contact.setName("Recruiter");
         contact.setCompany(company);
+        contact.setUser(user);
         contactRepository.save(contact);
 
-        List<ContactDto> result = controller.getContactsByCompany(company.getId());
+        Contact otherContact = new Contact();
+        otherContact.setName("Other recruiter");
+        otherContact.setCompany(company);
+        otherContact.setUser(otherUser);
+        contactRepository.save(otherContact);
+
+        List<ContactDto> result = controller.getContactsByCompany(company.getId(), user.getId());
 
         assertEquals(1, result.size());
+        assertEquals(contact.getId(), result.get(0).getId());
+        assertEquals(user.getId(), result.get(0).getUserId());
     }
 }

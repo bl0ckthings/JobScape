@@ -45,12 +45,17 @@ public class ApplicationController {
 
     }
 
+    @GetMapping("/{id}/detail")
+    public ApplicationDetailDto getApplicationDetailById(@PathVariable Long id, @RequestAttribute("authenticatedUserId") Long userId) {
+        return applicationClient.getApplicationsDetail(id, userId);
+    }
+
     @GetMapping("/detail/{id}")
     public ApplicationDetailDto getApplicationDetail(
             @PathVariable Long id,
             @RequestAttribute("authenticatedUserId") Long userId
     ) {
-        return null;
+        return applicationClient.getApplicationsDetail(id, userId);
     }
 
 

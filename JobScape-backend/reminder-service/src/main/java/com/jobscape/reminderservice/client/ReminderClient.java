@@ -20,10 +20,11 @@ public interface ReminderClient {
     public ReminderDto createReminder(@RequestBody ReminderDto reminderDto);
 
     @RequestMapping(method = RequestMethod.PUT, value = "/internal/reminders/update/{id}", consumes = "application/json")
-    ReminderDto updateReminder(@PathVariable Long id, @RequestBody UpdateReminderRequest updatedReminder);
+    ReminderDto updateReminder(@PathVariable("id") Long id, @RequestParam("userId") Long userId,
+                               @RequestBody UpdateReminderRequest updatedReminder);
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/internal/reminders/delete", consumes = "application/json")
-    public void deleteReminder(@RequestParam Long id);
+    public void deleteReminder(@RequestParam("id") Long id, @RequestParam("userId") Long userId);
 
 
 

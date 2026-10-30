@@ -15,7 +15,7 @@ public interface ApplicationClient {
     @RequestMapping(method = RequestMethod.GET, value = "/application-service/applications/{id}", consumes = "application/json")
     public ApplicationDto getApplicationById(@PathVariable Long id);
 
-    @RequestMapping(method = RequestMethod.POST, value = "/application-service/applications/{id}/detail", consumes = "application/json")
-    public ApplicationDetailDto getApplicationsDetail(@PathVariable Long id, @RequestParam Long userId);
+    @GetMapping("/application-service/applications/{id}/detail")
+    public ApplicationDetailDto getApplicationsDetail(@PathVariable("id") Long id, @RequestParam("userId") Long userId);
 
 }

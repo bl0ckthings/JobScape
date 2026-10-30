@@ -37,6 +37,7 @@ class ReminderUpdateContractTest {
         Method method = ReminderClient.class.getDeclaredMethod(
                 "updateReminder",
                 Long.class,
+                Long.class,
                 UpdateReminderRequest.class
         );
         RequestMapping mapping = method.getAnnotation(RequestMapping.class);
@@ -49,6 +50,7 @@ class ReminderUpdateContractTest {
     void controllerExposesReminderIdOnUpdateRoute() throws NoSuchMethodException {
         Method method = ReminderController.class.getDeclaredMethod(
                 "updateReminder",
+                Long.class,
                 Long.class,
                 UpdateReminderRequest.class
         );
@@ -64,11 +66,11 @@ class ReminderUpdateContractTest {
         UpdateReminderRequest request = new UpdateReminderRequest();
         ReminderDto expected = new ReminderDto();
 
-        when(client.updateReminder(12L, request)).thenReturn(expected);
+        when(client.updateReminder(12L, 7L, request)).thenReturn(expected);
 
-        ReminderDto result = service.updateReminder(12L, request);
+        ReminderDto result = service.updateReminder(12L, 7L, request);
 
         assertSame(expected, result);
-        verify(client).updateReminder(12L, request);
+        verify(client).updateReminder(12L, 7L, request);
     }
 }

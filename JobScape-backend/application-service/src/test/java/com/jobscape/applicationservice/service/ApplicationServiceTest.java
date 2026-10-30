@@ -1,6 +1,7 @@
 package com.jobscape.applicationservice.service;
 
 import com.jobscape.applicationservice.client.ApplicationClient;
+import com.jobscape.applicationservice.client.ContactClient;
 import com.jobscape.applicationservice.client.ApplicationStepClient;
 import com.jobscape.applicationservice.client.CompanyClient;
 import com.jobscape.applicationservice.client.ReminderClient;
@@ -41,6 +42,7 @@ class ApplicationServiceTest {
                 applicationStepClient,
                 reminderClient,
                 companyClient,
+                mock(ContactClient.class),
                 new ApplicationMapper(),
                 new ApplicationStepMapper()
         );
@@ -97,6 +99,7 @@ class ApplicationServiceTest {
                 applicationStepClient,
                 reminderClient,
                 companyClient,
+                mock(ContactClient.class),
                 new ApplicationMapper(),
                 new ApplicationStepMapper()
         );

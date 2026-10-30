@@ -1,6 +1,9 @@
 package com.jobscape.webgateway.controller;
 
 import com.jobscape.webgateway.client.ApplicationClient;
+import com.jobscape.webgateway.service.applicationDto.ApplicationDetailDto;
+import com.jobscape.webgateway.exception.GlobalExceptionHandler;
+import feign.FeignException;
 import com.jobscape.webgateway.service.applicationDto.ApplicationDto;
 import com.jobscape.webgateway.service.applicationDto.CreateApplicationRequest;
 import com.jobscape.webgateway.service.applicationDto.ApplicationCategory;
@@ -25,6 +28,39 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class ApplicationControllerTest {
+
+    @Test
+    void detailUsesAuthenticatedIdentityAndReturnsAggregatedBody() throws Exception {
+        ApplicationClient client = mock(ApplicationClient.class);
+        ApplicationDto application = new ApplicationDto();
+        application.setId(12L);
+        ApplicationDetailDto detail = new ApplicationDetailDto();
+        detail.setApplication(application);
+        when(client.getApplicationsDetail(12L, 7L)).thenReturn(detail);
+        MockMvc mvc = MockMvcBuilders.standaloneSetup(new ApplicationController(client)).build();
+        mvc.perform(get("/api/application/12/detail").requestAttr("authenticatedUserId", 7L)
+                        .param("userId", "99"))
+                .andExpect(status().isOk()).andExpect(jsonPath("$.application.id").value(12))
+                .andExpect(jsonPath("$.contacts").isArray()).andExpect(jsonPath("$.reminders").isArray());
+        verify(client).getApplicationsDetail(12L, 7L);
+    }
+
+    @Test
+    void preservesNotFoundAndReportsUpstreamOutage() throws Exception {
+        ApplicationClient client = mock(ApplicationClient.class);
+        FeignException missing = mock(FeignException.class);
+        when(missing.status()).thenReturn(404);
+        FeignException unavailable = mock(FeignException.class);
+        when(unavailable.status()).thenReturn(503);
+        when(client.getApplicationsDetail(12L, 7L)).thenThrow(missing);
+        when(client.getApplicationsDetail(13L, 7L)).thenThrow(unavailable);
+        MockMvc mvc = MockMvcBuilders.standaloneSetup(new ApplicationController(client))
+                .setControllerAdvice(new GlobalExceptionHandler()).build();
+        mvc.perform(get("/api/application/12/detail").requestAttr("authenticatedUserId", 7L))
+                .andExpect(status().isNotFound());
+        mvc.perform(get("/api/application/13/detail").requestAttr("authenticatedUserId", 7L))
+                .andExpect(status().isBadGateway()).andExpect(jsonPath("$.code").value("UPSTREAM_ERROR"));
+    }
 
     @Test
     void returnsCompanyNameAndLogoOnBoardApplications() throws Exception {

@@ -1,0 +1,28 @@
+<button type="button" class="add-button" (click)="added.emit()">
+  <span class="plus" aria-hidden="true">+</span>Ajouter un rappel
+</button>
+<div class="items">
+  @for (reminder of reminders(); track reminder.id) {
+    <button
+      type="button"
+      class="detail-card"
+      [attr.aria-label]="'Modifier le rappel ' + reminder.title"
+      (click)="edited.emit(reminder)"
+    >
+      <div class="card-top">
+        <h3>{{ reminder.title }}</h3>
+        <app-detail-tag [tone]="reminder.completed ? 'green' : 'amber'">{{
+          reminder.completed ? 'Effectué' : 'À venir'
+        }}</app-detail-tag>
+      </div>
+      <p class="date">{{ reminder.date | date: 'd MMMM yyyy' }} · {{ reminder.time }}</p>
+      <p class="comment">{{ reminder.comment || 'Aucun commentaire.' }}</p>
+    </button>
+  } @empty {
+    <div class="empty">
+      <div>
+        <strong>Aucun rappel pour le moment</strong>Programmez une relance pour garder le fil.
+      </div>
+    </div>
+  }
+</div>

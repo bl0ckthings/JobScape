@@ -29,7 +29,7 @@ public class ApplicationController {
 
     @GetMapping("/{id}/detail")
     public ApplicationDetailDto getApplicationDetailById(@PathVariable Long id, @RequestParam Long userId) {
-        return null;
+        return applicationService.getApplicationDetail(id, userId);
     }
 
 

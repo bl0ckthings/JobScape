@@ -1,0 +1,63 @@
+<form class="detail-form" [formGroup]="form" (ngSubmit)="submit()">
+  <div class="form-body">
+    <div class="form-title">
+      <h3>{{ reminder() ? 'Modifier un rappel' : 'Nouveau rappel' }}</h3>
+      <app-detail-tag>À venir</app-detail-tag>
+    </div>
+    <div class="fields">
+      <div class="field">
+        <label for="detail-reminder-date">Date du rappel</label
+        ><input
+          id="detail-reminder-date"
+          class="control"
+          type="date"
+          formControlName="date"
+          (input)="quickDay.set(null)"
+          [attr.aria-invalid]="form.controls.date.touched && form.controls.date.invalid"
+        />
+        @if (form.controls.date.touched && form.controls.date.invalid) {
+          <p class="error" role="alert">Choisissez une date.</p>
+        }
+      </div>
+      <div class="field">
+        <label for="detail-reminder-time">Heure</label
+        ><input id="detail-reminder-time" class="control" type="time" formControlName="time" />
+      </div>
+      <div class="field wide">
+        <p class="field-label">Échéance rapide</p>
+        <div class="quick-options">
+          @for (option of quickOptions; track option.days) {
+            <button
+              type="button"
+              [attr.aria-pressed]="quickDay() === option.days"
+              (click)="chooseDate(option.days)"
+            >
+              {{ option.label }}
+            </button>
+          }
+        </div>
+      </div>
+      <div class="field wide">
+        <label for="detail-reminder-comment">Commentaire</label
+        ><textarea
+          id="detail-reminder-comment"
+          class="control"
+          formControlName="comment"
+          placeholder="Ex : relancer après entretien"
+        ></textarea>
+      </div>
+    </div>
+    <div class="context">
+      <p>Rappel lié à la candidature {{ companyName() }}</p>
+    </div>
+  </div>
+  <footer class="form-footer">
+    @if (reminder()) {
+      <button class="button delete" type="button" (click)="removed.emit()">Supprimer</button>
+    }
+    <button class="button secondary" type="button" (click)="cancelled.emit()">Annuler</button
+    ><button class="button primary" type="submit">
+      {{ reminder() ? 'Enregistrer' : 'Sauvegarder' }}
+    </button>
+  </footer>
+</form>
