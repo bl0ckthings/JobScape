@@ -25,6 +25,7 @@ dist/
 build/
 coverage/
 .angular/
+__pycache__/
 
 # Logs and temporary files
 *.log

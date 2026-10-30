@@ -37,12 +37,12 @@ public class ReminderService {
         return reminderClient.createReminder(reminderDto);
     }
 
-    public ReminderDto updateReminder(Long id, UpdateReminderRequest updateRequest) {
-        return reminderClient.updateReminder(id, updateRequest);
+    public ReminderDto updateReminder(Long id, Long userId, UpdateReminderRequest updateRequest) {
+        return reminderClient.updateReminder(id, userId, updateRequest);
     }
 
-    public void deleteReminderById(Long id) {
-        reminderClient.deleteReminder(id);
+    public void deleteReminderById(Long id, Long userId) {
+        reminderClient.deleteReminder(id, userId);
     }
 
 }

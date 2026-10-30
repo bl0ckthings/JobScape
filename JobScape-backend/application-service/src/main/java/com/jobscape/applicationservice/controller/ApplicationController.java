@@ -1,5 +1,6 @@
 package com.jobscape.applicationservice.controller;
 
+import com.jobscape.applicationservice.dto.application.ApplicationDetailDto;
 import com.jobscape.applicationservice.dto.application.ApplicationDto;
 import com.jobscape.applicationservice.dto.application.ApplicationsByStatusResponse;
 import com.jobscape.applicationservice.dto.application.CreateApplicationRequest;
@@ -17,13 +18,20 @@ public class ApplicationController {
 
     @GetMapping("/{id}")
     public ApplicationDto getApplicationById(@PathVariable Long id) {
-        return null;
+
+        return applicationService.getApplicationById(id);
     }
 
     @GetMapping("/user/{id}")
     public ApplicationsByStatusResponse getApplicationByUserId(@PathVariable Long id) {
         return applicationService.getApplicationsByStatus(id);
     }
+
+    @GetMapping("/{id}/detail")
+    public ApplicationDetailDto getApplicationDetailById(@PathVariable Long id, @RequestParam Long userId) {
+        return applicationService.getApplicationDetail(id, userId);
+    }
+
 
     @PostMapping("/create")
     public ApplicationDto createApplication(@Valid @RequestBody CreateApplicationRequest createApplicationRequest) {
@@ -32,7 +40,7 @@ public class ApplicationController {
 
     @DeleteMapping("/delete/{id}")
     public void deleteApplicationById(@PathVariable Long id) {
-
+        applicationService.deleteApplicationById(id);
     }
 
     @PutMapping("/update/{id}")

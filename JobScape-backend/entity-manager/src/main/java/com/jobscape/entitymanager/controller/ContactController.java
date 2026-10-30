@@ -18,11 +18,14 @@ public class ContactController {
         return contactService.getById(id);
     }
 
-    @GetMapping("/company/{companyId}")
-    public List<ContactDto> getContactsByCompany(@PathVariable Long companyId) {
-        return contactService.getByCompanyId(companyId);
+    @GetMapping("/user/{id}")
+    public List<ContactDto> getContactsByUserId(@PathVariable Long id) {
+        return contactService.getByUserId(id);
     }
-
+    @GetMapping("/company/{companyId}")
+    public List<ContactDto> getContactsByCompany(@PathVariable Long companyId, @RequestParam Long userId) {
+        return contactService.getByCompanyId(companyId, userId);
+    }
     @GetMapping
     public List<ContactDto> getAllContacts() {
         return contactService.getAll();
@@ -38,8 +41,8 @@ public class ContactController {
         return contactService.update(id, contact);
     }
 
-    @DeleteMapping("/delete")
-    public void delete(@RequestBody ContactDto contact) {
-        contactService.delete(contact.getId());
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable Long id) {
+        contactService.delete(id);
     }
 }

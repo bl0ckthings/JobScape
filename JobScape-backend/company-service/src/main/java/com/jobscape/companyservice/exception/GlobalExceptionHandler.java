@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Instant;
 
@@ -21,5 +22,11 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
     }
 
-
+    @ExceptionHandler(ResponseStatusException.class)
+    public ResponseEntity<ApiErrorResponse> handleContactError(ResponseStatusException exception) {
+        String code = exception.getStatusCode().value() == 404 ? "CONTACT_NOT_FOUND" : "INVALID_CONTACT";
+        ApiErrorResponse body = new ApiErrorResponse(
+                exception.getStatusCode().value(), code, exception.getReason(), Instant.now());
+        return ResponseEntity.status(exception.getStatusCode()).body(body);
+    }
 }

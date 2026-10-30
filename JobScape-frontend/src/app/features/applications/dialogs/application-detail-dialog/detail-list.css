@@ -1,0 +1,166 @@
+:host {
+  display: block;
+}
+.add-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid var(--detail-border);
+  border-radius: 10px;
+  background: var(--detail-surface);
+  font-size: 13px;
+  font-weight: 600;
+}
+.add-button:hover {
+  color: var(--detail-blue);
+  border-color: #bfdbfe;
+  background: #eff6ff;
+}
+.add-button .plus {
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 400;
+}
+.items {
+  display: grid;
+  gap: 16px;
+  margin-top: 18px;
+}
+.detail-card {
+  width: 100%;
+  text-align: left;
+  border: 1px solid var(--detail-border);
+  background: var(--detail-surface);
+  border-radius: 14px;
+  padding: 14px;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+.detail-card:hover {
+  border-color: #b9cffb;
+  box-shadow: 0 3px 12px #3478f60a;
+}
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+.card-top app-detail-tag {
+  min-width: 90px;
+}
+h3 {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+.date,
+.subtitle {
+  color: var(--detail-muted);
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 6px;
+}
+.comment {
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 10px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.contact-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-top: 1px solid var(--detail-border);
+  margin-top: 12px;
+  padding-top: 10px;
+  color: var(--detail-muted);
+  font-size: 11px;
+}
+.contact-line img {
+  width: 12px;
+  height: 12px;
+}
+.timeline {
+  padding-left: 22px;
+  position: relative;
+}
+.timeline:before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 3px;
+  bottom: 2px;
+  width: 2px;
+  background: #e2e8f0;
+}
+.timeline .detail-card {
+  position: relative;
+}
+.timeline .detail-card:before {
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: 18px;
+  height: 11px;
+  width: 11px;
+  background: white;
+  border: 2px solid #3478f6;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px #dbeafe;
+}
+.empty {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--detail-muted);
+  border: 1px dashed var(--detail-border);
+  border-radius: 14px;
+  font-size: 13px;
+}
+.empty strong {
+  display: block;
+  color: var(--detail-ink);
+  margin-bottom: 5px;
+}
+@media (max-width: 600px) {
+  .add-button {
+    justify-content: flex-start;
+    background: white;
+    font-size: 12px;
+  }
+  .detail-card {
+    background: white;
+    min-height: 140px;
+    padding: 16px;
+  }
+  .card-top app-detail-tag {
+    min-width: 90px;
+  }
+  h3 {
+    font-size: 13px;
+  }
+  .date {
+    font-weight: 400;
+    font-size: 11px;
+  }
+  .comment {
+    font-size: 12px;
+  }
+  .timeline {
+    padding-left: 0;
+  }
+  .timeline:before,
+  .timeline .detail-card:before {
+    display: none;
+  }
+}

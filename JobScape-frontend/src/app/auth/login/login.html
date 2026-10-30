@@ -1,17 +1,13 @@
 <!-- login-page.component.html -->
-<main
-  class="min-h-screen bg-[#080e20] text-[#111827] lg:flex lg:items-center lg:justify-center lg:min-h-full  "
->
+<main class="flex min-h-dvh flex-col bg-[#0B1020] text-[#111827] lg:flex-row lg:bg-[#f5f7fb]">
   <section
-    class="mx-auto flex min-h-screen w-full max-w-[1720px] flex-col overflow-hidden bg-[#080e20]
-           lg:min-h-full
-            lg:flex-row lg:bg-white"
+    class="mx-auto flex min-h-dvh w-full max-w-[1728px] flex-col overflow-hidden bg-[#0B1020] lg:flex-row lg:bg-white"
   >
 
     <aside
-      class="order-2 flex flex-1 flex-col bg-[#080e20] px-4 pb-0 pt-5 text-white
+      class="order-2 flex flex-col bg-[#0B1020] px-4 pb-8 pt-6 text-white
              sm:px-8
-             lg:order-1 lg:min-h-full lg:w-1/2 lg:flex-none lg:px-12 lg:py-10
+             lg:order-1 lg:min-h-dvh lg:w-1/2 lg:flex-none lg:px-12 lg:py-10
              xl:px-16"
     >
 
@@ -35,9 +31,7 @@
         </span>
       </a>
 
-      <div
-        class="flex flex-1 flex-col lg:justify-center lg:pb-16"
-      >
+      <div class="flex flex-1 flex-col lg:justify-center lg:pb-16">
         <div class="lg:max-w-[470px]">
           <h1
             class="text-[29px] font-bold leading-[1.15] tracking-[-0.025em]
@@ -74,15 +68,21 @@
 
 
     <section
-      class="order-1 flex flex-1 items-start justify-center bg-[#080e20] px-4 pb-0 pt-[81px]
+      class="order-1 flex flex-col items-center bg-[#0B1020] px-4 pt-5
              sm:px-8
-             lg:order-2 lg:min-h-screen lg:w-1/2 lg:flex-none lg:items-center
+             lg:order-2 lg:min-h-dvh lg:w-1/2 lg:flex-none lg:items-center lg:justify-center
              lg:bg-[#f5f7fb] lg:px-10 lg:py-14"
     >
+      <div class="mb-5 flex w-full max-w-[410px] items-center gap-3 text-white lg:hidden">
+        <img src="/assets/jobscape-logo.png" alt="" class="h-11 w-11 rounded-xl shadow-apply-btn" />
+        <div>
+          <p class="text-xl font-bold leading-none">JobScape</p>
+          <p class="mt-1 text-xs text-[#98a3c6]">Optimise ta recherche d'emploi</p>
+        </div>
+      </div>
       <div
-        class="w-full max-w-[368px] rounded-2xl bg-white px-[35px] py-[31px]
+        class="w-full max-w-[410px] rounded-[24px] bg-white px-6 py-7
                shadow-[0_24px_55px_rgba(7,15,35,0.16)]
-               sm:max-w-[410px]
                lg:max-w-[390px] lg:rounded-[22px] lg:px-8 lg:py-8"
       >
         <header>
@@ -90,18 +90,19 @@
             Connexion
           </h2>
           <p class="mt-1 text-[13px] text-[#7f889b] lg:text-xs">
-            Connecte-toi pour accéder à ton dashboard.
+            Connecte-toi pour retrouver tes candidatures.
           </p>
         </header>
 
         <!--
 
         -->
-        <div class="mt-7 min-h-[420px] lg:min-h-[350px]">
+        <div class="mt-6">
           <form
             id="loginForm"
-            class="mt-7 space-y-5"
+            class="space-y-5"
             [formGroup]="form"
+            (ngSubmit)="submit()"
             novalidate
           >
             <!-- Email -->
@@ -227,7 +228,6 @@
             <!-- Submit -->
             <button
               type="submit"
-              (click)="submit()"
               class="flex h-12 w-full items-center justify-center rounded-xl
            bg-[#315cff] px-5 text-sm font-semibold text-white
            shadow-[0_12px_25px_rgba(49,92,255,0.30)]

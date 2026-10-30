@@ -36,14 +36,15 @@ public class ReminderController {
     @PutMapping("/update/{id}")
     public ReminderDto updateReminder(
             @PathVariable Long id,
+            @RequestParam("userId") Long userId,
             @Valid @RequestBody UpdateReminderRequest updateRequest
     ) {
-        return reminderService.updateReminder(id, updateRequest);
+        return reminderService.updateReminder(id, userId, updateRequest);
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteReminderById(@PathVariable Long id) {
-        reminderService.deleteReminderById(id);
+    public void deleteReminderById(@PathVariable Long id, @RequestParam("userId") Long userId) {
+        reminderService.deleteReminderById(id, userId);
     }
 
 

@@ -35,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -186,9 +187,12 @@ class CrudServiceTest {
         assertSame(response, service.create(request));
         assertSame(response, service.getById(2L));
         assertEquals(List.of(response), service.getByApplicationId(1L));
-        assertSame(response, service.update(2L, request));
-        service.delete(2L);
-        verify(reminders).delete(entity);
+        when(reminders.updateOwnedReminder(eq(2L), eq(7L), isNull(), isNull(), any()))
+                .thenReturn(1);
+        when(reminders.deleteOwnedReminder(2L, 7L)).thenReturn(1);
+        assertSame(response, service.update(2L, 7L, request));
+        service.delete(2L, 7L);
+        verify(reminders).deleteOwnedReminder(2L, 7L);
     }
 
     @Test

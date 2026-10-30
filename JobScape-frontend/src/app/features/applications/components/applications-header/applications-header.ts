@@ -7,6 +7,22 @@ import { Component, signal } from '@angular/core';
   styleUrl: './applications-header.css',
 })
 export class ApplicationsHeader {
+  readonly notificationsOpen = signal(false);
+  readonly sortOpen = signal(false);
+  readonly sortLabel = signal('Trier par');
 
-  userNotis = signal(15);
+  toggleNotifications(): void {
+    this.sortOpen.set(false);
+    this.notificationsOpen.update(open => !open);
+  }
+
+  toggleSort(): void {
+    this.notificationsOpen.set(false);
+    this.sortOpen.update(open => !open);
+  }
+
+  selectSort(label: string): void {
+    this.sortLabel.set(label);
+    this.sortOpen.set(false);
+  }
 }

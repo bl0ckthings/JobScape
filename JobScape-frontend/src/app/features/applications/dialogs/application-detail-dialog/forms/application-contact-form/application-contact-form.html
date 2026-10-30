@@ -1,0 +1,78 @@
+<form class="detail-form" [formGroup]="form" (ngSubmit)="submit()">
+  <div class="form-body">
+    <div class="form-title">
+      <h3>{{ contact() ? 'Modifier un interlocuteur' : 'Nouvel interlocuteur' }}</h3>
+      <app-detail-tag>Contact</app-detail-tag>
+    </div>
+    <div class="fields">
+      <div class="field">
+        <label for="detail-contact-name">Nom et prénom</label
+        ><input
+          id="detail-contact-name"
+          class="control"
+          formControlName="name"
+          autocomplete="name"
+          placeholder="Ex : Marie Blachère"
+          [attr.aria-invalid]="form.controls.name.touched && form.controls.name.invalid"
+        />
+        @if (form.controls.name.touched && form.controls.name.invalid) {
+          <p class="error" role="alert">Le nom est obligatoire.</p>
+        }
+      </div>
+      <div class="field">
+        <label for="detail-contact-role">Fonction</label
+        ><input
+          id="detail-contact-role"
+          class="control"
+          formControlName="role"
+          placeholder="Ex : Responsable RH"
+        />
+      </div>
+      <div class="field">
+        <label for="detail-contact-company">Entreprise</label
+        ><input id="detail-contact-company" class="control" formControlName="company" readonly />
+      </div>
+      <div class="field">
+        <label for="detail-contact-email">E-mail</label
+        ><input
+          id="detail-contact-email"
+          class="control"
+          type="email"
+          formControlName="email"
+          autocomplete="email"
+          placeholder="nom@entreprise.fr"
+          [attr.aria-invalid]="form.controls.email.touched && form.controls.email.invalid"
+        />
+        @if (form.controls.email.touched && form.controls.email.invalid) {
+          <p class="error" role="alert">Saisissez une adresse e-mail valide.</p>
+        }
+      </div>
+      <div class="field">
+        <label for="detail-contact-phone">Téléphone</label
+        ><input
+          id="detail-contact-phone"
+          class="control"
+          type="tel"
+          formControlName="phone"
+          autocomplete="tel"
+          placeholder="+33 6 …"
+        />
+      </div>
+    </div>
+    <div class="context">
+      <div>
+        <strong>Lié à cette candidature</strong>
+        <p>{{ companyName() }} · {{ jobTitle() }}</p>
+      </div>
+    </div>
+  </div>
+  <footer class="form-footer">
+    @if (contact()) {
+      <button class="button delete" type="button" (click)="removed.emit()">Supprimer</button>
+    }
+    <button class="button secondary" type="button" (click)="cancelled.emit()">Annuler</button
+    ><button class="button primary" type="submit">
+      {{ contact() ? 'Enregistrer' : 'Sauvegarder' }}
+    </button>
+  </footer>
+</form>

@@ -36,8 +36,17 @@ public class ContactService {
     }
 
     @Transactional(readOnly = true)
-    public List<ContactDto> getByCompanyId(Long companyId) {
-        return contactRepository.findByCompanyId(companyId).stream()
+    public List<ContactDto> getByUserId(Long userId) {
+        return contactRepository.findByUserId(userId)
+                .stream()
+                .map(contactMapper::toDto)
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<ContactDto> getByCompanyId(Long companyId, Long userId) {
+        return contactRepository.findByCompany_IdAndUser_IdOrderByCreatedAtAscIdAsc(companyId, userId)
+                .stream()
                 .map(contactMapper::toDto)
                 .toList();
     }
@@ -99,4 +108,6 @@ public class ContactService {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", userId));
     }
+
+
 }

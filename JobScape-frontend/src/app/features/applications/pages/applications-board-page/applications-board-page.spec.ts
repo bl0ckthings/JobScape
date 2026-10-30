@@ -4,10 +4,12 @@ import { of } from 'rxjs';
 import { ApplicationsBoardPage } from './applications-board-page';
 import { ApplicationService } from '../../services/application.service';
 import { ApplicationDto, ApplicationsByStatusResponse } from '../../../../shared/models/applications/applications-by-status-response.model';
+import { ApplicationCreation } from '../../services/application-creation';
 
 describe('ApplicationsBoardPage', () => {
   let component: ApplicationsBoardPage;
   let fixture: ComponentFixture<ApplicationsBoardPage>;
+  const openCreateApplicationDialog = vi.fn();
   const application = (id: number, jobTitle: string): ApplicationDto => ({
     id, jobTitle, city: 'Paris', country: 'France', source: 'LinkedIn', url: null,
     status: 'APPLIED', workMode: 'Remote', createdAt: '2026-10-27T10:00:00',
@@ -30,6 +32,9 @@ describe('ApplicationsBoardPage', () => {
       providers: [{
         provide: ApplicationService,
         useValue: { getApplicationByUserId: vi.fn(() => of(response)) },
+      }, {
+        provide: ApplicationCreation,
+        useValue: { created$: of(), openCreateApplicationDialog },
       }],
     }).compileComponents();
 
@@ -55,5 +60,20 @@ describe('ApplicationsBoardPage', () => {
     expect(columns[2].textContent).toContain('Interview role');
     expect(fixture.nativeElement.textContent).not.toContain('Offer role');
     expect(fixture.nativeElement.textContent).not.toContain('Componize');
+  });
+
+  it('uses the Figma colors for the Envoyé and Entretien column dots', () => {
+    const columns = fixture.nativeElement.querySelectorAll('app-applications-status-column');
+
+    expect(columns[1].querySelector('[data-testid="status-dot"]').classList.contains('bg-[#6D5EFC]')).toBe(true);
+    expect(columns[2].querySelector('[data-testid="status-dot"]').classList.contains('bg-[#23C483]')).toBe(true);
+  });
+
+  it('opens the creation flow from the mobile add button', () => {
+    const button: HTMLButtonElement = fixture.nativeElement.querySelector('[data-testid="mobile-add-application"]');
+
+    button.click();
+
+    expect(openCreateApplicationDialog).toHaveBeenCalledOnce();
   });
 });

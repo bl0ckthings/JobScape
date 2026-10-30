@@ -24,7 +24,9 @@ export class ApplicationDialogService {
   }
 
   /** Open the form in "edit" mode, pre-filled with an existing application. */
-  openEdit(application: NonNullable<ApplicationFormDialogData['application']>): ApplicationDialogRef {
+  openEdit(
+    application: NonNullable<ApplicationFormDialogData['application']>,
+  ): ApplicationDialogRef {
     return this.open({ mode: 'edit', application });
   }
 
@@ -36,7 +38,8 @@ export class ApplicationDialogService {
   private open(data: ApplicationFormDialogData): ApplicationDialogRef {
     this.dialogRef = this.dialog.open(ApplicationFormDialog, {
       width: '600px',
-      maxWidth: 'calc(100vw - 32px)',
+      maxWidth: 'calc(100vw - 24px)',
+      maxHeight: 'calc(100dvh - 24px)',
       panelClass: 'jobscape-dialog-panel',
       backdropClass: 'jobscape-dialog-backdrop',
       disableClose: false,
@@ -49,5 +52,7 @@ export class ApplicationDialogService {
     return this.dialogRef;
   }
 
+  private openDetail(applicationId: number): void {
 
+  }
 }

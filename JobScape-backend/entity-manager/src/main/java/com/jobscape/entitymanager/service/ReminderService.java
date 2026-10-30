@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -48,23 +49,21 @@ public class ReminderService {
     }
 
     @Transactional
-    public ReminderDto update(Long id, ReminderDto dto) {
-        Reminder reminder = findReminder(id);
-        if (dto.getReminderDate() != null) {
-            reminder.setReminderDate(dto.getReminderDate());
+    public ReminderDto update(Long id, Long userId, ReminderDto dto) {
+        // Le propriétaire fait partie de la condition d'écriture ; le rappel garde sa candidature.
+        int updated = reminderRepository.updateOwnedReminder(
+                id, userId, dto.getReminderDate(), dto.getComment(), LocalDateTime.now());
+        if (updated == 0) {
+            throw new ResourceNotFoundException("Reminder", id);
         }
-        if (dto.getComment() != null) {
-            reminder.setComment(dto.getComment());
-        }
-        if (dto.getApplicationId() != null) {
-            reminder.setApplication(findApplication(dto.getApplicationId()));
-        }
-        return reminderMapper.toDto(reminderRepository.save(reminder));
+        return reminderMapper.toDto(findReminder(id));
     }
 
     @Transactional
-    public void delete(Long id) {
-        reminderRepository.delete(findReminder(id));
+    public void delete(Long id, Long userId) {
+        if (reminderRepository.deleteOwnedReminder(id, userId) == 0) {
+            throw new ResourceNotFoundException("Reminder", id);
+        }
     }
 
     private Reminder findReminder(Long id) {

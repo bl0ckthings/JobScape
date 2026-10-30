@@ -1,0 +1,43 @@
+<div class="relative">
+  <button
+    type="button"
+    [id]="selectId()"
+    [disabled]="control().disabled"
+    [attr.aria-expanded]="open()"
+    [attr.aria-controls]="selectId() + '-listbox'"
+    aria-haspopup="listbox"
+    class="form-select-trigger form-input flex items-center justify-between gap-2 text-left hover:border-blue-300 disabled:cursor-not-allowed disabled:opacity-60"
+    (click)="toggle()"
+    (keydown)="onKeydown($event)"
+  >
+    <span class="truncate" [class.text-slate-400]="!control().value">{{ selectedLabel() }}</span>
+    <svg aria-hidden="true" class="h-4 w-4 shrink-0 text-slate-500 transition-transform" [class.rotate-180]="open()" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m5 7 5 5 5-5" />
+    </svg>
+  </button>
+  @if (open()) {
+    <div
+      [id]="selectId() + '-listbox'"
+      role="listbox"
+      [attr.aria-label]="placeholder()"
+      class="absolute left-0 right-0 z-50 max-h-48 overflow-y-auto rounded-xl border border-[#E6E8F0] bg-white p-1.5 shadow-card"
+      [class.top-full]="!dropUp()"
+      [class.mt-1]="!dropUp()"
+      [class.bottom-full]="dropUp()"
+      [class.mb-1]="dropUp()"
+      (keydown)="onKeydown($event)"
+    >
+      @for (option of options(); track option.value) {
+        <button
+          type="button"
+          role="option"
+          [attr.aria-selected]="control().value === option.value"
+          class="w-full rounded-lg px-3 py-2 text-left text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700 focus:bg-blue-50 focus:text-blue-700 focus:outline-none"
+          [class.bg-blue-50]="control().value === option.value"
+          [class.text-blue-700]="control().value === option.value"
+          (click)="choose(option)"
+        >{{ option.label }}</button>
+      }
+    </div>
+  }
+</div>

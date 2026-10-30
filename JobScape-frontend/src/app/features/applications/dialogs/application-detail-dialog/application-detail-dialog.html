@@ -1,1 +1,90 @@
-<p>application-detail-dialog works!</p>
+<section
+  class="detail-dialog"
+  [class.form-open]="formOpen()"
+  aria-labelledby="application-detail-title"
+>
+  <app-application-detail-header [data]="data()" (closed)="close()" />
+  <app-application-detail-tabs
+    [active]="tab()"
+    [counts]="counts()"
+    (selected)="changeTab($event)"
+  />
+  <div
+    class="body"
+    [class.form-area]="formOpen()"
+    role="tabpanel"
+    [id]="'detail-panel-' + tab()"
+    [attr.aria-labelledby]="'detail-tab-' + tab()"
+  >
+    @if (formOpen()) {
+      @switch (tab()) {
+        @case ('steps') {
+          <app-application-step-form
+            [step]="editedStep()"
+            [contacts]="data().contacts"
+            (saved)="saveStep($event)"
+            (cancelled)="closeForm()"
+            (removed)="removeStep()"
+          />
+        }
+        @case ('contacts') {
+          <app-application-contact-form
+            [contact]="editedContact()"
+            [companyName]="data().companyName"
+            [jobTitle]="data().jobTitle"
+            (saved)="saveContact($event)"
+            (cancelled)="closeForm()"
+            (removed)="removeContact()"
+          />
+        }
+        @case ('reminders') {
+          <app-application-reminder-form
+            [reminder]="editedReminder()"
+            [companyName]="data().companyName"
+            (saved)="saveReminder($event)"
+            (cancelled)="closeForm()"
+            (removed)="removeReminder()"
+          />
+        }
+      }
+    } @else {
+      <div class="list-content">
+        <h3 class="mobile-title">
+          {{ tab() === 'steps' ? 'Étapes' : tab() === 'contacts' ? 'Interlocuteurs' : 'Rappels' }} ·
+          Consultation
+        </h3>
+        @switch (tab()) {
+          @case ('steps') {
+            <app-application-steps-tab
+              [steps]="data().steps"
+              [contacts]="data().contacts"
+              (added)="openStep()"
+              (edited)="openStep($event)"
+            />
+          }
+          @case ('contacts') {
+            <app-application-contacts-tab
+              [contacts]="data().contacts"
+              (added)="openContact()"
+              (edited)="openContact($event)"
+            />
+          }
+          @case ('reminders') {
+            <app-application-reminders-tab
+              [reminders]="data().reminders"
+              (added)="openReminder()"
+              (edited)="openReminder($event)"
+            />
+          }
+        }
+      </div>
+    }
+  </div>
+  @if (!formOpen()) {
+    <footer class="footer">
+      <button type="button" class="save-button" (click)="close()">
+        <span class="desktop-label">Sauvegarder</span><span class="mobile-label">Fermer</span>
+      </button>
+    </footer>
+  }
+</section>

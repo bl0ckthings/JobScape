@@ -8,6 +8,7 @@ import {
   ApplicationDto,
   ApplicationsByStatusResponse
 } from '../../../shared/models/applications/applications-by-status-response.model';
+import { ApplicationDetails } from '../../../shared/models/applications/application-detail.model';
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +28,12 @@ export class ApplicationService {
 
   getApplicationByUserId(): Observable<ApplicationsByStatusResponse> {
     return this.http.get<ApplicationsByStatusResponse>(`${this.baseUrl}/api/application/user`);
+  }
+
+  getApplicationDetail(id:number):Observable<ApplicationDetails> {
+    return this.http.get<ApplicationDetails>(
+      `${this.baseUrl}/api/application/${id}/detail`
+    );
   }
 
 

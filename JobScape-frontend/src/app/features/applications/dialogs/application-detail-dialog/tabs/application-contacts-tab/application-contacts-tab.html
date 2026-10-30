@@ -1,0 +1,36 @@
+<button type="button" class="add-button" (click)="added.emit()">
+  <span class="plus" aria-hidden="true">+</span>Ajouter un interlocuteur
+</button>
+<div class="items">
+  @for (contact of contacts(); track contact.id) {
+    <button
+      type="button"
+      class="detail-card"
+      [attr.aria-label]="'Modifier le contact ' + contact.name"
+      (click)="edited.emit(contact)"
+    >
+      <div class="card-top">
+        <h3>{{ contact.name }}</h3>
+        @if (contact.primary) {
+          <app-detail-tag>Principal</app-detail-tag>
+        }
+      </div>
+      <p class="subtitle">
+        {{ contact.role || 'Fonction non renseignée' }} · {{ contact.company }}
+      </p>
+      <p class="comment">
+        {{ contact.email || 'Email non renseigné' }}
+        @if (contact.phone) {
+          <span> · {{ contact.phone }}</span>
+        }
+      </p>
+    </button>
+  } @empty {
+    <div class="empty">
+      <div>
+        <strong>Aucun interlocuteur pour le moment</strong>Gardez les coordonnées de vos contacts au
+        même endroit.
+      </div>
+    </div>
+  }
+</div>

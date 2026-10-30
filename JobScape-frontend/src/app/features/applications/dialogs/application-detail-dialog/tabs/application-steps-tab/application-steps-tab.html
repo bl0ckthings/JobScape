@@ -1,0 +1,43 @@
+<button type="button" class="add-button" (click)="added.emit()">
+  <span class="plus" aria-hidden="true">+</span>Ajouter une étape
+</button>
+<div class="items timeline">
+  @for (step of steps(); track step.id) {
+    <button
+      type="button"
+      class="detail-card"
+      [attr.aria-label]="'Modifier l’étape ' + step.nature"
+      (click)="edited.emit(step)"
+    >
+      <div class="card-top">
+        <h3>{{ step.nature }}</h3>
+        <app-detail-tag
+          [tone]="
+            step.status === 'interview' ? 'purple' : step.status === 'todo' ? 'amber' : 'green'
+          "
+          >{{
+            step.status === 'interview'
+              ? 'Entretien'
+              : step.status === 'todo'
+                ? 'À faire'
+                : 'Effectué'
+          }}</app-detail-tag
+        >
+      </div>
+      <p class="date">{{ step.date | date: 'd MMMM yyyy' }}</p>
+      <p class="comment">
+        {{ step.comment || 'Aucun commentaire.' }}
+        @if (contactName(step.contactId); as name) {
+          <span> · {{ name }}</span>
+        }
+      </p>
+    </button>
+  } @empty {
+    <div class="empty">
+      <div>
+        <strong>Aucune étape pour le moment</strong>Ajoutez le prochain échange de votre
+        candidature.
+      </div>
+    </div>
+  }
+</div>
