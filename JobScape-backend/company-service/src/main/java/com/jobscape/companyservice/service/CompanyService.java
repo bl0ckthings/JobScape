@@ -53,6 +53,7 @@ public class CompanyService {
                         throw new IllegalArgumentException("Company name is required");
                 }
 
+                // On réutilise l'entreprise pour éviter les doublons.
                 if (companySelectionDto.getDomain() != null && !companySelectionDto.getDomain().isBlank()) {
                         Optional<CompanyDto> company = findCompanyByDomain(companySelectionDto.getDomain());
                         if (company.isPresent()) {
@@ -84,6 +85,7 @@ public class CompanyService {
                                 throw new IllegalArgumentException("Invalid domain");
                         }
 
+                        // Même domaine, même format, avec ou sans www.
                         host = host.toLowerCase(Locale.ROOT);
                         if (host.endsWith(".")) {
                                 host = host.substring(0, host.length() - 1);

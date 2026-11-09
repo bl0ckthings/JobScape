@@ -7,6 +7,7 @@ import com.jobscape.applicationservice.dto.application.CreateApplicationRequest;
 import com.jobscape.applicationservice.service.ApplicationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class ApplicationController {
     private final ApplicationService applicationService;
+
 
 
     @GetMapping("/{id}")

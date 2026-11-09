@@ -1,6 +1,16 @@
-import { Component, computed, ElementRef, HostListener, inject, input, signal,DestroyRef } from '@angular/core';
-import { environment } from '../../../../../environments/environment';
+import {
+  Component,
+  computed,
+  ElementRef,
+  HostListener,
+  inject,
+  input,
+  signal,
+  DestroyRef,
+} from '@angular/core';
+import { getCompanyLogoUrl } from '../../company-logo';
 import { ApplicationDto } from '../../../../shared/models/applications/applications-by-status-response.model';
+import { Company } from '../../../../shared/models/applications/company.model';
 import { Badge } from '../../../../shared/ui/badge/badge';
 import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -9,10 +19,11 @@ import { finalize, map } from 'rxjs';
 import { ApplicationService } from '../../services/application.service';
 import { ApplicationDialogService } from '../../services/application-dialog.service';
 import { toApplicationDetailData } from '../../dialogs/application-detail-dialog/application-detail.mapper';
+import { Spinner } from '../../../../shared/ui/spinner/spinner';
 import { disabled } from '@angular/forms/signals';
 @Component({
   selector: 'app-application-card',
-  imports: [DatePipe, Badge],
+  imports: [DatePipe, Badge, Spinner],
   templateUrl: './application-card.html',
   styleUrl: './application-card.css',
 })
@@ -25,22 +36,18 @@ export class ApplicationCard {
   readonly detailError = signal<string | null>(null);
   readonly actionsOpen = signal(false);
   readonly application = input<ApplicationDto | null>(null);
+  readonly company = input<Company | null>(null);
   readonly companyName = input('');
   readonly companyDomain = input<string | null>(null);
   readonly heading = computed(
-    () => this.application()?.companyName?.trim() || this.companyName().trim() || 'Entreprise',
+    () => this.company()?.name?.trim() || this.companyName().trim() || 'Entreprise',
   );
   readonly logoUrl = computed(() => {
-    const application = this.application();
-    const storedLogo = application?.companyLogoUrl?.trim();
-    if (storedLogo && !storedLogo.startsWith('https://cdn.brandfetch.io/')) return storedLogo;
-
-    const domain = (application ? application.companyDomain : this.companyDomain())?.trim();
-    const clientId = environment.brandFetch_clientId.trim();
-
-    return domain && clientId
-      ? `https://cdn.brandfetch.io/domain/${encodeURIComponent(domain)}/w/28/h/28/fallback/lettermark?c=${encodeURIComponent(clientId)}`
-      : null;
+    const company = this.company();
+    return getCompanyLogoUrl(
+      company?.logoUrl,
+      company?.domain ?? this.companyDomain(),
+    );
   });
 
   toggleActions(): void {

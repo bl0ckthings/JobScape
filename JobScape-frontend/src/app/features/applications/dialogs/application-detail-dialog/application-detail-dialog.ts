@@ -1,4 +1,7 @@
-import { Component, computed, inject, LOCALE_ID, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, LOCALE_ID, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { finalize } from 'rxjs';
+import { ApplicationService } from '../../services/application.service';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -37,10 +40,14 @@ registerLocaleData(localeFr);
   templateUrl: './application-detail-dialog.html',
 })
 export class ApplicationDetailDialog {
+  private readonly applicationService = inject(ApplicationService);
+  private readonly destroyRef = inject(DestroyRef);
   private readonly dialogRef = inject(MatDialogRef<ApplicationDetailDialog>, { optional: true });
   readonly data = signal(structuredClone(inject<ApplicationDetailData>(MAT_DIALOG_DATA)));
   readonly tab = signal<DetailTab>('steps');
   readonly formOpen = signal(false);
+  readonly savingStep = signal(false);
+  readonly stepSaveError = signal<string | null>(null);
   readonly editedStep = signal<DetailStep | null>(null);
   readonly editedContact = signal<DetailContact | null>(null);
   readonly editedReminder = signal<DetailReminder | null>(null);
@@ -55,12 +62,14 @@ export class ApplicationDetailDialog {
     this.closeForm();
   }
   closeForm(): void {
+    this.stepSaveError.set(null);
     this.formOpen.set(false);
     this.editedStep.set(null);
     this.editedContact.set(null);
     this.editedReminder.set(null);
   }
   openStep(step: DetailStep | null = null): void {
+    this.stepSaveError.set(null);
     this.editedStep.set(step);
     this.formOpen.set(true);
   }
@@ -73,6 +82,41 @@ export class ApplicationDetailDialog {
     this.formOpen.set(true);
   }
   saveStep(value: Omit<DetailStep, 'id'>): void {
+    if (this.savingStep()) return;
+
+    const applicationId = this.data().applicationId;
+    if (applicationId !== undefined) {
+      if (this.editedStep()) return;
+
+      this.savingStep.set(true);
+      this.stepSaveError.set(null);
+      this.applicationService.createApplicationStep(applicationId, {
+        stepStatus: value.status,
+        stepDate: value.date.includes('T') ? value.date : `${value.date}T00:00:00`,
+        comment: value.comment,
+        contactId: value.contactId,
+      }).pipe(
+        takeUntilDestroyed(this.destroyRef),
+        finalize(() => this.savingStep.set(false)),
+      ).subscribe({
+        next: (step) => {
+          this.data.update((data) => ({
+            ...data,
+            steps: [...data.steps, {
+              id: step.id,
+              status: step.stepStatus,
+              date: step.stepDate ?? '',
+              comment: step.comment ?? '',
+              contactId: step.contactId,
+            }].sort((a, b) => b.date.localeCompare(a.date) || b.id - a.id),
+          }));
+          this.closeForm();
+        },
+        error: () => this.stepSaveError.set('Impossible d’enregistrer l’étape. Réessayez.'),
+      });
+      return;
+    }
+
     const id = this.editedStep()?.id;
     this.data.update((data) => ({
       ...data,

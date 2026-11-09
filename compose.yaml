@@ -3,7 +3,7 @@ services:
     image: mysql:8.4
     environment:
       MYSQL_DATABASE: jobscape
-      MYSQL_USER: jobscape
+      MYSQL_USER: jobscape_dev
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env}
     ports:
@@ -30,22 +30,30 @@ services:
     restart: unless-stopped
 
   entity-manager:
+    # Construction locale avec le Dockerfile du service.
     build: ./JobScape-backend/entity-manager
+    # Nom de l'image pour Docker Hub.
+    image: ${DOCKERHUB_USERNAME:-oualidteh}/jobscape-entity-manager:${IMAGE_TAG:-latest}
+    # Petite pause, puis Java devient le processus principal.
     entrypoint: ["sh", "-c", "sleep 3; exec java -jar app.jar"]
     environment:
       SPRING_CLOUD_CONSUL_HOST: consul
+      # db désigne le conteneur MySQL du réseau Docker.
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/jobscape
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env}
+    # On attend que Consul et MySQL soient prêts.
     depends_on:
       consul:
         condition: service_healthy
       db:
         condition: service_healthy
+    # On relance le service s'il plante.
     restart: on-failure
 
   user-service:
     build: ./JobScape-backend/user-service
+    image: ${DOCKERHUB_USERNAME:-oualidteh}/jobscape-user-service:${IMAGE_TAG:-latest}
     entrypoint: ["sh", "-c", "sleep 3; exec java -jar app.jar"]
     environment:
       SPRING_CLOUD_CONSUL_HOST: consul
@@ -55,17 +63,25 @@ services:
     restart: on-failure
 
   company-service:
+    # Le Dockerfile compile et teste ce service.
     build: ./JobScape-backend/company-service
+    # Nom et version utilisés pour Docker Hub.
+    image: ${DOCKERHUB_USERNAME:-oualidteh}/jobscape-company-service:${IMAGE_TAG:-latest}
+    # Courte pause, puis lancement du JAR.
     entrypoint: ["sh", "-c", "sleep 3; exec java -jar app.jar"]
     environment:
+      # Consul est joignable par son nom dans le réseau Docker.
       SPRING_CLOUD_CONSUL_HOST: consul
+    # On attend que Consul soit prêt.
     depends_on:
       consul:
         condition: service_healthy
+    # On relance seulement en cas d'erreur.
     restart: on-failure
 
   application-service:
     build: ./JobScape-backend/application-service
+    image: ${DOCKERHUB_USERNAME:-oualidteh}/jobscape-application-service:${IMAGE_TAG:-latest}
     entrypoint: ["sh", "-c", "sleep 3; exec java -jar app.jar"]
     environment:
       SPRING_CLOUD_CONSUL_HOST: consul
@@ -76,6 +92,7 @@ services:
 
   reminder-service:
     build: ./JobScape-backend/reminder-service
+    image: ${DOCKERHUB_USERNAME:-oualidteh}/jobscape-reminder-service:${IMAGE_TAG:-latest}
     entrypoint: ["sh", "-c", "sleep 3; exec java -jar app.jar"]
     environment:
       SPRING_CLOUD_CONSUL_HOST: consul
@@ -86,6 +103,7 @@ services:
 
   web-gateway:
     build: ./JobScape-backend/web-gateway
+    image: ${DOCKERHUB_USERNAME:-oualidteh}/jobscape-web-gateway:${IMAGE_TAG:-latest}
     entrypoint: ["sh", "-c", "sleep 3; exec java -jar app.jar"]
     environment:
       SPRING_CLOUD_CONSUL_HOST: consul
@@ -99,6 +117,7 @@ services:
 
   frontend:
     build: ./JobScape-frontend
+    image: ${DOCKERHUB_USERNAME:-oualidteh}/jobscape-frontend:${IMAGE_TAG:-latest}
     ports:
       - "4200:80"
     depends_on:

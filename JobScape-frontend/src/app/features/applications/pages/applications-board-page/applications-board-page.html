@@ -17,6 +17,7 @@
         [title]="column.title"
         [category]="column.category"
         [applications]="applicationsByStatus()[column.category] ?? []"
+        [companiesById]="companiesById()"
       ></app-applications-status-column>
     }
   </div>

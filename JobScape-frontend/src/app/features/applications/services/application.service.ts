@@ -4,8 +4,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IUserProfile } from '../../../shared/models/userProfile';
 import { CreateApplication } from '../../../shared/models/requests/create-application';
+import { CreateApplicationStep } from '../../../shared/models/requests/create-application-step';
 import {
   ApplicationDto,
+  ApplicationStepDto,
   ApplicationsByStatusResponse
 } from '../../../shared/models/applications/applications-by-status-response.model';
 import { ApplicationDetails } from '../../../shared/models/applications/application-detail.model';
@@ -24,6 +26,12 @@ export class ApplicationService {
 
   createNewApplication(application: CreateApplication): Observable<ApplicationDto> {
     return this.http.post<ApplicationDto>(`${this.baseUrl}/api/application/create`, application);
+  }
+
+  createApplicationStep(applicationId: number, step: CreateApplicationStep): Observable<ApplicationStepDto> {
+    return this.http.post<ApplicationStepDto>(
+      `${this.baseUrl}/api/application/${applicationId}/steps`, step,
+    );
   }
 
   getApplicationByUserId(): Observable<ApplicationsByStatusResponse> {

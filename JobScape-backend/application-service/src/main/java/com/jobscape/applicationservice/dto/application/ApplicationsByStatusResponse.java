@@ -1,6 +1,7 @@
 package com.jobscape.applicationservice.dto.application;
 
 import com.jobscape.applicationservice.model.ApplicationCategory;
+import com.jobscape.applicationservice.dto.company.CompanyDto;
 import com.jobscape.applicationservice.model.ApplicationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,4 +16,5 @@ import java.util.Map;
 public class ApplicationsByStatusResponse {
 
     private Map<ApplicationCategory, List<ApplicationDto>> applicationsByStatus;
+    private Map<Long, CompanyDto> companiesById = Map.of();
 }

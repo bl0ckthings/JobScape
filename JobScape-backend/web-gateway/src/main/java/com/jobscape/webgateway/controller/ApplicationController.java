@@ -5,6 +5,8 @@ import com.jobscape.webgateway.service.applicationDto.ApplicationDetailDto;
 import com.jobscape.webgateway.service.applicationDto.ApplicationDto;
 import com.jobscape.webgateway.service.applicationDto.ApplicationsByStatusResponse;
 import com.jobscape.webgateway.service.applicationDto.CreateApplicationRequest;
+import com.jobscape.webgateway.service.applicationDto.ApplicationStepDto;
+import com.jobscape.webgateway.service.applicationDto.CreateApplicationStepRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,19 @@ import java.util.Objects;
 public class ApplicationController {
 
     private final ApplicationClient applicationClient;
+
+    @PostMapping("/{applicationId}/steps")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ApplicationStepDto createApplicationStep(
+            @PathVariable Long applicationId,
+            @RequestAttribute("authenticatedUserId") Long userId,
+            @RequestBody CreateApplicationStepRequest request
+    ) {
+        if (applicationId <= 0 || request.getStepStatus() == null || request.getStepDate() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Valid applicationId, stepStatus and stepDate are required");
+        }
+        return applicationClient.createApplicationStep(applicationId, userId, request);
+    }
     @PostMapping("/create")
     public ApplicationDto createApplication(
             @RequestBody CreateApplicationRequest request,

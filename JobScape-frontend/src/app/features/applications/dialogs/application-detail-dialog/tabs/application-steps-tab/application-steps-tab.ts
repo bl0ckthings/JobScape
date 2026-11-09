@@ -16,6 +16,7 @@ export class ApplicationStepsTab {
   readonly added = output<void>();
   readonly edited = output<DetailStep>();
   readonly editable = input(true);
+  readonly canAdd = input(false);
   contactName(id: number | null): string {
     return this.contacts().find((item) => item.id === id)?.name ?? '';
   }

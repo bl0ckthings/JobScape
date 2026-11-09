@@ -36,7 +36,7 @@ public class ReminderService {
     @Transactional(readOnly = true)
     public List<ReminderDto> getByApplicationId(Long applicationId) {
         return reminderRepository
-                .findByApplication_IdOrderByReminderDateAscIdAsc(applicationId)
+                .findByApplicationId(applicationId)
                 .stream()
                 .map(reminderMapper::toDto)
                 .toList();
@@ -50,7 +50,7 @@ public class ReminderService {
 
     @Transactional
     public ReminderDto update(Long id, Long userId, ReminderDto dto) {
-        // Le propriétaire fait partie de la condition d'écriture ; le rappel garde sa candidature.
+        // On vérifie le propriétaire directement en SQL.
         int updated = reminderRepository.updateOwnedReminder(
                 id, userId, dto.getReminderDate(), dto.getComment(), LocalDateTime.now());
         if (updated == 0) {

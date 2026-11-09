@@ -1,19 +1,35 @@
-<div class="
-p-[1em] flex flex-col justify-between gap-[1em]
-[border:var(--border-card)] bg-white shadow-card rounded-2xl
-cursor-pointer transition-shadow hover:shadow-card-hover
-">
+<div
+  class="p-[1em] flex flex-col justify-between gap-[1em] [border:var(--border-card)] bg-white shadow-card rounded-2xl cursor-pointer transition-shadow hover:shadow-card-hover"
+>
   <div class="flex justify-between">
     <div>
-      <p data-testid="company-heading" class="flex items-center gap-[0.4em] font-bold text-base-size">
+      <p
+        data-testid="company-heading"
+        class="flex items-center gap-[0.4em] font-bold text-base-size"
+      >
         @if (logoUrl(); as src) {
           <img [src]="src" alt="" class="h-[1em] w-[1em] shrink-0 rounded-sm object-contain" />
         } @else {
-          <span class="flex h-[1em] w-[1em] shrink-0 items-center justify-center rounded-sm bg-slate-100 text-[0.8em]" aria-hidden="true">{{ heading().charAt(0) }}</span>
+          <span
+            class="flex h-[1em] w-[1em] shrink-0 items-center justify-center rounded-sm bg-slate-100 text-[0.8em]"
+            aria-hidden="true"
+            >{{ heading().charAt(0) }}</span
+          >
         }
-        <span>{{ heading() }}@if (application(); as item) { @if (item.city) { - {{ item.city }} } } @else { - Aix en Provence }</span>
+        <span
+          >{{ heading() }}
+          @if (application(); as item) {
+            @if (item.city) {
+              - {{ item.city }}
+            }
+          } @else {
+            - Aix en Provence
+          }
+        </span>
       </p>
-      <p class="text-small-size text-card-muted">{{ application()?.jobTitle ?? 'Développeur Full Stack Alternance' }}</p>
+      <p class="text-small-size text-card-muted">
+        {{ application()?.jobTitle ?? 'Développeur Full Stack Alternance' }}
+      </p>
     </div>
 
     <div class="relative shrink-0 self-start">
@@ -27,42 +43,66 @@ cursor-pointer transition-shadow hover:shadow-card-hover
         <span class="relative -top-1 text-lg font-bold leading-none" aria-hidden="true">...</span>
       </button>
       @if (actionsOpen()) {
-        <div data-testid="application-actions-menu" class="absolute right-0 top-full z-30 w-44 rounded-xl border border-[#E6E8F0] bg-white p-1.5 shadow-card">
-          <button type="button" class="w-full rounded-lg px-3 py-2 text-left text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700" (click)="openDetail()" [disabled]="detailLoading()">Voir en détails</button>
-          <button type="button" class="w-full rounded-lg px-3 py-2 text-left text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700" (click)="closeActions()">Modifier</button>
+        <div
+          data-testid="application-actions-menu"
+          class="absolute right-0 top-full z-30 w-44 rounded-xl border border-[#E6E8F0] bg-white p-1.5 shadow-card"
+        >
+          <button
+            type="button"
+            class="w-full rounded-lg px-3 py-2 text-left text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700"
+            (click)="openDetail()"
+            [disabled]="detailLoading()"
+          >
+            Voir en détails
+          </button>
+          <button
+            type="button"
+            class="w-full rounded-lg px-3 py-2 text-left text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700"
+            (click)="closeActions()"
+          >
+            Modifier
+          </button>
           <div class="my-1 border-t border-[#E6E8F0]"></div>
-          <button type="button" class="w-full rounded-lg px-3 py-2 text-left text-sm text-red-600 hover:bg-red-50" (click)="closeActions()">Supprimer</button>
+          <button
+            type="button"
+            class="w-full rounded-lg px-3 py-2 text-left text-sm text-red-600 hover:bg-red-50"
+            (click)="closeActions()"
+          >
+            Supprimer
+          </button>
         </div>
       }
     </div>
   </div>
   <div class="flex gap-[0.5em] flex-wrap">
     <app-badge [status]="application()?.status ?? 'APPLIED'" />
-    <span class="text-label-size py-tag-padding-y px-tag-padding-x [border:var(--border-card)] rounded-tag text-card-muted">{{ application()?.workMode ?? 'Présentiel' }}</span>
+    <span
+      class="text-label-size py-tag-padding-y px-tag-padding-x [border:var(--border-card)] rounded-tag text-card-muted"
+      >{{ application()?.workMode ?? 'Présentiel' }}</span
+    >
   </div>
   <div class="flex justify-between">
     @if (application(); as item) {
-      <span class="text-card-muted text-label-size">Créée le {{ item.createdAt | date:'dd/MM/yyyy' }}</span>
+      <span class="text-card-muted text-label-size"
+        >Créée le {{ item.createdAt | date: 'dd/MM/yyyy' }}</span
+      >
     } @else {
       <span class="text-card-muted text-label-size">Envoyé il y a 3 j.</span>
       <div class="flex items-center gap-[0.5em] text-card-muted text-label-size">
-        <img src="./assets/bell-small.svg" class="h-[18px] w-[18px]" alt="">
+        <img src="./assets/bell-small.svg" class="h-[18px] w-[18px]" alt="" />
         <span>A rappeler dans 3j.</span>
       </div>
     }
   </div>
-  @if(detailLoading()) {
-    <p role="status"
-       class="text-sm text-slate-500"
-       >
-      Chargement des détails...
-    </p>
+  @if (detailLoading()) {
+    <div class="flex justify-center rounded-xl bg-blue-50/60 py-3">
+      <app-spinner label="Chargement des détails de la candidature" />
+    </div>
   }
 
-  @if(detailError(); as message) {
-    <p role="alert"
-    class="text-sm text-shadow-slate-500">
-       {{message}}
+  @if (detailError(); as message) {
+    <p role="alert" class="text-sm text-shadow-slate-500">
+      {{ message }}
     </p>
   }
 </div>

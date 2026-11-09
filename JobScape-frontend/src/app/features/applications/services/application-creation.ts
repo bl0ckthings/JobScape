@@ -23,19 +23,16 @@ export class ApplicationCreation {
       .openCreate()
       .afterClosed()
       .pipe(
-        // Une fermeture sans valeur signifie que l'utilisateur a annulé le formulaire.
+        // Annulation : on ne crée rien.
         filter((value): value is ApplicationFormValue => value !== undefined),
-        // Transforme les données du formulaire en requête HTTP, sans souscription imbriquée.
         switchMap((value) => this.applicationService.createNewApplication(value)),
       )
       .subscribe({
-        // La souscription déclenche la requête HTTP et reçoit son résultat.
-        next: (createdApplication) => {
-          // Actualiser les candidatures quand le tableau utilisera les données de l'API.
+        next: () => {
+          // On prévient le tableau après la création.
           this.applicationCreated.next();
         },
         error: (error) => {
-          // Afficher une erreur à l'utilisateur si la création échoue.
           console.error('Création échouée :', error);
 
         },

@@ -132,12 +132,14 @@ export class ApplicationFormDialog{
         this.searchFailed.set(false);
         this.searching.set(false);
       }),
+      // Une nouvelle saisie annule l'ancienne recherche.
       switchMap(value => {
         const query = value.trim();
         if (query.length < 2 || !this.brandfetchSearch.enabled) {
           return of([]);
         }
 
+        // On attend pour éviter un appel par lettre.
         return timer(250).pipe(
           switchMap(() => {
             if (this.selectedCompany()) {

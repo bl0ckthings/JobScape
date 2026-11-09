@@ -42,6 +42,7 @@ public class ApplicationService {
         companySelectionDto.setDomain(request.getCompanyDomain());
         companySelectionDto.setLogoUrl(request.getCompanyLogoUrl());
 
+        // Il nous faut l'entreprise avant la candidature.
         CompanyDto company = companyClient.resolveCompany(companySelectionDto);
         ApplicationDto application = applicationMapper.toDto(request);
         application.setCompanyId(company.getId());
@@ -66,10 +67,12 @@ public class ApplicationService {
         List<ApplicationDto> applications = applicationClient.getApplicationByUserId(userId);
 
         Map<ApplicationCategory, List<ApplicationDto>> applicationsByStatus = new HashMap<>();
+        Map<Long, CompanyDto> companiesById = new HashMap<>();
 
         ApplicationsByStatusResponse response = new ApplicationsByStatusResponse();
 
 
+        // On garde aussi les colonnes sans candidature.
         for (ApplicationCategory applicationCategory : ApplicationCategory.values()) {
             applicationsByStatus.put(applicationCategory, new ArrayList<>());
         }
@@ -91,24 +94,40 @@ public class ApplicationService {
                             ApplicationCategory.REJECTED;
                 };
                applicationsByStatus.get(category).add(application);
+               Long companyId = application.getCompanyId();
+               // Un seul appel par entreprise du tableau.
+               if (companyId != null && !companiesById.containsKey(companyId)) {
+                   CompanyDto company = companyClient.getCompanyById(companyId);
+                   companiesById.put(companyId, company);
+               }
             }
 
 
         response.setApplicationsByStatus(applicationsByStatus);
+        response.setCompaniesById(companiesById);
 
         return response;
     }
 
-    public ApplicationDetailDto getApplicationDetail(Long applicationId, Long userId) {
-        ApplicationDto application = applicationClient.getApplicationById(applicationId);
-        if (userId == null || !Objects.equals(userId, application.getUserId())) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Application not found");
+    public ApplicationDetailDto getApplicationDetail
+            (Long applicationId, Long userId) {
+        ApplicationDto application = applicationClient.
+                getApplicationById(applicationId);
+        // On vérifie le propriétaire avant les infos liées.
+        if (userId == null
+                ||
+                !Objects.equals(userId, application.getUserId())) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Application not found"
+            );
         }
+        CompanyDto company = companyClient.getCompanyById(application.getCompanyId());
         List<ContactSummaryDto> contacts = contactClient.getContactsByCompanyId(application.getCompanyId(), userId);
         List<ReminderDto> reminders = reminderClient.getRemindersByApplicationId(applicationId);
 
         ApplicationDetailDto applicationDetailDto = new ApplicationDetailDto();
         applicationDetailDto.setApplication(application);
+        applicationDetailDto.setCompany(company);
         applicationDetailDto.setContacts(contacts);
         applicationDetailDto.setReminders(reminders);
 

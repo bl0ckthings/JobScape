@@ -1,8 +1,11 @@
 import { ApplicationDetails } from '../../../../shared/models/applications/application-detail.model';
 import { ApplicationDetailData } from './application-detail.models';
+import { getCompanyLogoUrl } from '../../company-logo';
 
 export function toApplicationDetailData(response: ApplicationDetails): ApplicationDetailData {
   const application = response.application;
+  const company = response.company;
+  const companyName = company?.name?.trim() || 'Entreprise';
 
   const createdDate = new Intl.DateTimeFormat('fr-FR', {
     day: 'numeric',
@@ -11,8 +14,9 @@ export function toApplicationDetailData(response: ApplicationDetails): Applicati
   }).format(new Date(application.createdAt));
 
   return {
-    companyName: application.companyName,
-    companyLogoUrl: application.companyLogoUrl,
+    applicationId: application.id,
+    companyName,
+    companyLogoUrl: getCompanyLogoUrl(company?.logoUrl, company?.domain),
     jobTitle: application.jobTitle,
     source: application.source,
     workMode: application.workMode,
@@ -32,7 +36,7 @@ export function toApplicationDetailData(response: ApplicationDetails): Applicati
       id: contact.id,
       name: contact.name,
       role: contact.role ?? '',
-      company: application.companyName,
+      company: companyName,
       email: contact.email ?? '',
       phone: contact.phone ?? '',
     })),

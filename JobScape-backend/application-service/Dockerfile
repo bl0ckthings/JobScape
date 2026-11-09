@@ -1,11 +1,18 @@
-FROM maven:3.9-eclipse-temurin-17 AS build
+# Maven et Corretto 17 compilent et testent le projet.
+FROM maven:3-amazoncorretto-17 AS build
 WORKDIR /app
 COPY pom.xml ./
 COPY src ./src
-RUN mvn -B -DskipTests package
+# Profil de test, sans dépendre de Consul.
+RUN mvn -B -Dspring.profiles.active=test \
+    -Dspring.cloud.consul.enabled=false \
+    -Dspring.cloud.consul.discovery.enabled=false \
+    clean verify
 
-FROM eclipse-temurin:17-jre
+# Image finale : Corretto 17 et le JAR, sans Maven.
+FROM amazoncorretto:17
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
+# Port interne, non publié par cette instruction.
 EXPOSE 8083
 ENTRYPOINT ["java", "-jar", "app.jar"]

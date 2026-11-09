@@ -8,6 +8,9 @@
       </h3>
       <app-detail-tag>Étape de suivi</app-detail-tag>
     </div>
+    @if (error()) {
+      <p role="alert" class="mb-4 text-[13px] text-[#b42318]">{{ error() }}</p>
+    }
     <div
       class="fields grid grid-cols-2 gap-x-4 gap-y-5 detail-mobile:grid-cols-1 detail-mobile:gap-[18px]"
     >
@@ -79,6 +82,7 @@
       <button
         class="button delete inline-flex justify-center items-center min-h-10 py-[10px] px-[18px] rounded-[10px] text-[12px] font-semibold mr-auto text-[#b42318] pl-0 detail-mobile:basis-full detail-mobile:justify-start detail-mobile:min-h-8"
         type="button"
+        [disabled]="saving()"
         (click)="removed.emit()"
       >
         Supprimer
@@ -87,14 +91,16 @@
     <button
       class="button secondary inline-flex justify-center items-center min-h-10 py-[10px] px-[18px] rounded-[10px] text-[12px] font-semibold detail-mobile:min-h-11 text-white bg-[#0f172a] shadow-[0_4px_12px_#0f172a14] detail-mobile:flex-1"
       type="button"
+      [disabled]="saving()"
       (click)="cancelled.emit()"
     >
       Annuler</button
     ><button
       class="button primary inline-flex justify-center items-center min-h-10 py-[10px] px-[18px] rounded-[10px] text-[12px] font-semibold detail-mobile:min-h-11 text-white bg-detail-blue shadow-[0_6px_14px_#3478f626] detail-mobile:flex-1"
       type="submit"
+      [disabled]="saving()"
     >
-      {{ step() ? 'Enregistrer' : 'Sauvegarder' }}
+      {{ saving() ? 'Enregistrement…' : step() ? 'Enregistrer' : 'Sauvegarder' }}
     </button>
   </footer>
 </form>

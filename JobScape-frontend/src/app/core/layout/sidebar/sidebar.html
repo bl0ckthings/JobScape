@@ -154,9 +154,10 @@
         </div>
       </div>
 
-      <a
-        href="#"
-        class="text-center bg-[#FF383C]
+      <button
+        type="button"
+        (click)="logout()"
+        class="cursor-pointer text-center bg-[#FF383C]
         rounded-xl p-[5px] text-sidebar-text
         shadow-apply-btn
         lg:bg-transparent lg:rounded-none
@@ -164,7 +165,7 @@
         lg:underline lg:text-label-size"
       >
         Se déconnecter
-      </a>
+      </button>
     </div>
   </div>
 </header>

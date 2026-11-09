@@ -22,4 +22,6 @@ public interface ApplicationStepClient {
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/internal/steps/delete/{id}", consumes = "application/json")
     public void delete(@PathVariable Long id);
+
+
 }

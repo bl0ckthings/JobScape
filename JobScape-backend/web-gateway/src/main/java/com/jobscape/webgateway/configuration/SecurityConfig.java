@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -17,6 +18,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 
 import java.util.List;
 
@@ -34,8 +38,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    // Cette méthode va indiquer à springSecurity qu'il faudra utiliser ce UserDetailsService pour gérer l'authentification
-    // Et ce Password Encoder spécifiquement.
+    // Spring vérifie les identifiants avec BCrypt.
     public AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder passwordEncoder) {
         AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
         authenticationManagerBuilder
@@ -49,10 +52,20 @@ public class SecurityConfig {
         return http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/api/auth/**").permitAll()
-                                .anyRequest().authenticated())
-                .addFilterBefore(new JwtFilter(customUserDetailsService, jwtUtils), UsernamePasswordAuthenticationFilter.class)
+                // Le JWT évite une session côté serveur.
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/auth/**","/actuator/health").permitAll()
+                        .anyRequest().authenticated())
+                .logout(logout -> logout
+                        .logoutUrl("/api/auth/logout")
+                        .logoutSuccessHandler(
+                                new HttpStatusReturningLogoutSuccessHandler(
+                                        HttpStatus.NO_CONTENT)))
+                .addFilterBefore(
+                        new JwtFilter(customUserDetailsService, jwtUtils),
+                        UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
     @Bean

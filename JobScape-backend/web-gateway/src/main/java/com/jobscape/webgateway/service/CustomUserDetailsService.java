@@ -22,7 +22,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         LoginResponse user = userClient.checkUser(username);
-        System.out.println(user);
         if (user == null) {
             throw new UsernameNotFoundException("User not found with : " + username);
         }

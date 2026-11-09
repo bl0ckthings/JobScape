@@ -18,4 +18,11 @@ public interface ApplicationClient {
     @GetMapping("/application-service/applications/{id}/detail")
     public ApplicationDetailDto getApplicationsDetail(@PathVariable("id") Long id, @RequestParam("userId") Long userId);
 
+    @PostMapping("/application-service/steps/application/{applicationId}")
+    ApplicationStepDto createApplicationStep(
+            @PathVariable("applicationId") Long applicationId,
+            @RequestParam("userId") Long userId,
+            @RequestBody CreateApplicationStepRequest request
+    );
+
 }

@@ -2,7 +2,7 @@ import { NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ApplicationCreation } from '../../../features/applications/services/application-creation';
-
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-sidebar',
   standalone: true,
@@ -12,8 +12,8 @@ import { ApplicationCreation } from '../../../features/applications/services/app
 })
 export class Sidebar {
 
-  private readonly applicationCreate = inject(ApplicationCreation);
-
+  private readonly applicationCreate: ApplicationCreation = inject(ApplicationCreation);
+  private readonly authService: AuthService = inject(AuthService);
   openCreateApplicationDialog(): void {
    this.applicationCreate.openCreateApplicationDialog();
   }
@@ -25,7 +25,12 @@ export class Sidebar {
     this.isOpen = !this.isOpen;
   }
 
+
   closeSidebar(): void {
     this.isOpen = false;
+  }
+
+  logout():void {
+    this.authService.logout();
   }
 }

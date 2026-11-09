@@ -45,7 +45,7 @@ public class ContactService {
 
     @Transactional(readOnly = true)
     public List<ContactDto> getByCompanyId(Long companyId, Long userId) {
-        return contactRepository.findByCompany_IdAndUser_IdOrderByCreatedAtAscIdAsc(companyId, userId)
+        return contactRepository.findOwnedByCompanyId(companyId, userId)
                 .stream()
                 .map(contactMapper::toDto)
                 .toList();

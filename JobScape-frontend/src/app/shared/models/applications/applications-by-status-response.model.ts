@@ -1,4 +1,5 @@
 import { ApplicationStatus } from './application-status.model';
+import { Company } from './company.model';
 
 export type ApplicationCategory = 'WISHLIST' | 'APPLIED' | 'INTERVIEW' | 'OFFER' | 'REJECTED';
 
@@ -26,12 +27,10 @@ export interface ApplicationDto {
   updatedAt: string;
   userId: number;
   companyId: number;
-  companyName: string;
-  companyDomain: string | null;
-  companyLogoUrl: string | null;
   steps: ApplicationStepDto[];
 }
 
 export interface ApplicationsByStatusResponse {
   applicationsByStatus: Record<ApplicationCategory, ApplicationDto[]>;
+  companiesById: Partial<Record<number, Company>>;
 }

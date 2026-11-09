@@ -9,7 +9,10 @@
     <span class="flex h-6 min-w-6 items-center justify-center rounded-full border border-[#E6E8F0] bg-white px-1.5 text-xs font-medium text-secondary-font">{{ applications().length }}</span>
   </div>
   @for (application of applications(); track application.id) {
-    <app-application-card [application]="application"></app-application-card>
+    <app-application-card
+      [application]="application"
+      [company]="companiesById()[application.companyId] ?? null"
+    ></app-application-card>
   }
 
 </section>

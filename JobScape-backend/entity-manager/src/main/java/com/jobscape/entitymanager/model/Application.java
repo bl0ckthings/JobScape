@@ -67,6 +67,7 @@ public class Application {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+    @OrderBy("stepDate DESC, id DESC")
     private List<ApplicationStep> steps = new ArrayList<>();
 
 

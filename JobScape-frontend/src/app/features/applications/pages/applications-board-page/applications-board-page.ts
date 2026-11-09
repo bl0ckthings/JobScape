@@ -5,6 +5,7 @@ import { ApplicationService } from '../../services/application.service';
 import { ApplicationCategory, ApplicationDto } from '../../../../shared/models/applications/applications-by-status-response.model';
 import { ApplicationCreation } from '../../services/application-creation';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Company } from '../../../../shared/models/applications/company.model';
 
 @Component({
   selector: 'app-applications-board-page',
@@ -27,6 +28,7 @@ export class ApplicationsBoardPage implements OnInit {
     {},
   );
   readonly loadError = signal(false);
+  readonly companiesById = signal<Partial<Record<number, Company>>>({});
 
   ngOnInit(): void {
     this.applicationCreation.created$
@@ -40,6 +42,7 @@ export class ApplicationsBoardPage implements OnInit {
     this.applicationService.getApplicationByUserId().subscribe({
       next: (response) => {
         this.applicationsByStatus.set(response.applicationsByStatus);
+        this.companiesById.set(response.companiesById);
         this.loadError.set(false);
       },
       error: () => this.loadError.set(true),

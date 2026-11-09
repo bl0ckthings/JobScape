@@ -15,6 +15,8 @@ import { APPLICATION_STATUS_BADGE_CONFIG } from '../../../../../../shared/ui/bad
 export class ApplicationStepForm implements OnInit {
   readonly step = input<DetailStep | null>(null);
   readonly contacts = input<DetailContact[]>([]);
+  readonly saving = input(false);
+  readonly error = input<string | null>(null);
   readonly saved = output<Omit<DetailStep, 'id'>>();
   readonly cancelled = output<void>();
   readonly removed = output<void>();
@@ -59,6 +61,7 @@ export class ApplicationStepForm implements OnInit {
     return this.contacts().find((item) => String(item.id) === this.form.controls.contactId.value);
   }
   submit(): void {
+    if (this.saving()) return;
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;

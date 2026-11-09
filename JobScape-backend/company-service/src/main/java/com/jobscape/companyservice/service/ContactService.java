@@ -88,7 +88,7 @@ public class ContactService {
     }
 
     private ContactDto writableContact(ContactDto source, Long userId) {
-        // Les identifiants et dates du formulaire ne doivent pas remplacer les valeurs persistées.
+        // On ignore l'id et les dates reçus.
         ContactDto target = new ContactDto();
         target.setName(source.getName() == null ? null : source.getName().trim());
         target.setPhone(source.getPhone());
