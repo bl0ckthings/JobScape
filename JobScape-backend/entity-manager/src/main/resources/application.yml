@@ -5,8 +5,8 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3308/jobscape
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: root
+    username: jobscape_user
+    password: Sniski13!
   jpa:
     hibernate:
       ddl-auto: update

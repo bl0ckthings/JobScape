@@ -1,4 +1,11 @@
 spring:
+  mongodb:
+    port: 27018
+    host: localhost
+    username: root
+    password: rootpass
+    authentication-database: admin
+    database: jobscape-notification
   application:
     name: reminder-service
   cloud:

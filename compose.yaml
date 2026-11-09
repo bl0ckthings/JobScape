@@ -104,8 +104,12 @@ services:
     build: ./JobScape-backend/reminder-service
     image: ${DOCKERHUB_USERNAME:-oualidteh}/jobscape-reminder-service:${IMAGE_TAG:-latest}
     entrypoint: ["sh", "-c", "sleep 3; exec java -jar app.jar"]
+    ports:
+      - "8084:8084"
     environment:
       SPRING_CLOUD_CONSUL_HOST: consul
+      SPRING_MONGODB_HOST: mongodb
+      SPRING_MONGODB_PORT: 27017
     depends_on:
       consul:
         condition: service_healthy
