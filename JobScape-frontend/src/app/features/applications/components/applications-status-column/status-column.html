@@ -12,6 +12,8 @@
     <app-application-card
       [application]="application"
       [company]="companiesById()[application.companyId] ?? null"
+      (applicationDeleted)="applicationDeleted.emit()"
+      (applicationUpdated)="applicationUpdated.emit()"
     ></app-application-card>
   }
 

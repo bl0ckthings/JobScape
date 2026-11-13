@@ -9,6 +9,10 @@ import {
 
 import { ApplicationDetailDialog } from '../dialogs/application-detail-dialog/application-detail-dialog';
 import { ApplicationDetailData } from '../dialogs/application-detail-dialog/application-detail.models';
+import {
+  ApplicationDeleteDialog,
+  ApplicationDeleteDialogData,
+} from '../dialogs/application-delete-dialog/application-delete-dialog';
 
 type ApplicationDialogRef = MatDialogRef<ApplicationFormDialog, ApplicationFormValue | undefined>;
 
@@ -74,6 +78,22 @@ export class ApplicationDialogService {
         ],
         backdropClass: 'jobscape-dialog-backdrop',
         ariaLabelledBy: 'application-detail-title',
+        data,
+      },
+    );
+  }
+
+  openDelete(
+    data: ApplicationDeleteDialogData,
+  ): MatDialogRef<ApplicationDeleteDialog, boolean> {
+    return this.dialog.open<ApplicationDeleteDialog, ApplicationDeleteDialogData, boolean>(
+      ApplicationDeleteDialog,
+      {
+        width: '420px',
+        maxWidth: 'calc(100vw - 24px)',
+        panelClass: 'jobscape-dialog-panel',
+        backdropClass: 'jobscape-dialog-backdrop',
+        ariaLabelledBy: 'application-delete-title',
         data,
       },
     );

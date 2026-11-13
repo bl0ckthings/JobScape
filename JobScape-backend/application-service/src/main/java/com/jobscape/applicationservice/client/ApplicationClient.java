@@ -2,10 +2,7 @@ package com.jobscape.applicationservice.client;
 
 import com.jobscape.applicationservice.dto.application.ApplicationDto;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,7 +23,7 @@ public interface ApplicationClient {
     @RequestMapping(method = RequestMethod.DELETE, value = "/internal/applications/delete/{id}", consumes = "application/json")
     void delete(@PathVariable Long id);
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/internal/applications/update/{id}", consumes = "application/json")
-    ApplicationDto update(@PathVariable Long id, @RequestBody ApplicationDto application);
+    @RequestMapping(method = RequestMethod.PUT, value = "/internal/applications/update", consumes = "application/json")
+    ApplicationDto update(@RequestBody ApplicationDto application);
 
 }

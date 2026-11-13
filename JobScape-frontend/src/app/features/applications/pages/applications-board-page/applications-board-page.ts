@@ -52,4 +52,12 @@ export class ApplicationsBoardPage implements OnInit {
   openCreateApplicationDialog(): void {
     this.applicationCreation.openCreateApplicationDialog();
   }
+
+  onApplicationDeleted(): void {
+    this.loadApplications();
+  }
+
+  onApplicationUpdated():void {
+    this.loadApplications();
+  }
 }

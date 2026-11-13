@@ -22,7 +22,7 @@ export function toApplicationDetailData(response: ApplicationDetails): Applicati
     workMode: application.workMode,
     status: application.status,
     createdLabel: `Créée le ${createdDate}`,
-    readOnly: true,
+    readOnly: false,
 
     steps: application.steps.map((step) => ({
       id: step.id,

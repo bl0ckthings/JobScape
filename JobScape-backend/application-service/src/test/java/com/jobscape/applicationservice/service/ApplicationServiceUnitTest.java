@@ -22,8 +22,9 @@ class ApplicationServiceUnitTest {
     private final CompanyClient companies = mock(CompanyClient.class);
     private final ReminderClient reminders = mock(ReminderClient.class);
     private final ContactClient contacts = mock(ContactClient.class);
+    private final ApplicationOwnershipService ownership = new ApplicationOwnershipService(applications);
     private final ApplicationService service = new ApplicationService(applications, steps, reminders,
-            companies, contacts, new ApplicationMapper(), new ApplicationStepMapper());
+            companies, contacts, new ApplicationMapper(), new ApplicationStepMapper(), ownership);
 
     @Test
     void createsCompanyBeforeApplicationAndFollowUp() {
@@ -81,5 +82,34 @@ class ApplicationServiceUnitTest {
         assertEquals(List.of(sent), board.getApplicationsByStatus().get(ApplicationCategory.APPLIED));
         assertEquals(List.of(interview), board.getApplicationsByStatus().get(ApplicationCategory.INTERVIEW));
         verify(companies, times(1)).getCompanyById(3L);
+    }
+
+    @Test
+    void updatesApplicationUsingIdFromDto() {
+        ApplicationDto update = new ApplicationDto();
+        update.setId(42L);
+        ApplicationDto existing = new ApplicationDto();
+        existing.setUserId(7L);
+        when(applications.getApplicationById(42L)).thenReturn(existing);
+        when(applications.update(update)).thenReturn(update);
+
+        assertSame(update, service.updateApplication(update, 7L));
+
+        verify(applications).update(update);
+    }
+
+    @Test
+    void rejectsUpdateForAnotherUsersApplication() {
+        ApplicationDto update = new ApplicationDto();
+        update.setId(42L);
+        ApplicationDto existing = new ApplicationDto();
+        existing.setUserId(99L);
+        when(applications.getApplicationById(42L)).thenReturn(existing);
+
+        var error = assertThrows(ResponseStatusException.class,
+                () -> service.updateApplication(update, 7L));
+
+        assertEquals(404, error.getStatusCode().value());
+        verify(applications, never()).update(any());
     }
 }

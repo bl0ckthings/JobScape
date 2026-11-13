@@ -81,6 +81,22 @@ class ApplicationControllerIntegrationTest {
     }
 
     @Test
+    void updatesApplicationUsingIdFromRequestBody() throws Exception {
+        when(applications.update(any())).thenReturn(application);
+
+        mvc.perform(put("/application-service/applications/update")
+                        .param("userId", "7")
+                        .contentType("application/json")
+                        .content("""
+                                {"id":42,"jobTitle":"Développeur senior"}
+                                """))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(42));
+
+        verify(applications).update(argThat(dto -> Long.valueOf(42).equals(dto.getId())));
+    }
+
+    @Test
     void returnsApplicationDetailsWithRelatedData() throws Exception {
         when(contacts.getContactsByCompanyId(3L, 7L)).thenReturn(List.of());
         when(reminders.getRemindersByApplicationId(42L)).thenReturn(List.of());

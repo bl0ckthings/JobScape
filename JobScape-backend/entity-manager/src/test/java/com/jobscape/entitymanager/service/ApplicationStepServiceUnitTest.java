@@ -15,8 +15,9 @@ import static org.mockito.Mockito.*;
 class ApplicationStepServiceUnitTest {
     private final ApplicationStepRepository steps = mock(ApplicationStepRepository.class);
     private final ApplicationRepository applications = mock(ApplicationRepository.class);
+    private final ContactRepository contacts = mock(ContactRepository.class);
     private final ApplicationStepService service = new ApplicationStepService(steps, applications,
-            mock(ContactRepository.class), new ApplicationStepMapper());
+            contacts, new ApplicationStepMapper());
 
     @Test
     void updatesCommentWithoutChangingApplication() {
@@ -48,5 +49,19 @@ class ApplicationStepServiceUnitTest {
     void rejectsCreationWithoutApplication() {
         assertThrows(IllegalArgumentException.class, () -> service.create(new ApplicationStepDto()));
         verifyNoInteractions(steps);
+    }
+
+    @Test
+    void clearsContactWhenUpdatedContactIdIsNull() {
+        ApplicationStep step = new ApplicationStep();
+        step.setContact(new Contact());
+        step.setApplication(new Application());
+        when(steps.findById(900L)).thenReturn(Optional.of(step));
+        when(steps.save(step)).thenReturn(step);
+
+        service.update(900L, new ApplicationStepDto());
+
+        assertNull(step.getContact());
+        verifyNoInteractions(contacts);
     }
 }

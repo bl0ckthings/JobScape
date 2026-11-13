@@ -15,9 +15,7 @@ import com.jobscape.applicationservice.model.ApplicationCategory;
 import com.jobscape.applicationservice.service.mapper.ApplicationMapper;
 import com.jobscape.applicationservice.service.mapper.ApplicationStepMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
@@ -33,6 +31,7 @@ public class ApplicationService {
     private final ContactClient contactClient;
     private final ApplicationMapper applicationMapper;
     private final ApplicationStepMapper applicationStepMapper;
+    private final ApplicationOwnershipService applicationOwnershipService;
 
 
     public ApplicationDto create(CreateApplicationRequest request) {
@@ -111,16 +110,8 @@ public class ApplicationService {
 
     public ApplicationDetailDto getApplicationDetail
             (Long applicationId, Long userId) {
-        ApplicationDto application = applicationClient.
-                getApplicationById(applicationId);
-        // On vérifie le propriétaire avant les infos liées.
-        if (userId == null
-                ||
-                !Objects.equals(userId, application.getUserId())) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Application not found"
-            );
-        }
+        ApplicationDto application = applicationOwnershipService
+                .requireOwnedApplication(applicationId, userId);
         CompanyDto company = companyClient.getCompanyById(application.getCompanyId());
         List<ContactSummaryDto> contacts = contactClient.getContactsByCompanyId(application.getCompanyId(), userId);
         List<ReminderDto> reminders = reminderClient.getRemindersByApplicationId(applicationId);
@@ -140,10 +131,17 @@ public class ApplicationService {
         return applicationClient.getApplicationById(id);
     }
 
-    public void deleteApplicationById(Long id) {
+    public void deleteApplicationById(Long id, Long userId) {
+        applicationOwnershipService.requireOwnedApplication(id, userId);
         applicationClient.delete(id);
     }
 
+    public ApplicationDto updateApplication(ApplicationDto application, Long userId) {
+        ApplicationDto existing = applicationOwnershipService
+                .requireOwnedApplication(application.getId(), userId);
+        application.setUserId(existing.getUserId());
+        return applicationClient.update(application);
+    }
 
 
 }

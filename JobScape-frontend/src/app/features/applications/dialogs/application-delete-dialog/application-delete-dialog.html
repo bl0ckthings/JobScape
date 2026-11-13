@@ -1,1 +1,54 @@
-<p>application-delete-dialog works!</p>
+<section
+  class="w-full rounded-[18px] border border-slate-200 bg-white p-6 shadow-[0_24px_80px_rgba(15,23,42,0.18)]"
+  aria-labelledby="application-delete-title"
+  aria-describedby="application-delete-description"
+>
+  <div class="flex items-start gap-4">
+    <div class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-red-50 text-red-600">
+      <svg
+        class="h-5 w-5"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M3 6h18"></path>
+        <path d="M8 6V4h8v2"></path>
+        <path d="M19 6l-1 14H6L5 6"></path>
+        <path d="M10 11v5"></path>
+        <path d="M14 11v5"></path>
+      </svg>
+    </div>
+
+    <div class="min-w-0">
+      <h2 id="application-delete-title" class="text-lg font-bold text-slate-950">
+        Supprimer cette candidature ?
+      </h2>
+      <p id="application-delete-description" class="mt-2 text-sm leading-6 text-slate-600">
+        La candidature <strong class="font-semibold text-slate-800">{{ data.jobTitle }}</strong>
+        chez <strong class="font-semibold text-slate-800">{{ data.companyName }}</strong> sera
+        supprimée définitivement.
+      </p>
+    </div>
+  </div>
+
+  <div class="mt-6 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+    <button
+      type="button"
+      class="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-blue-600"
+      (click)="cancel()"
+    >
+      Annuler
+    </button>
+    <button
+      type="button"
+      class="rounded-xl bg-red-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-red-700 focus-visible:outline-2 focus-visible:outline-red-600 focus-visible:outline-offset-2"
+      (click)="confirm()"
+    >
+      Supprimer
+    </button>
+  </div>
+</section>

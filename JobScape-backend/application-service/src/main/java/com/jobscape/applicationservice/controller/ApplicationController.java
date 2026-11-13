@@ -41,13 +41,13 @@ public class ApplicationController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteApplicationById(@PathVariable Long id) {
-        applicationService.deleteApplicationById(id);
+    public void deleteApplicationById(@PathVariable Long id, @RequestParam Long userId) {
+        applicationService.deleteApplicationById(id, userId);
     }
 
-    @PutMapping("/update/{id}")
-    public ApplicationDto updateApplicationById(@PathVariable Long id, @RequestBody ApplicationDto updatedApplication) {
-        return null;
+    @PutMapping("/update")
+    public ApplicationDto updateApplication(@RequestBody ApplicationDto updatedApplication, @RequestParam Long userId) {
+        return applicationService.updateApplication(updatedApplication, userId);
     }
 
 

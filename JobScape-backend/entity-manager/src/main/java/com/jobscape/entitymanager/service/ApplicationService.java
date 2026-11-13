@@ -69,11 +69,12 @@ public class ApplicationService {
     }
 
     @Transactional
-    public ApplicationDto update(
-            Long id,
-            ApplicationDto updatedApplication
-    ) {
-        Application existing = findApplication(id);
+    public ApplicationDto update(ApplicationDto updatedApplication) {
+        if (updatedApplication.getId() == null) {
+            throw new IllegalArgumentException("Application id is required");
+        }
+
+        Application existing = findApplication(updatedApplication.getId());
 
         if (updatedApplication.getJobTitle() != null) {
             existing.setJobTitle(updatedApplication.getJobTitle());

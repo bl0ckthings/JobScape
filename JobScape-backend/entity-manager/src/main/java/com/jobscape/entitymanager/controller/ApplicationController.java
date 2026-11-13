@@ -43,11 +43,8 @@ public class ApplicationController {
         applicationService.delete(id);
     }
 
-    @PutMapping("/update/{id}")
-    public ApplicationDto update(
-            @PathVariable Long id,
-            @RequestBody ApplicationDto updatedApplication
-    ) {
-        return applicationService.update(id, updatedApplication);
+    @PutMapping("/update")
+    public ApplicationDto update(@RequestBody ApplicationDto updatedApplication) {
+        return applicationService.update(updatedApplication);
     }
 }

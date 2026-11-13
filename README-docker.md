@@ -8,7 +8,7 @@ Depuis la racine `JobScape` :
 
 Frontend : http://localhost:4200. Gateway : http://localhost:8080. Consul : http://localhost:8500.
 
-Chaque Dockerfile Java utilise `maven:3-amazoncorretto-17` pour compiler et tester avec Amazon Corretto 17. Il exécute `mvn clean verify` pendant la construction : compilation, tests et génération du JAR exécutable. Un test en échec arrête la construction. Le profil de test utilise H2 pour les tests de persistance et désactive Consul pendant la construction. L'image finale utilise `amazoncorretto:17` et le JAR produit, sans Maven ni activation du profil de test à l'exécution.
+Chaque Dockerfile Java utilise `maven:3-amazoncorretto-17-alpine` pour compiler et tester avec Amazon Corretto 17. Il exécute `mvn clean verify` pendant la construction : compilation, tests et génération du JAR exécutable. Un test en échec arrête la construction. Le profil de test utilise H2 pour les tests de persistance et désactive Consul pendant la construction. L'image finale utilise `amazoncorretto:17-alpine-jdk` et le JAR produit, sans Maven ni activation du profil de test à l'exécution.
 
 Le frontend construit son application Angular. Ses tests ont été retirés du projet.
 

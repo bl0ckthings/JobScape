@@ -28,21 +28,44 @@ export class ApplicationService {
     return this.http.post<ApplicationDto>(`${this.baseUrl}/api/application/create`, application);
   }
 
-  createApplicationStep(applicationId: number, step: CreateApplicationStep): Observable<ApplicationStepDto> {
-    return this.http.post<ApplicationStepDto>(
-      `${this.baseUrl}/api/application/${applicationId}/steps`, step,
-    );
-  }
-
   getApplicationByUserId(): Observable<ApplicationsByStatusResponse> {
     return this.http.get<ApplicationsByStatusResponse>(`${this.baseUrl}/api/application/user`);
   }
 
-  getApplicationDetail(id:number):Observable<ApplicationDetails> {
-    return this.http.get<ApplicationDetails>(
-      `${this.baseUrl}/api/application/${id}/detail`
+  getApplicationDetail(id: number): Observable<ApplicationDetails> {
+    return this.http.get<ApplicationDetails>(`${this.baseUrl}/api/application/${id}/detail`);
+  }
+
+  deleteApplication(applicationId: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/api/application/delete/${applicationId}`);
+  }
+
+  updateApplication(application:ApplicationDto):Observable<ApplicationDto> {
+    return this.http.put<ApplicationDto>(`${this.baseUrl}/api/application/update`, application);
+  }
+
+  createApplicationStep(
+    applicationId: number,
+    step: CreateApplicationStep,
+  ): Observable<ApplicationStepDto> {
+    return this.http.post<ApplicationStepDto>(
+      `${this.baseUrl}/api/application/${applicationId}/steps`,
+      step,
     );
   }
 
+  updateApplicationStep(
+    stepId:number,
+    step: CreateApplicationStep,
+  ): Observable<ApplicationStepDto> {
+    return this.http.put<ApplicationStepDto>(
+      `${this.baseUrl}/api/application/steps/update/${stepId}`,
+      step);
+  };
 
+  deleteApplicationStep(
+    stepId: number
+  ): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/api/application/steps/delete/${stepId}`);
+  }
 }

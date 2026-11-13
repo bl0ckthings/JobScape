@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 import { ApplicationCard } from '../application-card/application-card';
 import { ApplicationCategory, ApplicationDto } from '../../../../shared/models/applications/applications-by-status-response.model';
 import { Company } from '../../../../shared/models/applications/company.model';
@@ -14,6 +14,8 @@ export class StatusColumn {
   readonly category = input<ApplicationCategory>('WISHLIST');
   readonly applications = input<ApplicationDto[]>([]);
   readonly companiesById = input<Partial<Record<number, Company>>>({});
+  readonly applicationDeleted = output<void>();
+  readonly applicationUpdated = output<void>();
   readonly dotColor = computed(() => {
     switch (this.category()) {
       case 'APPLIED': return 'bg-[#6D5EFC]';

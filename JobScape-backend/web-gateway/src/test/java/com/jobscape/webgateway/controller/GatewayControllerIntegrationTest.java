@@ -1,6 +1,7 @@
 package com.jobscape.webgateway.controller;
 
 import com.jobscape.webgateway.client.ApplicationClient;
+import com.jobscape.webgateway.client.ApplicationStepClient;
 import com.jobscape.webgateway.client.CompanyClient;
 import com.jobscape.webgateway.client.UserClient;
 import com.jobscape.webgateway.configuration.JwtUtils;
@@ -46,6 +47,7 @@ class GatewayControllerIntegrationTest {
     @Autowired ObjectMapper json;
     @MockitoBean UserClient users;
     @MockitoBean ApplicationClient applications;
+    @MockitoBean ApplicationStepClient applicationSteps;
     @MockitoBean CompanyClient companies;
 
     @BeforeEach
@@ -134,6 +136,30 @@ class GatewayControllerIntegrationTest {
         foreign.setUserId(8L);
         when(applications.getApplicationById(43L)).thenReturn(foreign);
         mvc.perform(get("/api/application/43").header("Authorization", bearerToken())).andExpect(status().isNotFound());
+    }
+
+    @Test
+    void delegatesStepCreationToTheDedicatedStepClient() throws Exception {
+        var createdStep = new ApplicationStepDto();
+        createdStep.setId(12L);
+        when(applicationSteps.createApplicationStep(eq(42L), eq(7L), any()))
+                .thenReturn(createdStep);
+
+        mvc.perform(post("/api/application/42/steps")
+                        .header("Authorization", bearerToken())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "stepStatus":"APPLIED",
+                                  "stepDate":"2026-11-13T10:00:00",
+                                  "comment":"CV envoyé"
+                                }
+                                """))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id").value(12));
+
+        verify(applicationSteps).createApplicationStep(eq(42L), eq(7L), any());
+        verifyNoInteractions(applications);
     }
 
     @Test

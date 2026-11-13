@@ -97,11 +97,11 @@ class EntityManagerControllerIntegrationTest {
                 {"jobTitle":"Stage Java","city":"Paris","country":"France","source":"LinkedIn",
                  "url":"https://job.test","status":"APPLIED","workMode":"REMOTE","userId":%d,"companyId":%d}
                 """.formatted(alice.getId(), company.getId()));
-        mvc.perform(put("/internal/applications/update/{id}", id).contentType(MediaType.APPLICATION_JSON)
+        mvc.perform(put("/internal/applications/update").contentType(MediaType.APPLICATION_JSON)
                 .content("""
-                        {"jobTitle":"CDI Java","city":"Marseille","country":"Belgique","source":"Indeed",
+                        {"id":%d,"jobTitle":"CDI Java","city":"Marseille","country":"Belgique","source":"Indeed",
                          "url":"https://new.test","status":"HR_INTERVIEW","workMode":"HYBRID","userId":%d,"companyId":%d}
-                        """.formatted(alice.getId(), otherCompany.getId())))
+                        """.formatted(id, alice.getId(), otherCompany.getId())))
                 .andExpect(status().isOk()).andExpect(jsonPath("$.status").value("HR_INTERVIEW"))
                 .andExpect(jsonPath("$.companyId").value(otherCompany.getId().intValue()));
         mvc.perform(get("/internal/applications/{id}", id))

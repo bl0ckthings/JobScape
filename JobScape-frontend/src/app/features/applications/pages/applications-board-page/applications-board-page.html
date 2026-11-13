@@ -18,6 +18,8 @@
         [category]="column.category"
         [applications]="applicationsByStatus()[column.category] ?? []"
         [companiesById]="companiesById()"
+        (applicationDeleted)="onApplicationDeleted()"
+        (applicationUpdated)="onApplicationUpdated()"
       ></app-applications-status-column>
     }
   </div>

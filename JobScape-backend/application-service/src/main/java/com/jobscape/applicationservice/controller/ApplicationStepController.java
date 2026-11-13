@@ -37,11 +37,16 @@ public class ApplicationStepController {
     }
 
     @PutMapping("/update/{id}")
-    public  ApplicationStepDto update(@PathVariable Long id, @RequestBody ApplicationStepDto updatedAppStepDto) {
-        return null;
+    public ApplicationStepDto update(
+            @PathVariable Long id,
+            @RequestParam Long userId,
+            @RequestBody CreateApplicationStepRequest request
+    ) {
+        return applicationStepService.updateStep(id, userId, request);
     }
 
     @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable Long id) {
+         applicationStepService.deleteStep(id);
     }
 }

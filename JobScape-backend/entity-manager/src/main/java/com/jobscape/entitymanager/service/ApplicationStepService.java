@@ -68,9 +68,7 @@ public class ApplicationStepService {
         if (dto.getApplicationId() != null) {
             step.setApplication(findApplication(dto.getApplicationId()));
         }
-        if (dto.getContactId() != null) {
-            step.setContact(findOptionalContact(dto.getContactId()));
-        }
+        step.setContact(findOptionalContact(dto.getContactId()));
         return applicationStepMapper.toDto(applicationStepRepository.save(step));
     }
 

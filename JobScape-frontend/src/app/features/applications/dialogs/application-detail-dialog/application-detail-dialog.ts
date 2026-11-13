@@ -86,29 +86,37 @@ export class ApplicationDetailDialog {
 
     const applicationId = this.data().applicationId;
     if (applicationId !== undefined) {
-      if (this.editedStep()) return;
-
-      this.savingStep.set(true);
-      this.stepSaveError.set(null);
-      this.applicationService.createApplicationStep(applicationId, {
+      const editedStep = this.editedStep();
+      const request = {
         stepStatus: value.status,
         stepDate: value.date.includes('T') ? value.date : `${value.date}T00:00:00`,
         comment: value.comment,
         contactId: value.contactId,
-      }).pipe(
+      };
+      const saveStep$ = editedStep
+        ? this.applicationService.updateApplicationStep(editedStep.id, request)
+        : this.applicationService.createApplicationStep(applicationId, request);
+
+      this.savingStep.set(true);
+      this.stepSaveError.set(null);
+      saveStep$.pipe(
         takeUntilDestroyed(this.destroyRef),
         finalize(() => this.savingStep.set(false)),
       ).subscribe({
         next: (step) => {
+          const savedStep: DetailStep = {
+            id: step.id,
+            status: step.stepStatus,
+            date: step.stepDate ?? '',
+            comment: step.comment ?? '',
+            contactId: step.contactId,
+          };
           this.data.update((data) => ({
             ...data,
-            steps: [...data.steps, {
-              id: step.id,
-              status: step.stepStatus,
-              date: step.stepDate ?? '',
-              comment: step.comment ?? '',
-              contactId: step.contactId,
-            }].sort((a, b) => b.date.localeCompare(a.date) || b.id - a.id),
+            steps: (editedStep
+              ? data.steps.map((item) => (item.id === savedStep.id ? savedStep : item))
+              : [...data.steps, savedStep]
+            ).sort((a, b) => b.date.localeCompare(a.date) || b.id - a.id),
           }));
           this.closeForm();
         },
@@ -151,8 +159,29 @@ export class ApplicationDetailDialog {
   }
   removeStep(): void {
     const id = this.editedStep()?.id;
-    this.data.update((data) => ({ ...data, steps: data.steps.filter((item) => item.id !== id) }));
-    this.closeForm();
+    if (id === undefined) return;
+
+    if (this.data().applicationId === undefined) {
+      this.data.update((data) => ({ ...data, steps: data.steps.filter((item) => item.id !== id) }));
+      this.closeForm();
+      return;
+    }
+
+    this.savingStep.set(true);
+    this.stepSaveError.set(null);
+    this.applicationService.deleteApplicationStep(id).pipe(
+      takeUntilDestroyed(this.destroyRef),
+      finalize(() => this.savingStep.set(false)),
+    ).subscribe({
+      next: () => {
+        this.data.update((data) => ({
+          ...data,
+          steps: data.steps.filter((item) => item.id !== id),
+        }));
+        this.closeForm();
+      },
+      error: () => this.stepSaveError.set('Impossible de supprimer l’étape. Réessayez.'),
+    });
   }
   removeContact(): void {
     const id = this.editedContact()?.id;

@@ -58,7 +58,8 @@
           <button
             type="button"
             class="w-full rounded-lg px-3 py-2 text-left text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700"
-            (click)="closeActions()"
+            (click)="updateApplication()"
+            [disabled]="updateLoading()"
           >
             Modifier
           </button>
@@ -66,7 +67,8 @@
           <button
             type="button"
             class="w-full rounded-lg px-3 py-2 text-left text-sm text-red-600 hover:bg-red-50"
-            (click)="closeActions()"
+            (click)="deleteApplication()"
+            [disabled]="deleteLoading()"
           >
             Supprimer
           </button>
@@ -97,6 +99,12 @@
   @if (detailLoading()) {
     <div class="flex justify-center rounded-xl bg-blue-50/60 py-3">
       <app-spinner label="Chargement des détails de la candidature" />
+    </div>
+  }
+
+  @if (deleteLoading()) {
+    <div class="flex justify-center rounded-xl bg-red-50/60 py-3">
+      <app-spinner label="Suppression de la candidature" />
     </div>
   }
 

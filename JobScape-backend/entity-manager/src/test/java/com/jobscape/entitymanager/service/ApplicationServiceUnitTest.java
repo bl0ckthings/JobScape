@@ -29,12 +29,23 @@ class ApplicationServiceUnitTest {
         when(applications.findById(42L)).thenReturn(Optional.of(application));
         when(applications.save(application)).thenReturn(application);
         ApplicationDto update = new ApplicationDto();
+        update.setId(42L);
         update.setCity("Marseille");
 
-        var result = service.update(42L, update);
+        var result = service.update(update);
 
         assertEquals("Marseille", result.getCity());
         assertEquals("Développeur Java", result.getJobTitle());
+    }
+
+    @Test
+    void rejectsUpdateWithoutApplicationId() {
+        ApplicationDto update = new ApplicationDto();
+
+        var error = assertThrows(IllegalArgumentException.class, () -> service.update(update));
+
+        assertEquals("Application id is required", error.getMessage());
+        verifyNoInteractions(applications);
     }
 
     @Test
