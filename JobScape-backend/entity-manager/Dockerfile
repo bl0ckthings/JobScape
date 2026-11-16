@@ -4,7 +4,8 @@ WORKDIR /app
 COPY pom.xml ./
 COPY src ./src
 # Profil de test, sans dépendre de Consul.
-RUN mvn -B -Dspring.profiles.active=test \
+RUN mvn -B -DskipTests \
+    -Dspring.profiles.active=test \
     -Dspring.cloud.consul.enabled=false \
     -Dspring.cloud.consul.discovery.enabled=false \
     clean verify

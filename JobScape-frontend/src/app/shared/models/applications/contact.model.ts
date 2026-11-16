@@ -5,3 +5,7 @@ export interface Contact{
   email:string| null;
   role:string| null;
 }
+
+export interface ContactRequest extends Omit<Contact, 'id'> {
+  companyId: number;
+}

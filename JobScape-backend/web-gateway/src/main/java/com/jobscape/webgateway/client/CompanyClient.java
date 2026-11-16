@@ -9,6 +9,8 @@ import java.util.List;
 
 @FeignClient("company-service")
 public interface CompanyClient {
+
+
     @RequestMapping(method = RequestMethod.GET, value = "/companies", consumes = "application/json")
     List<Company> getCompanies();
 
@@ -20,4 +22,8 @@ public interface CompanyClient {
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/companies/delete", consumes = "application/json")
     void createCompany(@RequestParam Long id);
+
+
+
+
 }

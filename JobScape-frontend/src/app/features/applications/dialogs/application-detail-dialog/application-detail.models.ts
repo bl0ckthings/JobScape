@@ -30,6 +30,7 @@ export interface DetailReminder {
 // Modèle de présentation de la maquette;
 export interface ApplicationDetailData {
   applicationId?: number;
+  companyId: number;
   companyName: string;
   companyLogoUrl: string | null;
   jobTitle: string;

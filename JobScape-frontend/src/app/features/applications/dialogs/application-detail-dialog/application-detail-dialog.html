@@ -34,6 +34,8 @@
             [contact]="editedContact()"
             [companyName]="data().companyName"
             [jobTitle]="data().jobTitle"
+            [saving]="savingContact()"
+            [error]="contactSaveError()"
             (saved)="saveContact($event)"
             (cancelled)="closeForm()"
             (removed)="removeContact()"
@@ -43,6 +45,8 @@
           <app-application-reminder-form
             [reminder]="editedReminder()"
             [companyName]="data().companyName"
+            [saving]="savingReminder()"
+            [error]="reminderSaveError()"
             (saved)="saveReminder($event)"
             (cancelled)="closeForm()"
             (removed)="removeReminder()"

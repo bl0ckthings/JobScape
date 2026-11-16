@@ -59,8 +59,8 @@ export class ApplicationDialogService {
     return this.dialogRef;
   }
 
-  openDetail(data: ApplicationDetailData): MatDialogRef<ApplicationDetailDialog, void> {
-    return this.dialog.open<ApplicationDetailDialog, ApplicationDetailData, void>(
+  openDetail(data: ApplicationDetailData): MatDialogRef<ApplicationDetailDialog, boolean> {
+    return this.dialog.open<ApplicationDetailDialog, ApplicationDetailData, boolean>(
       ApplicationDetailDialog,
       {
         width: '600px',

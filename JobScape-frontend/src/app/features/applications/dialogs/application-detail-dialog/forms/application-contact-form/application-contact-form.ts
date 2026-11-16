@@ -12,6 +12,8 @@ export class ApplicationContactForm implements OnInit {
   readonly contact = input<DetailContact | null>(null);
   readonly companyName = input('');
   readonly jobTitle = input('');
+  readonly saving = input(false);
+  readonly error = input<string | null>(null);
   readonly saved = output<Omit<DetailContact, 'id'>>();
   readonly cancelled = output<void>();
   readonly removed = output<void>();
@@ -29,6 +31,7 @@ export class ApplicationContactForm implements OnInit {
     this.form.patchValue(this.contact() ?? { company: this.companyName() });
   }
   submit(): void {
+    if (this.saving()) return;
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;

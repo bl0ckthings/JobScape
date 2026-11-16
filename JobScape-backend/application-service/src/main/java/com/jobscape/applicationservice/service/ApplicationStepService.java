@@ -1,5 +1,6 @@
 package com.jobscape.applicationservice.service;
 
+import com.jobscape.applicationservice.client.ApplicationClient;
 import com.jobscape.applicationservice.client.ApplicationStepClient;
 import com.jobscape.applicationservice.client.ContactClient;
 import com.jobscape.applicationservice.dto.application.ApplicationDto;
@@ -17,6 +18,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class ApplicationStepService {
     private final ApplicationStepClient applicationStepClient;
+    private final ApplicationClient applicationClient;
     private final ContactClient contactClient;
     private final ApplicationOwnershipService applicationOwnershipService;
 
@@ -51,7 +53,10 @@ public class ApplicationStepService {
         step.setStepDate(request.getStepDate());
         step.setComment(request.getComment());
         step.setContactId(request.getContactId());
-        return applicationStepClient.create(step);
+        ApplicationStepDto createdStep = applicationStepClient.create(step);
+        application.setStatus(request.getStepStatus());
+        applicationClient.update(application);
+        return createdStep;
     }
 
     public ApplicationStepDto updateStep(Long stepId, Long userId, CreateApplicationStepRequest request) {
@@ -64,12 +69,12 @@ public class ApplicationStepService {
         ApplicationDto application = applicationOwnershipService
                 .requireOwnedApplication(step.getApplicationId(), userId);
         validateContact(request.getContactId(), application, userId);
-
         step.setComment(request.getComment());
         step.setStepDate(request.getStepDate());
         step.setStepStatus(request.getStepStatus());
         step.setApplicationId(application.getId());
         step.setContactId(request.getContactId());
+        application.setStatus(request.getStepStatus());
         return applicationStepClient.update(stepId, step);
     }
 

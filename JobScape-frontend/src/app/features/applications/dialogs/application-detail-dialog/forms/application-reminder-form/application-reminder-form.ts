@@ -11,6 +11,8 @@ import { DetailTag } from '../../components/detail-tag';
 export class ApplicationReminderForm implements OnInit {
   readonly reminder = input<DetailReminder | null>(null);
   readonly companyName = input('');
+  readonly saving = input(false);
+  readonly error = input<string | null>(null);
   readonly saved = output<Omit<DetailReminder, 'id'>>();
   readonly cancelled = output<void>();
   readonly removed = output<void>();
@@ -38,6 +40,7 @@ export class ApplicationReminderForm implements OnInit {
     this.quickDay.set(days);
   }
   submit(): void {
+    if (this.saving()) return;
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;

@@ -20,7 +20,7 @@ class ApplicationStepServiceUnitTest {
     private final ApplicationClient applications = mock(ApplicationClient.class);
     private final ContactClient contacts = mock(ContactClient.class);
     private final ApplicationOwnershipService ownership = new ApplicationOwnershipService(applications);
-    private final ApplicationStepService service = new ApplicationStepService(steps, contacts, ownership);
+    private final ApplicationStepService service = new ApplicationStepService(steps, applications, contacts, ownership);
 
     @Test
     void rejectsApplicationNotOwnedByUser() {

@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "test:unit": "node --import tsx --test src/app/features/dashboard/dashboard-chart.spec.ts src/app/features/applications/dialogs/application-detail-dialog/application-detail-api.mapper.spec.ts",
     "watch": "ng build --watch --configuration development"
   },
   "private": true,
@@ -18,6 +19,7 @@
     "@angular/material": "^21.2.14",
     "@angular/platform-browser": "^21.2.0",
     "@angular/router": "^21.2.0",
+    "chart.js": "^4.6.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
@@ -29,6 +31,7 @@
     "postcss": "^8.5.3",
     "prettier": "^3.8.1",
     "tailwindcss": "^4.1.12",
+    "tsx": "^4.23.15",
     "typescript": "~5.9.2"
   }
 }

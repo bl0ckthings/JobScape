@@ -1,0 +1,16 @@
+<div class="relative">
+  <button
+    type="button"
+    aria-label="Notifications"
+    aria-controls="notifications-panel"
+    [attr.aria-expanded]="open()"
+    class="relative grid h-10 w-10 place-items-center rounded-xl border border-transparent transition hover:border-[#E6E8F0] hover:bg-white focus-visible:outline-2 focus-visible:outline-blue-600"
+    (click)="toggle()"
+  >
+    <img src="/assets/bell.svg" alt="" class="h-5 w-5" />
+    <span class="absolute right-1 top-1 h-2 w-2 rounded-full bg-red-500 ring-2 ring-[#F7F8FC]" aria-hidden="true"></span>
+  </button>
+  @if (open()) {
+    <app-notification-panel id="notifications-panel" data-testid="notifications-panel" />
+  }
+</div>

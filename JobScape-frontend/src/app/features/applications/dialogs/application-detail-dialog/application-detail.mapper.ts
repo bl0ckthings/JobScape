@@ -15,6 +15,7 @@ export function toApplicationDetailData(response: ApplicationDetails): Applicati
 
   return {
     applicationId: application.id,
+    companyId: application.companyId,
     companyName,
     companyLogoUrl: getCompanyLogoUrl(company?.logoUrl, company?.domain),
     jobTitle: application.jobTitle,

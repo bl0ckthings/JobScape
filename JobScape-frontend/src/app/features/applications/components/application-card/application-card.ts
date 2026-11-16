@@ -201,7 +201,15 @@ export class ApplicationCard {
       )
       .subscribe({
         next: (data) => {
-          this.applicationDialog.openDetail(data);
+          this.applicationDialog
+            .openDetail(data)
+            .afterClosed()
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe((changed) => {
+              if (changed) {
+                this.applicationUpdated.emit();
+              }
+            });
         },
 
         error: (error: unknown) => {

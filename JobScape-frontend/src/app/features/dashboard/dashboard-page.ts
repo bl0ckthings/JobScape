@@ -1,16 +1,71 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, DestroyRef, OnInit, computed, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { finalize } from 'rxjs';
+import { DashboardChart } from './dashboard-chart/dashboard-chart';
+import { DashboardPeriod, DashboardResponse } from './dashboard.models';
+import { DashboardService } from './dashboard.service';
+import { NotificationBell } from '../notifications/notification-bell/notification-bell';
+
+const EMPTY_DASHBOARD: DashboardResponse = {
+  firstName: '',
+  applicationsSent: { value: 0, change: null },
+  responsesReceived: { value: 0, change: null },
+  interviews: { value: 0, change: null },
+  offers: { value: 0, change: null },
+  activity: [],
+};
 
 @Component({
   selector: 'app-dashboard-page',
   standalone: true,
-  template: `
-    <main class="mt-header-height min-h-full bg-[#F7F8FC] px-4 py-8 sm:px-6 lg:mt-0 lg:p-8">
-      <h1 class="text-2xl font-bold text-slate-950">Dashboard</h1>
-      <p class="mt-3 text-slate-500">Le tableau de bord arrive bientôt. Retrouve tes candidatures dans l’onglet Candidatures.</p>
-      <a routerLink="/applications" class="mt-6 inline-flex rounded-xl bg-primary px-5 py-3 font-semibold text-white">Voir mes candidatures</a>
-    </main>
-  `,
-  imports: [RouterLink],
+  imports: [DashboardChart, NotificationBell],
+  templateUrl: './dashboard-page.html',
 })
-export class DashboardPage {}
+export class DashboardPage implements OnInit {
+  private readonly dashboardService = inject(DashboardService);
+  private readonly destroyRef = inject(DestroyRef);
+
+  readonly period = signal<DashboardPeriod>('MONTH');
+  readonly dashboard = signal<DashboardResponse>(EMPTY_DASHBOARD);
+  readonly loading = signal(true);
+  readonly loadError = signal(false);
+  readonly periods: { value: DashboardPeriod; label: string }[] = [
+    { value: 'WEEK', label: 'Semaine' },
+    { value: 'MONTH', label: 'Mois' },
+    { value: 'YEAR', label: 'Année' },
+  ];
+  readonly statCards = computed(() => {
+    const data = this.dashboard();
+    return [
+      { label: 'Candidatures envoyées', shortLabel: 'CA', ...data.applicationsSent },
+      { label: 'Retours reçus', shortLabel: 'RE', ...data.responsesReceived },
+      { label: 'Entretiens obtenus', shortLabel: 'EN', ...data.interviews },
+      { label: 'Offres reçues', shortLabel: 'OF', ...data.offers },
+    ];
+  });
+
+  ngOnInit(): void {
+    this.loadDashboard();
+  }
+
+  selectPeriod(period: DashboardPeriod): void {
+    if (period === this.period()) return;
+    this.period.set(period);
+    this.loadDashboard();
+  }
+
+  private loadDashboard(): void {
+    this.loading.set(true);
+    this.loadError.set(false);
+    this.dashboardService
+      .getDashboard(this.period())
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        finalize(() => this.loading.set(false)),
+      )
+      .subscribe({
+        next: (dashboard) => this.dashboard.set(dashboard),
+        error: () => this.loadError.set(true),
+      });
+  }
+}
