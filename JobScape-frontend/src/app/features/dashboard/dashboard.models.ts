@@ -1,15 +1,16 @@
 export type DashboardPeriod = 'WEEK' | 'MONTH' | 'YEAR';
 
+export interface DashboardActivityDto {
+  timeline: number;
+  nombreCandidatures: number;
+  nombreReponses: number;
+  nombreEntretien: number;
+  nombreOffre: number;
+}
+
 export interface DashboardStat {
   value: number;
   change: number | null;
-}
-
-export interface DashboardActivityPoint {
-  label: string;
-  applications: number;
-  responses: number;
-  interviews: number;
 }
 
 export interface DashboardResponse {
@@ -18,5 +19,5 @@ export interface DashboardResponse {
   responsesReceived: DashboardStat;
   interviews: DashboardStat;
   offers: DashboardStat;
-  activity: DashboardActivityPoint[];
+  activity: DashboardActivityDto[];
 }

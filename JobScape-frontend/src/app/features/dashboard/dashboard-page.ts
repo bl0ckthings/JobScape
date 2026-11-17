@@ -1,6 +1,6 @@
 import { Component, DestroyRef, OnInit, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { finalize } from 'rxjs';
+import { Subscription, finalize } from 'rxjs';
 import { DashboardChart } from './dashboard-chart/dashboard-chart';
 import { DashboardPeriod, DashboardResponse } from './dashboard.models';
 import { DashboardService } from './dashboard.service';
@@ -24,6 +24,7 @@ const EMPTY_DASHBOARD: DashboardResponse = {
 export class DashboardPage implements OnInit {
   private readonly dashboardService = inject(DashboardService);
   private readonly destroyRef = inject(DestroyRef);
+  private dashboardRequest?: Subscription;
 
   readonly period = signal<DashboardPeriod>('MONTH');
   readonly dashboard = signal<DashboardResponse>(EMPTY_DASHBOARD);
@@ -55,10 +56,18 @@ export class DashboardPage implements OnInit {
   }
 
   private loadDashboard(): void {
+    this.dashboardRequest?.unsubscribe();
     this.loading.set(true);
     this.loadError.set(false);
-    this.dashboardService
-      .getDashboard(this.period())
+    this.dashboard.set(EMPTY_DASHBOARD);
+
+    const now = new Date();
+    const period = this.period();
+    const month = period === 'YEAR' ? undefined : now.getMonth() + 1;
+    const week = period === 'WEEK' ? Math.floor((now.getDate() - 1) / 7) + 1 : undefined;
+
+    this.dashboardRequest = this.dashboardService
+      .getDashboard(now.getFullYear(), month, week)
       .pipe(
         takeUntilDestroyed(this.destroyRef),
         finalize(() => this.loading.set(false)),

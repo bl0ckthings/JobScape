@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnChanges, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnChanges, OnDestroy, input, viewChild } from '@angular/core';
 import {
   CategoryScale,
   Chart,
@@ -11,7 +11,7 @@ import {
   Tooltip,
 } from 'chart.js';
 import { buildDashboardChartData } from '../dashboard-chart';
-import { DashboardActivityPoint } from '../dashboard.models';
+import { DashboardActivityDto, DashboardPeriod } from '../dashboard.models';
 
 Chart.register(CategoryScale, LinearScale, LineController, LineElement, PointElement, Filler, Tooltip, Legend);
 
@@ -21,8 +21,9 @@ Chart.register(CategoryScale, LinearScale, LineController, LineElement, PointEle
   host: { class: 'block h-[280px] sm:h-[340px]' },
 })
 export class DashboardChart implements AfterViewInit, OnChanges, OnDestroy {
-  @Input({ required: true }) activity: DashboardActivityPoint[] = [];
-  @ViewChild('canvas') private canvas?: ElementRef<HTMLCanvasElement>;
+  readonly activity = input.required<DashboardActivityDto[]>();
+  readonly period = input.required<DashboardPeriod>();
+  private readonly canvas = viewChild<ElementRef<HTMLCanvasElement>>('canvas');
 
   private chart?: Chart<'line', number[], string>;
 
@@ -31,7 +32,7 @@ export class DashboardChart implements AfterViewInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(): void {
-    if (this.canvas) this.renderChart();
+    if (this.canvas()) this.renderChart();
   }
 
   ngOnDestroy(): void {
@@ -39,12 +40,13 @@ export class DashboardChart implements AfterViewInit, OnChanges, OnDestroy {
   }
 
   private renderChart(): void {
-    if (!this.canvas) return;
+    const canvas = this.canvas();
+    if (!canvas) return;
 
     this.chart?.destroy();
-    this.chart = new Chart<'line', number[], string>(this.canvas.nativeElement, {
+    this.chart = new Chart<'line', number[], string>(canvas.nativeElement, {
       type: 'line',
-      data: buildDashboardChartData(this.activity),
+      data: buildDashboardChartData(this.activity(), this.period()),
       options: {
         responsive: true,
         maintainAspectRatio: false,

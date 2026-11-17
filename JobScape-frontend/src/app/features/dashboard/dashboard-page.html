@@ -1,25 +1,21 @@
 <main class="mt-header-height min-h-full bg-[#F7F8FC] px-4 pb-24 pt-6 sm:px-6 lg:mt-0 lg:p-8">
   <section class="mx-auto max-w-[1280px]">
-    <header class="relative overflow-hidden rounded-[22px] bg-[#0B1020] px-6 py-7 text-white shadow-[0_18px_40px_rgba(15,23,42,0.16)] sm:px-8 sm:py-9">
-      <div class="absolute -right-14 -top-20 h-56 w-56 rounded-full bg-blue-500/20 blur-2xl"></div>
-      <div class="absolute bottom-0 right-20 h-24 w-24 rounded-full bg-cyan-300/10 blur-xl"></div>
+    <header class="relative  rounded-[22px] bg-blue-50 px-6 py-7 text-white shadow-[0_18px_40px_rgba(15,23,42,0.16)] sm:px-8 sm:py-9">
       <div class="absolute right-4 top-4 z-20 rounded-xl bg-white/95 sm:right-6 sm:top-6">
         <app-notification-bell />
       </div>
       <div class="relative pr-10">
-        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-blue-200">Vue d’ensemble</p>
-        <h1 class="mt-3 text-2xl font-bold tracking-tight sm:text-[32px]">
+        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-black">Vue d’ensemble</p>
+        <h1 class="mt-3 text-2xl font-bold tracking-tight sm:text-[32px] text-black">
           Bonjour{{ dashboard().firstName ? ' ' + dashboard().firstName : '' }}, bonne recherche.
         </h1>
-        <p class="mt-2 max-w-2xl text-sm leading-6 text-slate-300">
-          Garde le rythme, suis tes retours et concentre-toi sur les prochaines opportunités.
-        </p>
+
       </div>
     </header>
 
     @if (loadError()) {
       <p class="mt-5 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800" role="alert">
-        Les statistiques ne sont pas encore disponibles. Le dashboard sera alimenté dès que son endpoint backend sera prêt.
+        Les statistiques ne sont pas encore disponibles.
       </p>
     }
 
@@ -27,7 +23,6 @@
       @for (card of statCards(); track card.label) {
         <article class="rounded-2xl border border-[#E6E8F0] bg-white p-4 shadow-[0_8px_22px_rgba(15,23,42,0.05)] sm:p-5">
           <div class="flex items-start justify-between gap-2">
-            <span class="grid h-10 w-10 place-items-center rounded-xl bg-blue-50 text-sm font-bold text-blue-700">{{ card.shortLabel }}</span>
             @if (card.change !== null) {
               <span class="rounded-full px-2 py-1 text-[10px] font-semibold" [class.bg-emerald-50]="card.change >= 0" [class.text-emerald-700]="card.change >= 0" [class.bg-red-50]="card.change < 0" [class.text-red-700]="card.change < 0">
                 {{ card.change >= 0 ? '+' : '' }}{{ card.change }}%
@@ -55,7 +50,7 @@
         </div>
       </header>
       <div class="relative px-3 py-5 sm:px-6">
-        <app-dashboard-chart [activity]="dashboard().activity" />
+        <app-dashboard-chart [activity]="dashboard().activity" [period]="period()" />
         @if (!loading() && dashboard().activity.length === 0) {
           <div class="pointer-events-none absolute inset-0 grid place-items-center bg-white/70 text-center backdrop-blur-[1px]">
             <div>
