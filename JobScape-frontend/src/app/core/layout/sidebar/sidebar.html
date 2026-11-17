@@ -79,44 +79,41 @@
         <p>Candidatures</p>
       </a>
 
-      <a
-        href="#"
-        class="min-w-[220px] flex gap-[0.5em]
-        border border-[#ffffff15]
-        bg-nav-box rounded-xl p-3 shadow-box
-        text-base hover:bg-hover-link
-        hover:border-hover-link-border
+      <span
+        aria-disabled="true"
+        class="min-w-[220px] flex items-center gap-[0.5em]
+        border border-[#ffffff15] bg-nav-box rounded-xl p-3
+        text-base text-sidebar-muted opacity-50 cursor-not-allowed
         lg:text-label-size"
       >
         <img src="/assets/calendar-days.svg" alt="" />
         <p>Calendrier</p>
-      </a>
+        <span class="ml-auto text-xs">Bientôt</span>
+      </span>
 
-      <a
-        href="#"
-        class="min-w-[220px] flex gap-[0.5em]
-        border border-[#ffffff15]
-        bg-nav-box rounded-xl p-3 shadow-box
-        text-base hover:bg-hover-link
-        hover:border-hover-link-border
+      <span
+        aria-disabled="true"
+        class="min-w-[220px] flex items-center gap-[0.5em]
+        border border-[#ffffff15] bg-nav-box rounded-xl p-3
+        text-base text-sidebar-muted opacity-50 cursor-not-allowed
         lg:text-label-size"
       >
         <img src="/assets/contact.svg" alt="" />
         <p>Contacts</p>
-      </a>
+        <span class="ml-auto text-xs">Bientôt</span>
+      </span>
 
-      <a
-        href="#"
-        class="min-w-[220px] flex gap-[0.5em]
-        border border-[#ffffff15]
-        bg-nav-box rounded-xl p-3 shadow-box
-        text-base hover:bg-hover-link
-        hover:border-hover-link-border
+      <span
+        aria-disabled="true"
+        class="min-w-[220px] flex items-center gap-[0.5em]
+        border border-[#ffffff15] bg-nav-box rounded-xl p-3
+        text-base text-sidebar-muted opacity-50 cursor-not-allowed
         lg:text-label-size"
       >
         <img src="/assets/resume.svg" alt="" />
         <p>Lettre de motivation & CV</p>
-      </a>
+        <span class="ml-auto text-xs">Bientôt</span>
+      </span>
 
       <a
         href="#"
@@ -146,10 +143,12 @@
         />
 
         <div>
-          <p class="text-sidebar-text">User Doe</p>
+          <p class="text-sidebar-text">
+            {{ currentUser() ? currentUser()!.firstName + ' ' + currentUser()!.lastName : 'Chargement…' }}
+          </p>
 
           <p class="text-sidebar-muted lg:text-label-size">
-            userdoe&#64;gmail.com
+            {{ currentUser()?.email ?? '' }}
           </p>
         </div>
       </div>

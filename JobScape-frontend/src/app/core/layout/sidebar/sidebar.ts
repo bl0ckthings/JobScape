@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ApplicationCreation } from '../../../features/applications/services/application-creation';
 import { AuthService } from '../../services/auth.service';
@@ -10,10 +10,15 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css',
 })
-export class Sidebar {
+export class Sidebar implements OnInit {
 
   private readonly applicationCreate: ApplicationCreation = inject(ApplicationCreation);
   private readonly authService: AuthService = inject(AuthService);
+  readonly currentUser = this.authService.currentUser;
+
+  ngOnInit(): void {
+    this.authService.loadCurrentUser();
+  }
   openCreateApplicationDialog(): void {
    this.applicationCreate.openCreateApplicationDialog();
   }
@@ -30,7 +35,7 @@ export class Sidebar {
     this.isOpen = false;
   }
 
-  logout():void {
+  logout(): void {
     this.authService.logout();
   }
 }

@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 
 @FeignClient(name = "application-service")
 public interface ApplicationClient {
+
+    // APPLICATION
     @RequestMapping(method = RequestMethod.POST, value = "/application-service/applications/create", consumes = "application/json")
     public ApplicationDto createApplication(@RequestBody CreateApplicationRequest createApplicationRequest);
 
@@ -23,5 +25,9 @@ public interface ApplicationClient {
 
     @PutMapping("/application-service/applications/update/{stepId}")
     public ApplicationDto updateApplication(@PathVariable Long stepId,  @RequestParam Long userId, @RequestBody ApplicationDto applicationDto);
+
+
+
+
 
 }
