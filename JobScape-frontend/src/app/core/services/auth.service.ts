@@ -1,9 +1,10 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { AuthResponse, LoginRequest, RegisterRequest } from '../../shared/models/auth';
-import { Observable, catchError, finalize, of, tap, timeout } from 'rxjs';
+import { IUserProfile } from '../../shared/models/userProfile';
+import { Observable, tap } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -11,6 +12,7 @@ export class AuthService {
   private http = inject(HttpClient);
   private router = inject(Router);
   private apiBaseUrl = environment.apiBaseUrl;
+  readonly currentUser = signal<IUserProfile | null>(null);
 
   // LOGIN
   login(userLogin: LoginRequest): Observable<AuthResponse> {
@@ -22,6 +24,12 @@ export class AuthService {
     );
   }
 
+  loadCurrentUser(): void {
+    this.http.get<IUserProfile>(`${this.apiBaseUrl}/api/users/me`).subscribe({
+      next: (user) => this.currentUser.set(user),
+    });
+  }
+
   // REGISTER
   register(userRegister: RegisterRequest): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(this.apiBaseUrl + '/api/auth/register', userRegister);
@@ -29,18 +37,10 @@ export class AuthService {
 
   // LOGOUT
   logout(): void {
-    this.http
-      .post<void>(`${this.apiBaseUrl}/api/auth/logout`, {})
-      .pipe(
-        timeout(5000),
-        catchError(() => of(undefined)),
-        finalize(() => {
-          sessionStorage.removeItem('token');
-          localStorage.removeItem('token');
-          void this.router.navigateByUrl('/login');
-        }),
-      )
-      .subscribe();
+    sessionStorage.removeItem('token');
+    localStorage.removeItem('token');
+    this.currentUser.set(null);
+    void this.router.navigateByUrl('/auth/login');
   }
 
   get token(): string | null {
